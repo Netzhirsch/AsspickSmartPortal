@@ -1,0 +1,60 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Benutzerverwaltung{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-user-alt"></i>
+                    Benutzerverwaltung
+                </h2>
+            </header>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{ knp_pagination_sortable(users,'Benutzername','u.username') }}</th>
+                            <th>{{ knp_pagination_sortable(users,'E-Mail Adresse','u.email') }}</th>
+                            <th>{{ knp_pagination_sortable(users,'Rechte','u.role') }}</th>
+                            <th class="actions">
+                                <a class="btn green" href="{{ path('user_new') }}" title="neuen Benutzer erstellen">
+                                    neuen Benutzer erstellen
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ ("ROLE_ADMIN" in user.roles ? "Admin" : "Benutzer") }}</td>
+                                <td class="actions">
+                                    {% include "user/_delete_form.html.twig" %}
+                                    <a class="btn"
+                                       href="{{ path('user_edit', {'id': user.id}) }}">bearbeiten
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Keine Benutzer im System</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    {{ knp_pagination_render(users) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

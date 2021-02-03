@@ -1,4 +1,12 @@
-
+.idea
+.bash_history
+.cache/
+.composer/
+.ftpquota
+.yarnrc
+.config
+.npm
+public/info.php
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

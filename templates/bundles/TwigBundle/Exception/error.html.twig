@@ -1,0 +1,11 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block content %}
+    {% if exception.statuscode == 403 %}
+        {% include 'bundles/TwigBundle/Exception/error403.html.twig ' %}
+    {% endif %}
+{% endblock %}
