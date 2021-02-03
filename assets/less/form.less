@@ -1,0 +1,329 @@
+@import "variables";
+@import "colors";
+
+.newline {
+	clear:both;
+}
+
+.liner {
+	.block;
+	.left;
+	.w100;
+	height:1px;
+	background:@innuendo;
+	margin:10px -10px;
+	padding:0 10px;
+}
+
+.flex-container {
+	.flex;
+	.left;
+	.w100;
+	justify-content:flex-start;
+	align-items:stretch;
+
+	.wrap {
+		.block;
+		.left;
+		.bb;
+		margin:-10px 0;
+		padding:20px 10px;
+		width:100%;
+		flex-shrink:0;
+		flex-grow:0;
+
+		&.border-right {
+			border-right:1px solid @innuendo;
+		}
+	}
+}
+
+.line {
+	.block;
+	.left;
+	.w100;
+	.m0;
+	.bb;
+	padding:10px;
+
+	> label {
+		.block;
+		.w100;
+		.left;
+		.m0;
+		padding:0 0 5px;
+		line-height:1;
+		font-size:12px;
+		.truncate;
+
+		i {
+			cursor:pointer;
+
+			&:hover {
+				color:@royale_blue;
+			}
+		}
+	}
+
+	&.no-label,
+	&.actions.no-label {
+		padding-top:17px;
+
+		a.btn,
+		button {
+			height:34px;
+			line-height:34px;
+		}
+	}
+
+	[type=text],
+	[type=email],
+	[type=password],
+	[type=number],
+	[type=date],
+	[type=time],
+	textarea {
+		-webkit-appearance:none;
+	}
+
+	[type=text],
+	[type=email],
+	[type=password],
+	[type=number],
+	[type=date],
+	[type=time],
+	select,
+	textarea {
+		.block;
+		.left;
+		.bb;
+		.radius;
+		.w100;
+		line-height:20px;
+		padding:6px 10px;
+		height:34px;
+		border:1px solid @innuendo;
+		color:black;
+
+		&:hover,
+		&:focus {
+			border-color:@asspick_blue;
+		}
+
+		&[readonly] {
+			border-color:@innuendo;
+			background:@innuendo;
+		}
+
+		&[multiple] {
+			height:200px;
+		}
+	}
+
+	textarea {
+		resize:vertical;
+		min-height:54px;
+		height:auto;
+	}
+
+	.datetime_combination {
+		.flex;
+		.w100;
+
+		[type=date],
+		[type=time] {
+			position:relative;
+
+			&:hover { z-index:1; }
+		}
+
+		[type=date] {
+			flex:0 0 60%;
+			border-bottom-right-radius:0;
+			border-top-right-radius:0;
+		}
+
+		[type=time] {
+			flex:0 0 40%;
+			border-bottom-left-radius:0;
+			border-top-left-radius:0;
+			margin-left:-1px;
+		}
+	}
+
+	&.wrap-checkbox-group > div,
+	&.wrap-checkboxes {
+		.block;
+		.w100;
+		.left;
+
+		> label {
+			.block;
+			.left;
+			.bb;
+			.mp0;
+			width:auto;
+			padding-right:20px;
+			line-height:2em;
+			cursor:pointer;
+
+			&:before {
+				.inline-block;
+				.iconfont_solid;
+				margin-right:.25em;
+				font-size:2em;
+				line-height:1;
+				content:"\f204";
+				vertical-align:middle;
+			}
+		}
+
+		> [type=checkbox],
+		> [type=radio] {
+			display:none;
+
+			&:checked + label:before {
+				color:@asspick_blue;
+				content:"\f205";
+			}
+		}
+
+		&.one-per-line label { .w100; }
+
+		&.four-per-line label { .w25; .truncate; }
+	}
+
+	&.wrap-checkbox-group {
+
+		> label {
+			font-weight:bold;
+		}
+
+		&.one-per-line > div label { .w100; }
+
+		&.four-per-line > div label { .w25; .truncate; }
+	}
+
+	&.actions {
+		padding:0;
+	}
+
+	&.collection {
+
+		.inner {
+			.block;
+			.left;
+			.w100;
+			.bb;
+			.mp0;
+			background:@twinkle_blue;
+			.radius;
+			padding:10px;
+
+			> label {
+				.block;
+				.left;
+				.w100;
+				.bb;
+				padding:10px 10px;
+				font-weight:bold;
+			}
+
+			ul.collection {
+				.block;
+				.left;
+				.w100;
+				.bb;
+				.mp0;
+
+				li {
+					.block;
+					.left;
+					.w100;
+					.bb;
+					.mp0;
+				}
+			}
+
+			.line.actions {
+				width:auto;
+			}
+		}
+	}
+}
+
+button,
+a.btn,
+[type=submit],
+.dummy-button {
+	.block;
+	.left;
+	.bb;
+	.radius;
+	.transition;
+	margin:10px;
+	padding:0 8px;
+	line-height:28px;
+	font-size:12px;
+	height:28px;
+	min-width:28px;
+	background:@asspick_blue;
+	border:none;
+	color:white;
+	text-decoration:none;
+	cursor:pointer;
+	-webkit-appearance:none;
+	.truncate;
+
+	&.right {
+		.right;
+	}
+
+	&:hover {
+		background:@asspick_blue_hover;
+	}
+
+	&.green {
+		background:@reptile_green;
+
+		&:hover { background:@algal_fuel; }
+	}
+
+	&.yellow {
+		background:@flirtatious;
+
+		&:hover { background:@nyc_taxi; }
+	}
+
+	&.red {
+		background:@fusion_red;
+
+		&:hover { background:@desire; }
+	}
+
+	&.grey,
+	&.gray {
+		background:@innuendo;
+
+		&:hover {
+			background:@blue_grey;
+		}
+	}
+
+	i {
+		.inline-block;
+		margin-right:.25em;
+	}
+
+	&.icon-only {
+		min-width:0;
+
+		i {
+			margin:0;
+		}
+	}
+}
+
+.dummy-button {
+	cursor:not-allowed;
+}

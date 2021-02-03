@@ -1,0 +1,46 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Einloggen{% endblock %}
+
+{% block content %}
+	<div class="container container--login">
+		<div class="inner">
+			<header>
+				<h2>
+					<i class="fad fa-sign-in-alt"></i>
+					Einloggen
+				</h2>
+			</header>
+			<form method="post" class="content">
+				{% if error %}
+					<div class="alert alert-danger">
+						{{ error.messageKey|trans(error.messageData, 'security') }}
+					</div>
+				{% endif %}
+
+				<div class="line">
+					<label for="inputEmail">E-Mail-Adresse</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+				</div>
+
+				<div class="line">
+					<label for="inputPassword">Passwort</label>
+					<input type="password" name="password" id="inputPassword" class="form-control" required>
+				</div>
+
+				<div class="line wrap-checkboxes col-auto">
+					<input type="checkbox" name="_remember_me" id="remember_me">
+					<label for="remember_me">Login merken</label>
+				</div>
+
+				<div class="liner"></div>
+
+				<div class="actions">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<button type="submit">Einloggen</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+{% endblock %}

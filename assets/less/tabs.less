@@ -1,0 +1,45 @@
+@import 'colors';
+@import 'variables';
+
+.container > .inner {
+
+	> header.tabs {
+		padding:0;
+
+		.tab {
+			display:block;
+			float:left;
+			padding:10px;
+			margin-bottom:-1px;
+			cursor:pointer;
+			border-bottom:1px solid @innuendo;
+
+			&:hover {
+				border-bottom:5px solid @innuendo;
+				padding-bottom:6px;
+			}
+
+			&.active {
+				border-bottom:5px solid @c64_ntsc;
+				padding-bottom:6px;
+			}
+
+			+ .tab {
+				border-left:1px solid @innuendo;
+			}
+		}
+
+		.actions {
+			padding:10px;
+		}
+	}
+
+	> .content.tab {
+		display:none;
+		border-top:0!important;
+
+		&.active {
+			display:block;
+		}
+	}
+}

@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'colors';
+@import 'topbar';
+@import 'footer';
+@import 'container';
+@import 'form';
+@import 'table';
+@import 'fancybox';
+@import 'loading-indicator';
+@import 'columns';
+/* EXTRACT*/
+@import 'login';
+@import 'dashboard';
+@import 'files';
+
+body {
+	.block;
+	.left;
+	.w100;
+	.bb;
+	.mp0;
+	font-family:'Open Sans', sans-serif;
+	background:white;
+	color:@blue_horizon;
+	font-size:12px;
+}
+
+#wrapper {
+	.block;
+	.left;
+	.w100;
+	.bb;
+	padding:20px 20px 0;
+}
+
+:disabled {
+	background:#ccc !important;
+}
+
+i {
+	&.red { color:@desire; }
+	&.yellow { color:@nyc_taxi; }
+	&.green { color:@algal_fuel; }
+}

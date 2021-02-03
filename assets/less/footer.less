@@ -1,0 +1,26 @@
+@import "variables";
+@import "colors";
+
+footer#footer {
+	.flex;
+	.left;
+	.w100;
+	.bb;
+	border-top:1px solid @innuendo;
+	margin:20px 0 0;
+	padding:10px;
+	justify-content:flex-end;
+
+	a, span {
+		.block;
+		.left;
+		color:@innuendo;
+		text-decoration:none;
+		.transition;
+		margin:10px;
+	}
+
+	a:hover {
+		color:@blue_horizon;
+	}
+}

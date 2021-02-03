@@ -1,0 +1,43 @@
+@import 'variables';
+@import 'colors';
+
+.loading-indicator-modal {
+	.none;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	.fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background:fade(@boyzone, 90);
+	z-index:1000000;
+
+	&.visible {
+		display:flex;
+	}
+
+	i {
+		.block;
+		color:white;
+		font-size:40px;
+		animation-name:loading_indicator;
+		animation-duration:1s;
+		animation-iteration-count:infinite;
+		animation-fill-mode:both;
+		animation-timing-function:linear;
+	}
+
+	.message {
+		.block;
+		color:white;
+		font-size:20px;
+		margin:20px 0 0;
+	}
+}
+
+@keyframes loading_indicator {
+	from { transform:rotate(0); }
+	to { transform:rotate(360deg); }
+}

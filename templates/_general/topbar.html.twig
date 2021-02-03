@@ -1,0 +1,54 @@
+<div id="topbar">
+	<div class="title">
+		<a href="{{ path('dashboard') }}">
+			{# <img src="{{ asset('build/Logo.svg') }}" alt="Asspick Kundenportal" /> #}
+			<h1>ASSPICK Kundenportal</h1>
+		</a>
+	</div>
+
+	{% if app.user %}
+		<div class="navigation-wrapper">
+			{#
+				<div class="submenu-wrapper">
+					<h2{{ app.request.get('_route') in ['test'] ? ' class="active"' }}>
+						<i class="fad fa-chart-line"></i> Menu
+					</h2>
+					<div class="submenu">
+						<a href="{{ path('sub1') }}"{% if app.request.get('_route') == 'sub1' %} class="active"{% endif %}>
+							<i class="fad fa-chart-pie"></i>
+							Sub1
+						</a>
+					</div>
+				</div>
+			#}
+			<nav>
+				<span><i class="fas fa-user"></i> {{ app.user.username }}</span>
+				<a href="{{ path('app_logout') }}"><i class="fad fa-sign-out-alt"></i></a>
+			</nav>
+
+			<nav>
+				<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
+					<i class="fad fa-cloud"></i>
+					Ihre Verträge
+				</a>
+				<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
+					<i class="fad fa-cloud"></i>
+					Download-Center
+				</a>
+				<a href="/"{% if app.request.get('_route') == 'crash_calculator' %} class="active"{% endif %}>
+					<i class="fad fa-car-crash"></i>
+					Angebotsrechner
+				</a>
+				<a href="/"{% if app.request.get('_route') == 'newsletter' %} class="active"{% endif %}>
+					<i class="fad fa-paper-plane"></i>
+					Newsroom
+				</a>
+				<a href="/"{% if app.request.get('_route') == 'newsletter' %} class="active"{% endif %}>
+					<i class="fad fa-paper-plane"></i>
+					Schadensmeldung
+				</a>
+			</nav>
+		</div>
+	{% endif %}
+
+</div>

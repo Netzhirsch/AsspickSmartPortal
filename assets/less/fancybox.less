@@ -1,0 +1,83 @@
+@import 'variables.less';
+@import 'colors.less';
+
+.fancybox-container {
+
+	.fancybox-bg {
+		background:fade(@blue_horizon, 90);
+		opacity:1 !important;
+	}
+
+	.fancybox-inner {
+
+		.fancybox-infobar {}
+
+		.fancybox-toolbar {}
+
+		.fancybox-navigation {}
+
+		.fancybox-stage {
+
+			.fancybox-slide {
+				.flex;
+				.cc;
+
+				.fancybox-content {
+					.flex;
+					.bb;
+					.p0;
+					.radius;
+					.w100;
+					flex-direction:column;
+					overflow:visible;
+					max-width:800px;
+					max-height:90%;
+
+					> h2 {
+						.block;
+						.left;
+						.w100;
+						.m0;
+						.bb;
+						background:@c64_ntsc;
+						color:white;
+						padding:15px 20px;
+						font-size:18px;
+						line-height:28px;
+					}
+
+					.inner {
+						.block;
+						.left;
+						.w100;
+						.bb;
+						flex:0 1 100%;
+						overflow-y:auto;
+						padding:10px;
+
+						.liner {
+							box-sizing:content-box;
+						}
+					}
+
+					.fancybox-button.fancybox-close-small {
+						padding:5px;
+						.absolute;
+						height:30px;
+						width:30px;
+						background:white;
+						opacity:1;
+						top:-10px;
+						right:-10px;
+						border-radius:50%;
+
+						&:hover {
+							background:@desire;
+							color:white;
+						}
+					}
+				}
+			}
+		}
+	}
+}

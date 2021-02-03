@@ -1,0 +1,55 @@
+@import 'variables';
+@import 'colors';
+
+body.dz-drag-hover .dropzone-fullscreen {
+	.flex;
+}
+
+.dropzone-fullscreen {
+	.none;
+	.fixed;
+	.bb;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	background:fade(@boyzone, 90);
+	z-index:1000000;
+	padding:50px;
+
+	.border-container {
+		.flex;
+		.cc;
+		.bb;
+		.h100;
+		.w100;
+		color:white;
+		border:2px dashed white;
+		border-radius:40px;
+
+		.text {
+			font-size:30px;
+		}
+	}
+}
+
+.inline-dropzone {
+	.flex;
+	.cc;
+	.left;
+	.w100;
+	.bb;
+	border:3px dashed @royale_blue;
+	border-radius:3px;
+	padding:10px;
+	min-height:200px;
+
+	span {
+		color:@royale_blue;
+		font-size:20px;
+	}
+
+	&.dz-drag-hover {
+		border:3px solid @royale_blue;
+	}
+}
