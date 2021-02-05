@@ -15,7 +15,8 @@ trait ControllerTrait
 	 *
 	 * @return mixed|string
 	 */
-	private function getControllerName($request) {
+	private function getControllerName($request): string
+    {
 		$_controller = $request->attributes->get('_controller');
 		[$class, $method] = explode('::', $_controller, 2);
 
@@ -28,7 +29,8 @@ trait ControllerTrait
 	 *
 	 * @return int|mixed
 	 */
-	protected function getPageFromSession(Request $request, $name = 'page') {
+	protected function getPageFromSession(Request $request, $name = 'page'): int
+    {
 		$class = $this->getControllerName($request);
 		$session = $request->getSession();
 		$page = $request->query->getInt('page');
@@ -62,7 +64,8 @@ trait ControllerTrait
 	 *
 	 * @return Object
 	 */
-	protected function getObjectFromSession(EntityManagerInterface $em, Request $request, $className, $name = "") {
+	protected function getObjectFromSession(EntityManagerInterface $em, Request $request, $className, $name = ""): object
+    {
 		$session = $request->getSession();
 		$nameInSession = $className . "." . $name;
 
@@ -130,4 +133,9 @@ trait ControllerTrait
 		$nameInSession = $className . "." . $name;
 		$session->set($nameInSession, $object);
 	}
+
+	protected function getDir(): string
+    {
+        return dirname(__DIR__,2).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'pdfs';
+    }
 }

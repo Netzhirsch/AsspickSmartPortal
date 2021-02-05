@@ -43,10 +43,23 @@
 					<i class="fad fa-paper-plane"></i>
 					Newsroom
 				</a>
-				<a href="/"{% if app.request.get('_route') == 'newsletter' %} class="active"{% endif %}>
-					<i class="fad fa-paper-plane"></i>
-					Schadensmeldung
-				</a>
+				<div class="submenu-wrapper">
+					<h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
+						<i class="fad fa-fragile"></i>
+						Schadensmeldung
+					</h2>
+					<div class="submenu">
+						<a
+								href="{{ path('damageCase_liability_index') }}"
+								{% if app.request.get('_route')
+									== 'damageCase_liability_index' %} class="active"
+								{% endif %}
+						>
+							<i class="fad fa-fragile"></i>
+							Haftpflicht
+						</a>
+					</div>
+				</div>
 				<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
 					<i class="fad fa-user-alt"></i>
 					Benutzerverwaltung

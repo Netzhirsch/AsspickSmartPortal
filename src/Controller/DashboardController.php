@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,10 +14,10 @@ class DashboardController
 
 	/**
 	 * @Route("/", name="dashboard")
-	 * @param EntityManagerInterface $em
 	 * @return Response
 	 */
-	public function dashboardAction(EntityManagerInterface $em) {
+	public function dashboardAction(): Response
+    {
 
 		$parameters = [];
 
@@ -27,10 +26,10 @@ class DashboardController
 
 	/**
 	 * @Route("/files", name="files")
-	 * @param EntityManagerInterface $em
 	 * @return Response
 	 */
-	public function filesAction(EntityManagerInterface $em) {
+	public function filesAction(): Response
+    {
 
 		$parameters = [];
 

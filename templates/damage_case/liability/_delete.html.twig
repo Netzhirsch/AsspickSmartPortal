@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('damageCase_liability_delete', {'id': liability.id}) }}" onsubmit="return confirm('Soll die Schadenanzeige wirklich gelöscht werden?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ liability.id) }}">
+    <button class="btn red delete">löschen</button>
+</form>

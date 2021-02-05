@@ -1,0 +1,263 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Haftpflicht Schadenanzeige {{ action }}{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    Haftpflicht Schadenanzeige {{ action }}
+                </h2>
+            </header>
+            <div class="content">
+                {{ form_start(form) }}
+                <div class="line col-8">
+                    {{ form_label(form.insured.insured) }}
+                    {{ form_widget(form.insured.insured) }}
+                    {{ form_errors(form.insured.insured) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.insured.insuranceNumber) }}
+                    {{ form_widget(form.insured.insuranceNumber) }}
+                    {{ form_errors(form.insured.insuranceNumber) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.insured.dangerNumber) }}
+                    {{ form_widget(form.insured.dangerNumber) }}
+                    {{ form_errors(form.insured.dangerNumber) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.policyholder) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/liability/_person.html.twig' with {'person':form.policyholder} %}
+                <div class="line col-8">
+                    {{ form_label(form.policyholder.email) }}
+                    {{ form_widget(form.policyholder.email) }}
+                    {{ form_errors(form.policyholder.email) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.damageEvent) }}
+                    </h2>
+                </header>
+                <div class="line col-8">
+                    {{ form_label(form.damageEvent.date) }}
+                    {{ form_widget(form.damageEvent.date) }}
+                    {{ form_errors(form.damageEvent.date) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.damageEvent.time) }}
+                    {{ form_widget(form.damageEvent.time) }}
+                    {{ form_errors(form.damageEvent.time) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.damageEvent.location) }}
+                    {{ form_widget(form.damageEvent.location) }}
+                    {{ form_errors(form.damageEvent.location) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-24">
+                    {{ form_label(form.damageEvent.description) }}
+                    {{ form_widget(form.damageEvent.description) }}
+                    {{ form_errors(form.damageEvent.description) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-24">
+                    {{ form_label(form.damageEvent.itemsDamaged) }}
+                    {{ form_widget(form.damageEvent.itemsDamaged) }}
+                    {{ form_errors(form.damageEvent.itemsDamaged) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.damageEvent.damageAmount) }}
+                    {% set number = ''  %}
+                    {% if form.vars.value.damageEvent is not empty %}
+                        {% set number = form.vars.value.damageEvent.damageAmount  %}
+                        {% set number = number|number_format(2,",","." )%}
+                    {% endif %}
+                    {{ form_widget(form.damageEvent.damageAmount, {'value':number}) }}
+                    {{ form_errors(form.damageEvent.damageAmount) }}
+                </div>
+                <div class="line col-16">
+                    {{ form_label(form.isRepairPossible) }}
+                    {{ form_widget(form.isRepairPossible) }}
+                    {{ form_errors(form.isRepairPossible) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.typeOfOwnership) }}
+                    {{ form_widget(form.typeOfOwnership) }}
+                    {{ form_errors(form.typeOfOwnership) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.damageCause) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/liability/_person.html.twig' with {'person':form.damageCause} %}
+                <div class="line col-8">
+                    {{ form_label(form.damageCause.email) }}
+                    {{ form_widget(form.damageCause.email) }}
+                    {{ form_errors(form.damageCause.email) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.damageCause.dateOfBirth) }}
+                    {{ form_widget(form.damageCause.dateOfBirth) }}
+                    {{ form_errors(form.damageCause.dateOfBirth) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.witness) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/liability/_person.html.twig' with {'person':form.witness} %}
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.policeRecording) }}
+                    </h2>
+                </header>
+                <div class="line col-24">
+                    {{ form_label(form.policeRecording.isRecorded) }}
+                    {{ form_widget(form.policeRecording.isRecorded) }}
+                    {{ form_errors(form.policeRecording.isRecorded) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.policeRecording.department) }}
+                    {{ form_widget(form.policeRecording.department) }}
+                    {{ form_errors(form.policeRecording.department) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.policeRecording.fileReference) }}
+                    {{ form_widget(form.policeRecording.fileReference) }}
+                    {{ form_errors(form.policeRecording.fileReference) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.policeRecording.diaryNumber) }}
+                    {{ form_widget(form.policeRecording.diaryNumber) }}
+                    {{ form_errors(form.policeRecording.diaryNumber) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.hasCriminalProceedings) }}
+                    {{ form_widget(form.hasCriminalProceedings) }}
+                    {{ form_errors(form.hasCriminalProceedings) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.criminalProceedingsAgainst) }}
+                    {{ form_widget(form.criminalProceedingsAgainst) }}
+                    {{ form_errors(form.criminalProceedingsAgainst) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.claimant) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/liability/_person.html.twig' with {'person':form.claimant} %}
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.claimant.typ) }}
+                    {{ form_widget(form.claimant.typ) }}
+                    {{ form_errors(form.claimant.typ) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.claimant.kindOfRelationship) }}
+                    {{ form_widget(form.claimant.kindOfRelationship) }}
+                    {{ form_errors(form.claimant.kindOfRelationship) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.claimant.isInDomesticCommunityWithMe) }}
+                    {{ form_widget(form.claimant.isInDomesticCommunityWithMe) }}
+                    {{ form_errors(form.claimant.isInDomesticCommunityWithMe) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.personalInjury) }}
+                    </h2>
+                </header>
+                <div class="line col-8">
+                    {{ form_label(form.personalInjury.personFirstname) }}
+                    {{ form_widget(form.personalInjury.personFirstname) }}
+                    {{ form_errors(form.personalInjury.personFirstname) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.personalInjury.personLastname) }}
+                    {{ form_widget(form.personalInjury.personLastname) }}
+                    {{ form_errors(form.personalInjury.personLastname) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.personalInjury.injuries) }}
+                    {{ form_widget(form.personalInjury.injuries) }}
+                    {{ form_errors(form.personalInjury.injuries) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.payment) }}
+                    </h2>
+                </header>
+                <div class="line col-8">
+                    {{ form_label(form.payment.bank) }}
+                    {{ form_widget(form.payment.bank) }}
+                    {{ form_errors(form.payment.bank) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.payment.location) }}
+                    {{ form_widget(form.payment.location) }}
+                    {{ form_errors(form.payment.location) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.payment.iban) }}
+                    {{ form_widget(form.payment.iban) }}
+                    {{ form_errors(form.payment.iban) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.payment.bic) }}
+                    {{ form_widget(form.payment.bic) }}
+                    {{ form_errors(form.payment.bic) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.payment.accountHolder) }}
+                    {{ form_widget(form.payment.accountHolder) }}
+                    {{ form_errors(form.payment.accountHolder) }}
+                </div>
+            </div>
+            <div class="content">
+                <div class="line col-8">
+                    {{ form_label(form.signature.location) }}
+                    {{ form_widget(form.signature.location) }}
+                    {{ form_errors(form.signature.location) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.signature.date) }}
+                    {{ form_widget(form.signature.date) }}
+                    {{ form_errors(form.signature.date) }}
+                </div>
+                <div class="line">
+                    <button type="submit" class="btn">speichern</button>
+                </div>
+                {{ form_row(form._token) }}
+                {{ form_end(form,{'render_rest':false}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
