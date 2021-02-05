@@ -39,6 +39,12 @@ class DamageEventType extends AbstractType
             ])
             ->add('damageAmount', NumberType::class, [
                 'label' => 'Geschätzte Schadenhöhe in EUR',
+                'scale' => 2,
+                'html5' => true,
+                'attr' => [
+                    'min' => '-100.00',
+                    'step' => '0.01',
+                ]
             ])
         ;
     }
