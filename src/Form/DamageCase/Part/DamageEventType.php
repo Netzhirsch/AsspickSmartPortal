@@ -42,7 +42,7 @@ class DamageEventType extends AbstractType
                 'scale' => 2,
                 'html5' => true,
                 'attr' => [
-                    'min' => '-100.00',
+                    'min' => '0.00',
                     'step' => '0.01',
                 ]
             ])

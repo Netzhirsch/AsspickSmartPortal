@@ -50,7 +50,7 @@ class LiabilityType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'line four-per-line wrap-checkboxes'
+                    'class' => 'line two-per-line wrap-checkboxes'
                 ],
             ])
             ->add('typeOfOwnership', EntityType::class, [
@@ -77,7 +77,7 @@ class LiabilityType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'line four-per-line wrap-checkboxes'
+                    'class' => 'line two-per-line wrap-checkboxes'
                 ],
             ])
             ->add('claimant',ClaimantType::class,[

@@ -1,21 +1,21 @@
 {% extends '_general/base.html.twig' %}
 
-{% block title %}Haftpflicht{% endblock %}
+{% block title %}Schadenanzeige KFZ{% endblock %}
 
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
-                <h2>Haftpflicht</h2>
+                <h2>Schadenanzeige KFZ</h2>
             </header>
             <div class="content">
                 <i class="fa fa-pdf"></i>
                 <a
-                        href="{{ path('damageCase_liability_download') }}"
+                        href="{{ path('damageCase_car_download') }}"
                         title="PDF"
                         target="_blank"
                 >
-                    Schadenanzeige Haftpflicht
+                    Schadenanzeige KFZ
                 </a>
             </div>
             <div class="content">
@@ -28,24 +28,24 @@
                             <th>Versicherungsnehmer</th>
                             <th>Schadentag</th>
                             <th class="actions">
-                                <a href="{{ path('damageCase_liability_new') }}" class="btn green">
+                                <a href="{{ path('damageCase_car_new') }}" class="btn green">
                                     Neues Formular ausfüllen
                                 </a>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for liability in liabilities %}
+                            {% for entry in car %}
                                 <tr>
-                                    <td>{{ liability.insured.insured }}</td>
-                                    {% set insuranceNumber = liability.insured.insuranceNumber %}
-                                    <td>{{ liability.policyholder }}</td>
-                                    <td>{{ (insuranceNumber?insuranceNumber:liability.insured.dangerNumber) }}</td>
-                                    <td>{{ liability.damageEvent.date|date("d.m.Y") }}</td>
+                                    <td>{{ entry.insured.insured }}</td>
+                                    {% set insuranceNumber = entry.insured.insuranceNumber %}
+                                    <td>{{ entry.policyholder }}</td>
+                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber) }}</td>
+                                    <td>{{ entry.damageEvent.date|date("d.m.Y") }}</td>
                                     <td class="actions">
-                                        {% include 'damage_case/liability/_delete.html.twig' %}
+                                        {% include 'damage_case/car/_delete.html.twig' %}
                                         <a
-                                            href="{{ path('damageCase_liability_edit',{'id':liability.id})}}"
+                                            href="{{ path('damageCase_car_edit',{'id':entry.id})}}"
                                             class="btn edit"
                                         >
                                             bearbeiten

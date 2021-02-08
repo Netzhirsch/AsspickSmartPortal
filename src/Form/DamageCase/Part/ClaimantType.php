@@ -41,7 +41,7 @@ class ClaimantType extends AbstractType
                 'required' => false
             ])
             ->add('kindOfRelationship', TextType::class, [
-                'label' => 'Art des Verwandtschafts-, Angestellten oder Vertragsverhältnisses',
+                'label' => 'Art des Verwandtschaft-, Angestellten oder Vertragsverhältnisses',
                 'required' => false
             ])
             ->add('isInDomesticCommunityWithMe', ChoiceType::class, [
@@ -53,7 +53,7 @@ class ClaimantType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'line four-per-line wrap-checkboxes'
+                    'class' => 'line two-per-line wrap-checkboxes'
                 ],
             ])
         ;

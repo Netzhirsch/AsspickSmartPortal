@@ -39,7 +39,7 @@ class DamageEvent
     private $description;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $itemsDamaged;
 
@@ -106,7 +106,7 @@ class DamageEvent
         return $this->itemsDamaged;
     }
 
-    public function setItemsDamaged(string $itemsDamaged): self
+    public function setItemsDamaged(?string $itemsDamaged): self
     {
         $this->itemsDamaged = $itemsDamaged;
 

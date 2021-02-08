@@ -1,17 +1,23 @@
 {% extends '_general/base.html.twig' %}
 
-{% block title %}Haftpflicht Schadenanzeige {{ action }}{% endblock %}
+{% block title %}Schadenanzeige Haftpflicht {{ action }}{% endblock %}
 
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
                 <h2>
-                    Haftpflicht Schadenanzeige {{ action }}
+                    Schadenanzeige Haftpflicht {{ action }}
                 </h2>
             </header>
             <div class="content">
                 {{ form_start(form) }}
+                <div class="line col-8">
+                    {{ form_label(form.insured.insured) }}
+                    {{ form_widget(form.insured.insured) }}
+                    {{ form_errors(form.insured.insured) }}
+                </div>
+                <div class="newline"></div>
                 <div class="line col-8">
                     {{ form_label(form.insured.insured) }}
                     {{ form_widget(form.insured.insured) }}
@@ -34,7 +40,7 @@
                         {{ form_label(form.policyholder) }}
                     </h2>
                 </header>
-                {% include 'damage_case/liability/_person.html.twig' with {'person':form.policyholder} %}
+                {% include 'damage_case/_person.html.twig' with {'person':form.policyholder} %}
                 <div class="line col-8">
                     {{ form_label(form.policyholder.email) }}
                     {{ form_widget(form.policyholder.email) }}
@@ -103,7 +109,7 @@
                         {{ form_label(form.damageCause) }}
                     </h2>
                 </header>
-                {% include 'damage_case/liability/_person.html.twig' with {'person':form.damageCause} %}
+                {% include 'damage_case/_person.html.twig' with {'person':form.damageCause} %}
                 <div class="line col-8">
                     {{ form_label(form.damageCause.email) }}
                     {{ form_widget(form.damageCause.email) }}
@@ -121,7 +127,7 @@
                         {{ form_label(form.witness) }}
                     </h2>
                 </header>
-                {% include 'damage_case/liability/_person.html.twig' with {'person':form.witness} %}
+                {% include 'damage_case/_person.html.twig' with {'person':form.witness} %}
             </div>
             <div class="content">
                 <header>
@@ -168,7 +174,7 @@
                         {{ form_label(form.claimant) }}
                     </h2>
                 </header>
-                {% include 'damage_case/liability/_person.html.twig' with {'person':form.claimant} %}
+                {% include 'damage_case/_person.html.twig' with {'person':form.claimant} %}
                 <div class="newline"></div>
                 <div class="line col-8">
                     {{ form_label(form.claimant.typ) }}

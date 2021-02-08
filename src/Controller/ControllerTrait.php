@@ -18,6 +18,7 @@ trait ControllerTrait
 	private function getControllerName($request): string
     {
 		$_controller = $request->attributes->get('_controller');
+		/** @noinspection PhpUnusedLocalVariableInspection */
 		[$class, $method] = explode('::', $_controller, 2);
 
 		return $class;

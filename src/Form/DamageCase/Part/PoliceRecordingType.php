@@ -23,7 +23,7 @@ class PoliceRecordingType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'line four-per-line wrap-checkboxes'
+                    'class' => 'line two-per-line wrap-checkboxes'
                 ],
             ])
             ->add('department',TextType::class,[

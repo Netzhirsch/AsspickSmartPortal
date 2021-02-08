@@ -30,7 +30,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'attr' => [
-                    'class' => 'line four-per-line wrap-checkboxes'
+                    'class' => 'line two-per-line wrap-checkboxes'
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
