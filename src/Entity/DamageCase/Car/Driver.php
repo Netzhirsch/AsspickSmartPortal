@@ -43,30 +43,30 @@ class Driver
      */
     private $location;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $hasLicense;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $licenseClass;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $licenseNumber;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateOfIssue;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $exhibitionLocation;
+//    /**
+//     * @ORM\Column(type="boolean")
+//     */
+//    private $hasLicense;
+//
+//    /**
+//     * @ORM\Column(type="string", length=255)
+//     */
+//    private $licenseClass;
+//
+//    /**
+//     * @ORM\Column(type="string", length=255)
+//     */
+//    private $licenseNumber;
+//
+//    /**
+//     * @ORM\Column(type="date")
+//     */
+//    private $dateOfIssue;
+//
+//    /**
+//     * @ORM\Column(type="string", length=255)
+//     */
+//    private $exhibitionLocation;
 
     public function getId(): ?int
     {

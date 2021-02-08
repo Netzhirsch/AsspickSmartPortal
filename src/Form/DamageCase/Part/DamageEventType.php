@@ -36,6 +36,7 @@ class DamageEventType extends AbstractType
             ])
             ->add('itemsDamaged',TextareaType::class,[
                 'label' => 'Vom Schaden betroffene Sachen',
+                'required' => false
             ])
             ->add('damageAmount', NumberType::class, [
                 'label' => 'Geschätzte Schadenhöhe in EUR',
