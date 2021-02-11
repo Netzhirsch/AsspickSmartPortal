@@ -42,7 +42,11 @@ class CarController extends AbstractController
      * @param int|null $id
      * @return Response
      */
-    public function formAction(CarRepository $carRepository,Request $request,int $id = null):Response
+    public function formAction(
+        CarRepository $carRepository,
+        Request $request,
+        int $id = null
+    ): Response
     {
         if (empty($id)) {
             $action = "erstellen";
@@ -59,6 +63,8 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if (isset($form['file']))
+                $this->saveUploadedPhotos($form['file']->getData(),$car,$em);
             $em->persist($car);
             $em->flush();
             return $this->redirectToRoute('damageCase_car_index');
@@ -67,6 +73,7 @@ class CarController extends AbstractController
         $parameters = [
             'form'       => $form->createView(),
             'action'     => $action,
+            'photos' => $this->getFiles($car)
         ];
 
         return $this->render('damage_case/car/form.html.twig', $parameters);
@@ -79,7 +86,7 @@ class CarController extends AbstractController
     public function downloadAction()
     {
         $filename = 'Schadenanzeige_KFZ';
-        $filePath = $this->getDir().DIRECTORY_SEPARATOR.$filename.'.pdf';
+        $filePath = $this->getUnfilledPdfDir().DIRECTORY_SEPARATOR.$filename.'.pdf';
 
         if (!file_exists($filePath)) {
             return new JsonResponse();

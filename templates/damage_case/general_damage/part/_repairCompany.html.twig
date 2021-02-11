@@ -1,0 +1,38 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(repairCompany) }}
+        </h2>
+    </header>
+    <div class="line col-8">
+        {{ form_label(repairCompany.name) }}
+        {{ form_widget(repairCompany.name) }}
+        {{ form_errors(repairCompany.name) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(repairCompany.streetMailbox) }}
+        {{ form_widget(repairCompany.streetMailbox) }}
+        {{ form_errors(repairCompany.streetMailbox) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(repairCompany.postCode) }}
+        {{ form_widget(repairCompany.postCode) }}
+        {{ form_errors(repairCompany.postCode) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(repairCompany.location) }}
+        {{ form_widget(repairCompany.location) }}
+        {{ form_errors(repairCompany.location) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(repairCompany.email) }}
+        {{ form_widget(repairCompany.email) }}
+        {{ form_errors(repairCompany.email) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(repairCompany.phone) }}
+        {{ form_widget(repairCompany.phone) }}
+        {{ form_errors(repairCompany.phone) }}
+    </div>
+</div>

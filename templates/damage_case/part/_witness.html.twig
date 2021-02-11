@@ -1,0 +1,8 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(form.witness) }}
+        </h2>
+    </header>
+    {% include 'damage_case/part/_person.html.twig' with {'person':form.witness} %}
+</div>

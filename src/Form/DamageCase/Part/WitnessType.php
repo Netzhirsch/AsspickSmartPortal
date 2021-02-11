@@ -15,21 +15,27 @@ class WitnessType extends AbstractType
         $builder
             ->add('firstname',TextType::class,[
                 'label' => 'Vorname',
+                'required' => false
             ])
             ->add('lastname',TextType::class,[
                 'label' => 'Nachname',
+                'required' => false
             ])
             ->add('streetMailbox',TextType::class,[
                 'label' => 'Straße/Postfach',
+                'required' => false
             ])
             ->add('postCode',TextType::class,[
                 'label' => 'PLZ',
+                'required' => false
             ])
             ->add('location',TextType::class,[
                 'label' => 'Ort',
+                'required' => false
             ])
             ->add('phone',TextType::class,[
                 'label' => 'Telefon',
+                'required' => false
             ])
         ;
     }

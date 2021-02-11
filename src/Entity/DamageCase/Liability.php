@@ -3,17 +3,20 @@
 namespace App\Entity\DamageCase;
 
 use App\Entity\DamageCase\Part\Claimant\Claimant;
-use App\Entity\DamageCase\Part\CriminalProceedingsAgainstTyp;
-use App\Entity\DamageCase\Part\DamageCause;
-use App\Entity\DamageCase\Part\DamageEvent;
+use App\Entity\DamageCase\Part\Damage\DamageCause;
+use App\Entity\DamageCase\Part\Damage\DamageEvent;
 use App\Entity\DamageCase\Part\Insured;
 use App\Entity\DamageCase\Part\Payment;
 use App\Entity\DamageCase\Part\PersonalInjury;
 use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
-use App\Entity\DamageCase\Part\Signature;
 use App\Entity\DamageCase\Part\Witness;
+use App\Entity\File;
 use App\Repository\DamageCase\LiabilityRepository;
+use DateTime;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Liability
 {
+    const UPLOAD_FOLDER = 'liability';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,19 +34,16 @@ class Liability
 
     /**
      * @ORM\OneToOne(targetEntity=Insured::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $insured;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $policyholder;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageEvent::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $damageEvent;
 
@@ -58,29 +59,16 @@ class Liability
 
     /**
      * @ORM\OneToOne(targetEntity=PoliceRecording::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $policeRecording;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $hasCriminalProceedings;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=CriminalProceedingsAgainstTyp::class)
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $criminalProceedingsAgainst;
-
-    /**
      * @ORM\OneToOne(targetEntity=Claimant::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $claimant;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isRepairPossible;
 
@@ -96,15 +84,24 @@ class Liability
 
     /**
      * @ORM\OneToOne(targetEntity=Payment::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $payment;
 
     /**
-     * @ORM\OneToOne(targetEntity=Signature::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=File::class, mappedBy="liability", cascade={"persist", "remove"})
      */
-    private $signature;
+    private $files;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->setCreatedAt((new DateTime()));
+        $this->files = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,7 +113,7 @@ class Liability
         return $this->insured;
     }
 
-    public function setInsured(Insured $insured): self
+    public function setInsured(?Insured $insured): self
     {
         $this->insured = $insured;
 
@@ -128,7 +125,7 @@ class Liability
         return $this->policyholder;
     }
 
-    public function setPolicyholder(Policyholder $policyholder): self
+    public function setPolicyholder(?Policyholder $policyholder): self
     {
         $this->policyholder = $policyholder;
 
@@ -140,7 +137,7 @@ class Liability
         return $this->damageEvent;
     }
 
-    public function setDamageEvent(DamageEvent $damageEvent): self
+    public function setDamageEvent(?DamageEvent $damageEvent): self
     {
         $this->damageEvent = $damageEvent;
 
@@ -176,33 +173,9 @@ class Liability
         return $this->policeRecording;
     }
 
-    public function setPoliceRecording(PoliceRecording $policeRecording): self
+    public function setPoliceRecording(?PoliceRecording $policeRecording): self
     {
         $this->policeRecording = $policeRecording;
-
-        return $this;
-    }
-
-    public function getHasCriminalProceedings(): ?bool
-    {
-        return $this->hasCriminalProceedings;
-    }
-
-    public function setHasCriminalProceedings(bool $hasCriminalProceedings): self
-    {
-        $this->hasCriminalProceedings = $hasCriminalProceedings;
-
-        return $this;
-    }
-
-    public function getCriminalProceedingsAgainst(): ?CriminalProceedingsAgainstTyp
-    {
-        return $this->criminalProceedingsAgainst;
-    }
-
-    public function setCriminalProceedingsAgainst(?CriminalProceedingsAgainstTyp $criminalProceedingsAgainst): self
-    {
-        $this->criminalProceedingsAgainst = $criminalProceedingsAgainst;
 
         return $this;
     }
@@ -224,7 +197,7 @@ class Liability
         return $this->isRepairPossible;
     }
 
-    public function setIsRepairPossible(bool $isRepairPossible): self
+    public function setIsRepairPossible(?bool $isRepairPossible): self
     {
         $this->isRepairPossible = $isRepairPossible;
 
@@ -260,21 +233,51 @@ class Liability
         return $this->payment;
     }
 
-    public function setPayment(Payment $payment): self
+    public function setPayment(?Payment $payment): self
     {
         $this->payment = $payment;
 
         return $this;
     }
 
-    public function getSignature(): ?Signature
+    /**
+     * @return Collection|File[]
+     */
+    public function getFiles(): Collection
     {
-        return $this->signature;
+        return $this->files;
     }
 
-    public function setSignature(Signature $signature): self
+    public function addFile(File $file): self
     {
-        $this->signature = $signature;
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setLiability($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(File $file): self
+    {
+        if ($this->files->removeElement($file)) {
+            // set the owning side to null (unless already changed)
+            if ($file->getLiability() === $this) {
+                $file->setLiability(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -1,0 +1,34 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(driver) }}
+        </h2>
+    </header>
+    {% include 'damage_case/part/_person.html.twig' with {'person':form.driver} %}
+    <div class="line col-12">
+        {{ form_label(driver.hasLicense) }}
+        {{ form_widget(driver.hasLicense) }}
+        {{ form_errors(driver.hasLicense) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-6">
+        {{ form_label(driver.licenseClass) }}
+        {{ form_widget(driver.licenseClass) }}
+        {{ form_errors(driver.licenseClass) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(driver.licenseNumber) }}
+        {{ form_widget(driver.licenseNumber) }}
+        {{ form_errors(driver.licenseNumber) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(driver.dateOfIssue) }}
+        {{ form_widget(driver.dateOfIssue) }}
+        {{ form_errors(driver.dateOfIssue) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(driver.exhibitionLocation) }}
+        {{ form_widget(driver.exhibitionLocation) }}
+        {{ form_errors(driver.exhibitionLocation) }}
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(opponentCar) }}
+        </h2>
+    </header>
+    <div class="line col-6">
+        {{ form_label(opponentCar.licensePlate) }}
+        {{ form_widget(opponentCar.licensePlate) }}
+        {{ form_errors(opponentCar.licensePlate) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.manufacturer) }}
+        {{ form_widget(opponentCar.manufacturer) }}
+        {{ form_errors(opponentCar.manufacturer) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.model) }}
+        {{ form_widget(opponentCar.model) }}
+        {{ form_errors(opponentCar.model) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.yearOfManufacture) }}
+        {{ form_widget(opponentCar.yearOfManufacture) }}
+        {{ form_errors(opponentCar.yearOfManufacture) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.kmStatus) }}
+        {{ form_widget(opponentCar.kmStatus) }}
+        {{ form_errors(opponentCar.kmStatus) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.insuredWith) }}
+        {{ form_widget(opponentCar.insuredWith) }}
+        {{ form_errors(opponentCar.insuredWith) }}
+    </div>
+    <div class="line col-6">
+        {{ form_label(opponentCar.insuranceNumber) }}
+        {{ form_widget(opponentCar.insuranceNumber) }}
+        {{ form_errors(opponentCar.insuranceNumber) }}
+    </div>
+</div>

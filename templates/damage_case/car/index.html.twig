@@ -23,6 +23,7 @@
                     <table>
                         <thead>
                         <tr>
+                            <th>erstellt am</th>
                             <th>Versicherer</th>
                             <th>Versicherungs-Nr/Schaden-Nr</th>
                             <th>Versicherungsnehmer</th>
@@ -37,13 +38,14 @@
                         <tbody>
                             {% for entry in car %}
                                 <tr>
-                                    <td>{{ entry.insured.insured }}</td>
-                                    {% set insuranceNumber = entry.insured.insuranceNumber %}
+                                    <td>{{ entry.createdAt|date('d.m.Y') }}</td>
+                                    <td>{{ entry.insured.insured|default('') }}</td>
                                     <td>{{ entry.policyholder }}</td>
-                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber) }}</td>
-                                    <td>{{ entry.damageEvent.date|date("d.m.Y") }}</td>
+                                    {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
+                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
+                                    <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
                                     <td class="actions">
-                                        {% include 'damage_case/car/_delete.html.twig' %}
+                                        {% include 'damage_case/car/part/_delete.html.twig' %}
                                         <a
                                             href="{{ path('damageCase_car_edit',{'id':entry.id})}}"
                                             class="btn edit"

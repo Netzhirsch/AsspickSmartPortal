@@ -2,10 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\DamageCase\Car\Car;
+use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
+use App\Entity\DamageCase\Liability;
+use App\Entity\File;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Exception;
 use ReflectionClass;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 trait ControllerTrait
@@ -135,8 +144,148 @@ trait ControllerTrait
 		$session->set($nameInSession, $object);
 	}
 
-	protected function getDir(): string
+    protected function getUnfilledPdfDir(): string
     {
-        return dirname(__DIR__,2).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'pdfs';
+        return $this->getRootDir()
+            .DIRECTORY_SEPARATOR
+            .'pdfs'
+            .DIRECTORY_SEPARATOR
+            .'unfilled'
+            ;
     }
+
+    /**
+     * @param $files
+     * @param Liability|Car|GeneralDamage $entity
+     * @param ObjectManager $em
+     * @return string
+     */
+    protected function saveUploadedPhotos($files,$entity,ObjectManager $em): string
+    {
+        if (empty($files))
+            return '';
+        $error = '';
+        if (!is_array($files))
+            $files = [$files];
+        /** @var UploadedFile $file */
+        foreach ($files as $file) {
+            if (strpos($file->getMimeType(), 'image') !== false)
+                $error .= $this->saveUploadedFile($file, $entity, $em);
+            else
+                $error = 'Bitte nur Bilder hochladen.';
+        }
+        return $error;
+    }
+
+    /**
+     * @param $files
+     * @param Liability|Car|GeneralDamage $entity
+     * @param ObjectManager $em
+     * @return string
+     */
+    protected function saveUploadedFiles($files,$entity,ObjectManager $em): string
+    {
+        if (empty($files))
+            return '';
+        $error = '';
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                $error .= $this->saveUploadedFile($file, $entity, $em);
+            }
+        } else {
+            $file = $files;
+            $error .= $this->saveUploadedFile($file, $entity, $em);
+        }
+        return $error;
+    }
+
+    protected function getUploadedIDr(DateTimeInterface $date,string $uploadFolder): string
+    {
+        return $this->getRootDir()
+            .DIRECTORY_SEPARATOR
+            .'uploaded'
+            .DIRECTORY_SEPARATOR
+            .$uploadFolder
+            .DIRECTORY_SEPARATOR
+            .$date->format('Y-m-d')
+            ;
+    }
+
+    /**
+     * @param Liability|Car|GeneralDamage $entity
+     * @return array
+     */
+    protected function getFiles($entity): array
+    {
+        $files = [];
+        foreach ($entity->getFiles() as $file) {
+            $filePath = $this->getUploadedIDr($entity->getCreatedAt(), $entity::UPLOAD_FOLDER)
+                .DIRECTORY_SEPARATOR
+                .$file->getName()
+                .'.'
+                .$file->getExtension()
+            ;
+            if (file_exists($filePath))
+                $files[] = $file;
+        }
+        return $files;
+    }
+
+    /**
+     * @param UploadedFile|null $file
+     * @param Liability|Car|GeneralDamage $entity
+     * @param ObjectManager $em
+     * @return string
+     */
+    private function saveUploadedFile(?UploadedFile $file,$entity,ObjectManager $em): string
+    {
+
+	    if (empty($file))
+            return '';
+        $date = $entity->getCreatedAt();
+        $dir = $this->getUploadedIDr(($date), $entity::UPLOAD_FOLDER);
+        if (!file_exists($dir))
+            mkdir($dir, 0755, true);
+        $name = $file->getClientOriginalName();
+        $extension = $file->guessClientExtension();
+        $name = $this->getFileWithoutExtension($extension,$name);
+        $nameIndex = 0;
+        $filesInDir = scandir($dir);
+        foreach($filesInDir as $fileInDir) {
+            if  ($fileInDir != "." && $fileInDir != "..") {
+                $nameIndex++;
+            }
+        }
+        if (!empty($nameIndex))
+            $name = $nameIndex.'-'.$name;
+        try {
+            $file->move($dir, $name.'.'.$extension);
+        } catch (FileException $fileException) {
+            return 'Datei konnte nicht gespeichert werden.';
+        }
+        $newFile = new File();
+        $newFile->setUploadAt((new DateTime()));
+        $newFile->setName($name);
+        $newFile->setSize($file->getSize());
+        $newFile->setExtension($extension);
+        $entity->addFile($newFile);
+        $em->persist($newFile);
+
+        return '';
+    }
+
+    private function getFileWithoutExtension($extension,$name){
+        $extension = '.'.$extension;
+        $name = str_replace($extension, '', $name);
+        return str_replace(strtoupper($extension), '', $name);
+    }
+
+    private function getRootDir(): string {
+        return dirname(__DIR__,2)
+            .DIRECTORY_SEPARATOR
+            .'assets'
+            ;
+    }
+
+
 }

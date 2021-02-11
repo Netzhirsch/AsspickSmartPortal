@@ -3,13 +3,21 @@
 namespace App\Form\DamageCase\Car;
 
 use App\Entity\DamageCase\Car\Car;
+use App\Entity\DamageCase\Car\TheftProtectionTyp;
 use App\Entity\DamageCase\Car\TypOfInsurance;
 use App\Entity\DamageCase\Car\TypOfTrip;
+use App\Entity\DamageCase\Car\WhoseCar;
 use App\Form\DamageCase\Part\DamageEventType;
 use App\Form\DamageCase\Part\InsuredType;
+use App\Form\DamageCase\Part\PaymentType;
+use App\Form\DamageCase\Part\PoliceRecordingType;
 use App\Form\DamageCase\Part\PolicyholderType;
+use App\Form\DamageCase\Part\WitnessType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,6 +35,8 @@ class CarType extends AbstractType
                 'attr' => [
                     'class' => 'line two-per-line wrap-checkboxes'
                 ],
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('typOfTrip', EntityType::class, [
                 'label' => false,
@@ -36,79 +46,101 @@ class CarType extends AbstractType
                 'attr' => [
                     'class' => 'line two-per-line wrap-checkboxes'
                 ],
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('licensePlate', TextType::class, [
-                'label' => 'Amtliches Kennzeichen:'
+                'label' => 'Amtliches Kennzeichen:',
+                'required' => false
             ])
             ->add('insured',InsuredType::class,[
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('policyholder',PolicyholderType::class,[
-                'label' => 'Versicherungsnehmer'
+                'label' => 'Versicherungsnehmer',
+                'required' => false
             ])
             ->add('damageEvent',DamageEventType::class,[
-                'label' => 'Schadenereignis'
+                'label' => 'Schadenereignis',
+                'required' => false
             ])
             ->add('driver',DriverType::class,[
-                'label' => 'Fahrer(in) zum Schadenzeitpunkt'
+                'label' => 'Fahrer(in) zum Schadenzeitpunkt',
+                'required' => false
             ])
-//            ->add('damageCause',DamageCauseType::class,[
-//                'label' => 'Schadenverursacher'
-//            ])
-//            ->add('witness',WitnessType::class,[
-//                'label' => 'Zeuge'
-//            ])
-//            ->add('isRepairPossible', ChoiceType::class, [
-//                'label' => 'Reparatur möglich?',
-//                'choices' => [
-//                    'Ja' => true,
-//                    'Nein' => false
-//                ],
-//                'multiple' => false,
-//                'expanded' => true,
-//                'attr' => [
-//                    'class' => 'line two-per-line wrap-checkboxes'
-//                ],
-//            ])
-//            ->add('typeOfOwnership', EntityType::class, [
-//                'label' => 'Hatten Sie die beschädigte Sache',
-//                'class' => TypeOfOwnership::class,
-//                'choice_label' => 'name',
-//                'required' => false
-//            ])
-//            ->add('policeRecording', PoliceRecordingType::class, [
-//                'label' => 'polizeiliche Aufnahme'
-//            ])
-//            ->add('criminalProceedingsAgainst', EntityType::class, [
-//                'label' => 'gegen wenn',
-//                'class' => CriminalProceedingsAgainstTyp::class,
-//                'choice_label' => 'name',
-//                'required' => false
-//            ])
-//            ->add('hasCriminalProceedings', ChoiceType::class, [
-//                'label' => 'Wurde ein Strafverfahren eingeleitet?',
-//                'choices' => [
-//                    'Ja' => true,
-//                    'Nein' => false
-//                ],
-//                'multiple' => false,
-//                'expanded' => true,
-//                'attr' => [
-//                    'class' => 'line two-per-line wrap-checkboxes'
-//                ],
-//            ])
-//            ->add('claimant',ClaimantType::class,[
-//                'label' => 'Anspruchsteller'
-//            ])
-//            ->add('personalInjury',PersonalInjuryType::class,[
-//                'label' => 'Personenschäden'
-//            ])
-//            ->add('payment',PaymentType::class, [
-//                'label' => 'Zahlungen'
-//            ])
-//            ->add('signature', SignatureType::class, [
-//                'label' => false
-//            ])
+            ->add('hasOwnClaims', ChoiceType::class, [
+                'label' => 'Haben Sie selbst Ansprüche gestellt?',
+                'choices' => [
+                    'Ja' => true,
+                    'Nein' => false
+                ],
+                'multiple' => false,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'line two-per-line wrap-checkboxes'
+                ],
+                'required' => false,
+                'placeholder' => false
+            ])
+            ->add('accidentOpponent',AccidentOpponentType::class,[
+                'label' => 'Unfallgegner',
+                'required' => false
+            ])
+            ->add('opponentCar',OpponentCarType::class,[
+                'label' => 'Gegnerisches Fahrzeug bei Haftpflicht- oder eigenes Fahrzeug bei einem Kaskoschaden',
+                'required' => false
+            ])
+            ->add('typeOfInjury', TextType::class, [
+                'label' => 'Art der Verletzung',
+                'required' => false
+            ])
+            ->add('theftProtection', EntityType::class, [
+                'label' => 'Bei Diebstahlschäden',
+                'class'  => TheftProtectionTyp::class,
+                'choice_label' => 'name',
+                'multiple'  => true,
+                'expanded' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'line four-per-line wrap-checkboxes'
+                ]
+            ])
+            ->add('viewedOn',TextareaType::class,[
+                'label' => 'Wo kann das Fahrzeug besichtigt werden? Adresse mit Ansprechpartner/Telefon',
+                'required' => false
+            ])
+            ->add('whoseCars', EntityType::class, [
+                'label' => 'Wessen Fahrzeug?',
+                'class'  => WhoseCar::class,
+                'choice_label' => 'name',
+                'multiple'  => true,
+                'expanded' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'line four-per-line wrap-checkboxes'
+                ]
+            ])
+            ->add('policeRecording', PoliceRecordingType::class, [
+                'label' => 'polizeiliche Aufnahme',
+                'hasDamageCause' => false
+            ])
+            ->add('witness',WitnessType::class,[
+                'label' => 'Zeuge'
+            ])
+            ->add('other',TextareaType::class,[
+                'label' => 'Sonstiges',
+                'required' => false
+            ])
+            ->add('payment',PaymentType::class, [
+                'label' => 'Zahlungen'
+            ])
+          ->add('file', FileType::class, [
+                'label' => 'Fotos',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false
+            ])
         ;
     }
 

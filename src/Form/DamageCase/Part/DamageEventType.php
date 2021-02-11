@@ -2,7 +2,10 @@
 
 namespace App\Form\DamageCase\Part;
 
-use App\Entity\DamageCase\Part\DamageEvent;
+use App\Entity\DamageCase\Part\Damage\DamageCausedBy;
+use App\Entity\DamageCase\Part\Damage\DamageEvent;
+use App\Entity\DamageCase\Part\Damage\DamageTyp;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -45,6 +48,34 @@ class DamageEventType extends AbstractType
                 'attr' => [
                     'min' => '0.00',
                     'step' => '0.01',
+                ],
+                'required' => false
+            ])
+            ->add('damageAmountOnOpponent', NumberType::class, [
+                'label' => 'Geschätzte Schadenhöhe am gegnerischen Fahrzeug in EUR',
+                'scale' => 2,
+                'html5' => true,
+                'attr' => [
+                    'min' => '0.00',
+                    'step' => '0.01',
+                ],
+                'required' => false
+            ])
+            ->add('causedBy', EntityType::class, [
+                'label' => 'Verursacht durch',
+                'class' => DamageCausedBy::class,
+                'choice_label' => 'name',
+                'required' => false
+            ])
+            ->add('typs', EntityType::class, [
+                'label' => 'Schadenart',
+                'class'  => DamageTyp::class,
+                'choice_label' => 'name',
+                'multiple'  => true,
+                'expanded' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'line four-per-line wrap-checkboxes'
                 ]
             ])
         ;
@@ -53,7 +84,7 @@ class DamageEventType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => DamageEvent::class,
+            'data_class' => DamageEvent::class
         ]);
     }
 }

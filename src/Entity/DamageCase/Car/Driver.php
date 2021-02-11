@@ -19,54 +19,54 @@ class Driver
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $streetMailbox;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $postCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
-//    /**
-//     * @ORM\Column(type="boolean")
-//     */
-//    private $hasLicense;
-//
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     */
-//    private $licenseClass;
-//
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     */
-//    private $licenseNumber;
-//
-//    /**
-//     * @ORM\Column(type="date")
-//     */
-//    private $dateOfIssue;
-//
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     */
-//    private $exhibitionLocation;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasLicense;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $licenseClass;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $licenseNumber;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateOfIssue;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $exhibitionLocation;
 
     public function getId(): ?int
     {
@@ -78,7 +78,7 @@ class Driver
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -90,7 +90,7 @@ class Driver
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -102,7 +102,7 @@ class Driver
         return $this->streetMailbox;
     }
 
-    public function setStreetMailbox(string $streetMailbox): self
+    public function setStreetMailbox(?string $streetMailbox): self
     {
         $this->streetMailbox = $streetMailbox;
 
@@ -114,7 +114,7 @@ class Driver
         return $this->postCode;
     }
 
-    public function setPostCode(string $postCode): self
+    public function setPostCode(?string $postCode): self
     {
         $this->postCode = $postCode;
 
@@ -126,7 +126,7 @@ class Driver
         return $this->location;
     }
 
-    public function setLocation(string $location): self
+    public function setLocation(?string $location): self
     {
         $this->location = $location;
 
@@ -138,7 +138,7 @@ class Driver
         return $this->hasLicense;
     }
 
-    public function setHasLicense(bool $hasLicense): self
+    public function setHasLicense(?bool $hasLicense): self
     {
         $this->hasLicense = $hasLicense;
 
@@ -150,7 +150,7 @@ class Driver
         return $this->licenseClass;
     }
 
-    public function setLicenseClass(string $licenseClass): self
+    public function setLicenseClass(?string $licenseClass): self
     {
         $this->licenseClass = $licenseClass;
 
@@ -162,7 +162,7 @@ class Driver
         return $this->licenseNumber;
     }
 
-    public function setLicenseNumber(string $licenseNumber): self
+    public function setLicenseNumber(?string $licenseNumber): self
     {
         $this->licenseNumber = $licenseNumber;
 
@@ -174,7 +174,7 @@ class Driver
         return $this->dateOfIssue;
     }
 
-    public function setDateOfIssue(DateTimeInterface $dateOfIssue): self
+    public function setDateOfIssue(?DateTimeInterface $dateOfIssue): self
     {
         $this->dateOfIssue = $dateOfIssue;
 
@@ -186,7 +186,7 @@ class Driver
         return $this->exhibitionLocation;
     }
 
-    public function setExhibitionLocation(string $exhibitionLocation): self
+    public function setExhibitionLocation(?string $exhibitionLocation): self
     {
         $this->exhibitionLocation = $exhibitionLocation;
 

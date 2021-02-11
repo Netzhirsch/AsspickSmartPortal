@@ -3,7 +3,6 @@
 namespace App\Form\DamageCase;
 
 use App\Entity\DamageCase\Liability;
-use App\Entity\DamageCase\Part\CriminalProceedingsAgainstTyp;
 use App\Entity\DamageCase\TypeOfOwnership;
 use App\Form\DamageCase\Part\ClaimantType;
 use App\Form\DamageCase\Part\DamageCauseType;
@@ -13,11 +12,11 @@ use App\Form\DamageCase\Part\PaymentType;
 use App\Form\DamageCase\Part\PersonalInjuryType;
 use App\Form\DamageCase\Part\PoliceRecordingType;
 use App\Form\DamageCase\Part\PolicyholderType;
-use App\Form\DamageCase\Part\SignatureType;
 use App\Form\DamageCase\Part\WitnessType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,19 +26,24 @@ class LiabilityType extends AbstractType
     {
         $builder
             ->add('insured',InsuredType::class,[
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('policyholder',PolicyholderType::class,[
-                'label' => 'Versicherungsnehmer'
+                'label' => 'Versicherungsnehmer',
+                'required' => false
             ])
             ->add('damageEvent',DamageEventType::class,[
-                'label' => 'Schadenereignis'
+                'label' => 'Schadenereignis',
+                'required' => false
             ])
             ->add('damageCause',DamageCauseType::class,[
-                'label' => 'Schadenverursacher'
+                'label' => 'Schadenverursacher',
+                'required' => false
             ])
             ->add('witness',WitnessType::class,[
-                'label' => 'Zeuge'
+                'label' => 'Zeuge',
+                'required' => false
             ])
             ->add('isRepairPossible', ChoiceType::class, [
                 'label' => 'Reparatur möglich?',
@@ -52,6 +56,8 @@ class LiabilityType extends AbstractType
                 'attr' => [
                     'class' => 'line two-per-line wrap-checkboxes'
                 ],
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('typeOfOwnership', EntityType::class, [
                 'label' => 'Hatten Sie die beschädigte Sache',
@@ -60,37 +66,26 @@ class LiabilityType extends AbstractType
                 'required' => false
             ])
             ->add('policeRecording', PoliceRecordingType::class, [
-                'label' => 'polizeiliche Aufnahme'
-            ])
-            ->add('criminalProceedingsAgainst', EntityType::class, [
-                'label' => 'gegen wenn',
-                'class' => CriminalProceedingsAgainstTyp::class,
-                'choice_label' => 'name',
+                'label' => 'polizeiliche Aufnahme',
                 'required' => false
             ])
-            ->add('hasCriminalProceedings', ChoiceType::class, [
-                'label' => 'Wurde ein Strafverfahren eingeleitet?',
-                'choices' => [
-                    'Ja' => true,
-                    'Nein' => false
-                ],
-                'multiple' => false,
-                'expanded' => true,
-                'attr' => [
-                    'class' => 'line two-per-line wrap-checkboxes'
-                ],
-            ])
             ->add('claimant',ClaimantType::class,[
-                'label' => 'Anspruchsteller'
+                'label' => 'Anspruchsteller',
+                'required' => false
             ])
             ->add('personalInjury',PersonalInjuryType::class,[
-                'label' => 'Personenschäden'
+                'label' => 'Personenschäden',
+                'required' => false
             ])
             ->add('payment',PaymentType::class, [
-                'label' => 'Zahlungen'
+                'label' => 'Zahlungen',
+                'required' => false
             ])
-            ->add('signature', SignatureType::class, [
-                'label' => false
+            ->add('file', FileType::class, [
+                'label' => 'Fotos',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false
             ])
         ;
     }

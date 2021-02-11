@@ -1,0 +1,106 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}SACH -  Schadenanzeige {{ action }}{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    SACH - Schadenanzeige {{ action }}
+                </h2>
+            </header>
+            <div class="content">
+                <div class="line col-24">
+                    {{ form_label(form.typs) }}
+                    {{ form_widget(form.typs) }}
+                    {{ form_errors(form.typs) }}
+                </div>
+            </div>
+            <div class="content">
+                {{ form_start(form) }}
+                <div class="line col-8">
+                    {{ form_label(form.insured.insured) }}
+                    {{ form_widget(form.insured.insured) }}
+                    {{ form_errors(form.insured.insured) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.insured.insuranceNumber) }}
+                    {{ form_widget(form.insured.insuranceNumber) }}
+                    {{ form_errors(form.insured.insuranceNumber) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.insured.dangerNumber) }}
+                    {{ form_widget(form.insured.dangerNumber) }}
+                    {{ form_errors(form.insured.dangerNumber) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.policyholder) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/part/_person.html.twig' with {'person':form.policyholder} %}
+                <div class="line col-8">
+                    {{ form_label(form.policyholder.email) }}
+                    {{ form_widget(form.policyholder.email) }}
+                    {{ form_errors(form.policyholder.email) }}
+                </div>
+            </div>
+
+            {% include 'damage_case/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
+
+            {% include 'damage_case/general_damage/part/_buildingDamage.html.twig' with {'buildingDamage':form.buildingDamage} %}
+
+            {% include 'damage_case/general_damage/part/_itemsOtherInsurance.html.twig'
+                with {'itemsOtherInsurance':form.itemsOtherInsurance} %}
+            {% include 'damage_case/general_damage/part/_traceOfBreakIn.html.twig' with {'traceOfBreakIn':form.traceOfBreakIn} %}
+            <div class="content">
+                <header>
+                    <h2>
+                        {{ form_label(form.damageCause) }}
+                    </h2>
+                </header>
+                {% include 'damage_case/part/_person.html.twig' with {'person':form.damageCause} %}
+                <div class="line col-8">
+                    {{ form_label(form.damageCause.email) }}
+                    {{ form_widget(form.damageCause.email) }}
+                    {{ form_errors(form.damageCause.email) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.damageCause.dateOfBirth) }}
+                    {{ form_widget(form.damageCause.dateOfBirth) }}
+                    {{ form_errors(form.damageCause.dateOfBirth) }}
+                </div>
+            </div>
+            {% include 'damage_case/general_damage/part/_repairCompany.html.twig' with {'repairCompany':form.repairCompany} %}
+            {% include 'damage_case/part/_policeRecording.html.twig' with {'policeRecording':form.policeRecording} %}
+            <div class="content">
+                <div class="line">
+                    <span>
+                        Der Polizeibehörde ist unverzüglich eine vollständige und geleichlautende Aufstellung der abhandengekommenen Sachen einzurei-
+chen. Eine Verletzung dieser Obliegenheit kann zum Verlust des Versicherungsschutzes führen, genauso wie falsche Angeben, auch
+ohne dass hierdurch der Versicherer einen Nachteil erleidet.
+                    </span>
+                </div>
+            </div>
+            {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment,'showTaxDeduction':true}%}
+            {% include 'damage_case/part/_photo.html.twig'
+                with {
+                'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::UPLOAD_FOLDER'),
+                'entityId':form.vars.value.id
+            }
+            %}
+            <div class="content">
+                <div class="line">
+                    <button type="submit" class="btn">speichern</button>
+                </div>
+            </div>
+            {{ form_row(form._token) }}
+            {{ form_end(form,{'render_rest':false}) }}
+            <div class="liner"></div>
+            {% include 'damage_case/part/_disclaimer.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

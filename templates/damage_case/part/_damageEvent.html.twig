@@ -1,0 +1,45 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(damageEvent) }}
+        </h2>
+    </header>
+    <div class="line col-8">
+        {{ form_label(damageEvent.date) }}
+        {{ form_widget(damageEvent.date) }}
+        {{ form_errors(damageEvent.date) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.time) }}
+        {{ form_widget(damageEvent.time) }}
+        {{ form_errors(damageEvent.time) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.location) }}
+        {{ form_widget(damageEvent.location) }}
+        {{ form_errors(damageEvent.location) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-24">
+        {{ form_label(damageEvent.description) }}
+        {{ form_widget(damageEvent.description) }}
+        {{ form_errors(damageEvent.description) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-24">
+        {{ form_label(damageEvent.itemsDamaged) }}
+        {{ form_widget(damageEvent.itemsDamaged) }}
+        {{ form_errors(damageEvent.itemsDamaged) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.damageAmount) }}
+        {% set number = ''  %}
+        {% if form.vars.value is not empty and form.vars.value.damageEvent is not empty %}
+            {% set number = form.vars.value.damageEvent.damageAmount  %}
+            {% set number = number|number_format(2,",","." )%}
+        {% endif %}
+        {{ form_widget(damageEvent.damageAmount, {'value':number}) }}
+        {{ form_errors(damageEvent.damageAmount) }}
+    </div>
+</div>

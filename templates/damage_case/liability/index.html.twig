@@ -23,6 +23,7 @@
                     <table>
                         <thead>
                         <tr>
+                            <th>erstellt am</th>
                             <th>Versicherer</th>
                             <th>Versicherungs-Nr/Schaden-Nr</th>
                             <th>Versicherungsnehmer</th>
@@ -35,28 +36,29 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for liability in liabilities %}
-                                <tr>
-                                    <td>{{ liability.insured.insured }}</td>
-                                    {% set insuranceNumber = liability.insured.insuranceNumber %}
-                                    <td>{{ liability.policyholder }}</td>
-                                    <td>{{ (insuranceNumber?insuranceNumber:liability.insured.dangerNumber) }}</td>
-                                    <td>{{ liability.damageEvent.date|date("d.m.Y") }}</td>
-                                    <td class="actions">
-                                        {% include 'damage_case/liability/_delete.html.twig' %}
-                                        <a
-                                            href="{{ path('damageCase_liability_edit',{'id':liability.id})}}"
+                        {% for entry in liabilities %}
+                            <tr>
+                                <td>{{ entry.createdAt|date('d.m.Y') }}</td>
+                                <td>{{ entry.insured.insured|default('') }}</td>
+                                <td>{{ entry.policyholder }}</td>
+                                {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
+                                <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
+                                <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
+                                <td class="actions">
+                                    {% include 'damage_case/liability/_delete.html.twig' %}
+                                    <a
+                                            href="{{ path('damageCase_liability_edit',{'id':entry.id})}}"
                                             class="btn edit"
-                                        >
-                                            bearbeiten
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% else %}
-                                <tr>
-                                    <td colspan="4">Keine Einträge im System</td>
-                                </tr>
-                            {% endfor %}
+                                    >
+                                        bearbeiten
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Keine Einträge im System</td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

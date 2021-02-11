@@ -1,0 +1,68 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}SACH - Schadenanzeige{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>SACH - Schadenanzeige</h2>
+            </header>
+            <div class="content">
+                <i class="fa fa-pdf"></i>
+                <a
+                        href="{{ path('damageCase_generalDamage_download') }}"
+                        title="PDF"
+                        target="_blank"
+                >
+                    SACH - Schadenanzeige
+                </a>
+            </div>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>erstellt am</th>
+                            <th>Versicherer</th>
+                            <th>Versicherungs-Nr/Schaden-Nr</th>
+                            <th>Versicherungsnehmer</th>
+                            <th>Schadentag</th>
+                            <th class="actions">
+                                <a href="{{ path('damageCase_generalDamage_new') }}" class="btn green">
+                                    Neues Formular ausfüllen
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in generalDamage %}
+                                <tr>
+                                    <td>{{ entry.createdAt|date('d.m.Y') }}</td>
+                                    <td>{{ entry.insured.insured|default('') }}</td>
+                                    <td>{{ entry.policyholder }}</td>
+                                    {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
+                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
+                                    <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
+                                    <td class="actions">
+                                        {% include 'damage_case/general_damage/part/_delete.html.twig' %}
+                                        <a
+                                            href="{{ path('damageCase_generalDamage_edit',{'id':entry.id})}}"
+                                            class="btn edit"
+                                        >
+                                            bearbeiten
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4">Keine Einträge im System</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

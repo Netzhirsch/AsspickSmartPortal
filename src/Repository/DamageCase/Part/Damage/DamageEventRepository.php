@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\DamageCase\Part;
+namespace App\Repository\DamageCase\Part\Damage;
 
-use App\Entity\DamageCase\Part\DamageEvent;
+use App\Entity\DamageCase\Part\Damage\DamageEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Repository\DamageCase\Part;
+namespace App\Repository\DamageCase\Part\Damage;
 
-use App\Entity\DamageCase\Part\DamageCause;
+use App\Entity\DamageCase\Part\Damage\DamageTyp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method DamageCause|null find($id, $lockMode = null, $lockVersion = null)
- * @method DamageCause|null findOneBy(array $criteria, array $orderBy = null)
- * @method DamageCause[]    findAll()
- * @method DamageCause[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DamageTyp|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DamageTyp|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DamageTyp[]    findAll()
+ * @method DamageTyp[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DamageCauseRepository extends ServiceEntityRepository
+class DamageTypRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DamageCause::class);
+        parent::__construct($registry, DamageTyp::class);
     }
 
     // /**
-    //  * @return DamageCause[] Returns an array of DamageCause objects
+    //  * @return DamageTyp[] Returns an array of DamageTyp objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DamageCauseRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?DamageCause
+    public function findOneBySomeField($value): ?DamageTyp
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

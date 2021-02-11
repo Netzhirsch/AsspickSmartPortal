@@ -1,0 +1,56 @@
+<div class="content">
+    <header>
+        <h2>
+            Fotos
+        </h2>
+    </header>
+    <div class="line col-8">
+        {{ form_label(form.file) }}
+        {{ form_widget(form.file) }}
+        {{ form_errors(form.file) }}
+    </div>
+    <div class="newline"></div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Foto
+                    </td>
+                    <td class="actions">
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for photo in photos %}
+                    <tr>
+                    <td>
+                        {{ photo.name }}
+                    </td>
+                    <td>
+                        <a
+                                class="btn"
+                                href="{{ path('file_download',{'id':photo.id,'backTo':backTo,'entityId':entityId}) }}"
+                                target="_blank"
+                        >
+                            download
+                        </a>
+                        <a
+                                class="btn red"
+                                href="{{ path('file_delete',{'id':photo.id,'backTo':backTo,'entityId':entityId}) }}"
+                        >
+                            löschen
+                        </a>
+                    </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">
+                            Bitte Fotos der beschädigten Sachen beifügen und Feuer- sowie ED-Schäden auch polizeilich melden!
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

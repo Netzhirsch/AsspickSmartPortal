@@ -50,7 +50,6 @@ class LiabilityController extends AbstractController
         } else {
             $liability = $liabilityRepository->find($id);
             $action = "bearbeiten";
-
         }
 
         $form = $this->createForm(LiabilityType::class,$liability);
@@ -59,6 +58,8 @@ class LiabilityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if (isset($form['file']))
+                $this->saveUploadedPhotos($form['file']->getData(),$liability,$em);
             $em->persist($liability);
             $em->flush();
             return $this->redirectToRoute('damageCase_liability_index');
@@ -67,6 +68,7 @@ class LiabilityController extends AbstractController
         $parameters = [
             'form'       => $form->createView(),
             'action'     => $action,
+            'photos' => $this->getFiles($liability)
         ];
 
         return $this->render('damage_case/liability/form.html.twig', $parameters);
@@ -79,7 +81,7 @@ class LiabilityController extends AbstractController
     public function downloadAction()
     {
         $filename = 'Schadenanzeige_HAFTPFLICHT';
-        $filePath = $this->getDir().DIRECTORY_SEPARATOR.$filename.'.pdf';
+        $filePath = $this->getUnfilledPdfDir().DIRECTORY_SEPARATOR.$filename.'.pdf';
 
         if (!file_exists($filePath)) {
             return new JsonResponse();
@@ -126,5 +128,4 @@ class LiabilityController extends AbstractController
 
         return $this->redirectToRoute('damageCase_liability_index');
     }
-
 }

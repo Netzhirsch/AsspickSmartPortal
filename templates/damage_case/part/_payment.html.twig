@@ -1,0 +1,48 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(payment) }}
+        </h2>
+    </header>
+    {% if showTyp is defined and showTyp %}
+        <div class="line col-8">
+            {{ form_label(payment.transferTo) }}
+            {{ form_widget(payment.transferTo) }}
+            {{ form_errors(payment.transferTo) }}
+        </div>
+        <div class="newline"></div>
+    {% endif %}
+    <div class="line col-8">
+        {{ form_label(payment.bank) }}
+        {{ form_widget(payment.bank) }}
+        {{ form_errors(payment.bank) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(payment.location) }}
+        {{ form_widget(payment.location) }}
+        {{ form_errors(payment.location) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(payment.iban) }}
+        {{ form_widget(payment.iban) }}
+        {{ form_errors(payment.iban) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(payment.bic) }}
+        {{ form_widget(payment.bic) }}
+        {{ form_errors(payment.bic) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(payment.accountHolder) }}
+        {{ form_widget(payment.accountHolder) }}
+        {{ form_errors(payment.accountHolder) }}
+    </div>
+    {% if showTaxDeduction is defined and showTaxDeduction %}
+        <div class="line col-12">
+            {{ form_label(payment.hasInputTaxDeduction) }}
+            {{ form_widget(payment.hasInputTaxDeduction) }}
+            {{ form_errors(payment.hasInputTaxDeduction) }}
+        </div>
+    {% endif %}
+</div>

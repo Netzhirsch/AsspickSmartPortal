@@ -67,6 +67,15 @@
 							<i class="fad fa-car-tilt"></i>
 							Schadenanzeige KFZ
 						</a>
+						<a
+								href="{{ path('damageCase_generalDamage_index') }}"
+								{% if app.request.get('_route')
+									== 'damageCase_generalDamage_index' %} class="active"
+								{% endif %}
+						>
+							<i class="fad fa-money-check-edit"></i>
+							Schadenanzeige SACH
+						</a>
 					</div>
 				</div>
 				<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>

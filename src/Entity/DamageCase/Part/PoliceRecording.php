@@ -3,6 +3,8 @@
 namespace App\Entity\DamageCase\Part;
 
 use App\Repository\DamageCase\Part\PoliceRecordingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,47 @@ class PoliceRecording
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $diaryNumber;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasCriminalProceedings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=CriminalProceedingsAgainstTyp::class)
+     */
+    private $criminalProceedingsAgainst;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isWarnedWithCharge;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasDrugUse;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasDrugTest;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=1, nullable=true)
+     */
+    private $drugTestResult;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=WhoIsWarnedWithCharge::class)
+     */
+    private $whoIsWarnedWithCharge;
+
+    public function __construct()
+    {
+        $this->criminalProceedingsAgainst = new ArrayCollection();
+        $this->whoIsWarnedWithCharge = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +129,114 @@ class PoliceRecording
     public function setDiaryNumber(?string $diaryNumber): self
     {
         $this->diaryNumber = $diaryNumber;
+
+        return $this;
+    }
+
+    public function getHasCriminalProceedings(): ?bool
+    {
+        return $this->hasCriminalProceedings;
+    }
+
+    public function setHasCriminalProceedings(?bool $hasCriminalProceedings): self
+    {
+        $this->hasCriminalProceedings = $hasCriminalProceedings;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CriminalProceedingsAgainstTyp[]
+     */
+    public function getCriminalProceedingsAgainst(): Collection
+    {
+        return $this->criminalProceedingsAgainst;
+    }
+
+    public function addCriminalProceedingsAgainst(CriminalProceedingsAgainstTyp $criminalProceedingsAgainst): self
+    {
+        if (!$this->criminalProceedingsAgainst->contains($criminalProceedingsAgainst)) {
+            $this->criminalProceedingsAgainst[] = $criminalProceedingsAgainst;
+        }
+
+        return $this;
+    }
+
+    public function removeCriminalProceedingsAgainst(CriminalProceedingsAgainstTyp $criminalProceedingsAgainst): self
+    {
+        $this->criminalProceedingsAgainst->removeElement($criminalProceedingsAgainst);
+
+        return $this;
+    }
+
+    public function getIsWarnedWithCharge(): ?bool
+    {
+        return $this->isWarnedWithCharge;
+    }
+
+    public function setIsWarnedWithCharge(?bool $isWarnedWithCharge): self
+    {
+        $this->isWarnedWithCharge = $isWarnedWithCharge;
+
+        return $this;
+    }
+
+    public function getHasDrugUse(): ?bool
+    {
+        return $this->hasDrugUse;
+    }
+
+    public function setHasDrugUse(?bool $hasDrugUse): self
+    {
+        $this->hasDrugUse = $hasDrugUse;
+
+        return $this;
+    }
+
+    public function getHasDrugTest(): ?bool
+    {
+        return $this->hasDrugTest;
+    }
+
+    public function setHasDrugTest(?bool $hasDrugTest): self
+    {
+        $this->hasDrugTest = $hasDrugTest;
+
+        return $this;
+    }
+
+    public function getDrugTestResult(): ?string
+    {
+        return $this->drugTestResult;
+    }
+
+    public function setDrugTestResult(?string $drugTestResult): self
+    {
+        $this->drugTestResult = $drugTestResult;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WhoIsWarnedWithCharge[]
+     */
+    public function getWhoIsWarnedWithCharge(): Collection
+    {
+        return $this->whoIsWarnedWithCharge;
+    }
+
+    public function addWhoIsWarnedWithCharge(WhoIsWarnedWithCharge $whoIsWarnedWithCharge): self
+    {
+        if (!$this->whoIsWarnedWithCharge->contains($whoIsWarnedWithCharge)) {
+            $this->whoIsWarnedWithCharge[] = $whoIsWarnedWithCharge;
+        }
+
+        return $this;
+    }
+
+    public function removeWhoIsWarnedWithCharge(WhoIsWarnedWithCharge $whoIsWarnedWithCharge): self
+    {
+        $this->whoIsWarnedWithCharge->removeElement($whoIsWarnedWithCharge);
 
         return $this;
     }

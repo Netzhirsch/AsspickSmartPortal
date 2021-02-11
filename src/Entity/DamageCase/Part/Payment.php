@@ -18,29 +18,39 @@ class Payment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bank;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $iban;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bic;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $accountHolder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=PaymentTransferToTyp::class)
+     */
+    private $transferTo;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasInputTaxDeduction;
 
     public function getId(): ?int
     {
@@ -103,6 +113,30 @@ class Payment
     public function setAccountHolder(string $accountHolder): self
     {
         $this->accountHolder = $accountHolder;
+
+        return $this;
+    }
+
+    public function getTransferTo(): ?PaymentTransferToTyp
+    {
+        return $this->transferTo;
+    }
+
+    public function setTransferTo(?PaymentTransferToTyp $transferTo): self
+    {
+        $this->transferTo = $transferTo;
+
+        return $this;
+    }
+
+    public function getHasInputTaxDeduction(): ?bool
+    {
+        return $this->hasInputTaxDeduction;
+    }
+
+    public function setHasInputTaxDeduction(?bool $hasInputTaxDeduction): self
+    {
+        $this->hasInputTaxDeduction = $hasInputTaxDeduction;
 
         return $this;
     }

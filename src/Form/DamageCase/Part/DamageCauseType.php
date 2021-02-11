@@ -2,7 +2,7 @@
 
 namespace App\Form\DamageCase\Part;
 
-use App\Entity\DamageCase\Part\DamageCause;
+use App\Entity\DamageCase\Part\Damage\DamageCause;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

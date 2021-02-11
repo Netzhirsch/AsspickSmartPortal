@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\DamageCase\Part;
+namespace App\Entity\DamageCase\Part\Damage;
 
-use App\Repository\DamageCase\Part\DamageCauseRepository;
+use App\Repository\DamageCase\Part\Damage\DamageCauseRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 

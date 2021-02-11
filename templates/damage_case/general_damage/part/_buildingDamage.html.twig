@@ -1,0 +1,39 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(buildingDamage) }}
+        </h2>
+    </header>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.relationshipToBuilding) }}
+        {{ form_widget(buildingDamage.relationshipToBuilding) }}
+        {{ form_errors(buildingDamage.relationshipToBuilding) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.isDamageInRentedRooms) }}
+        {{ form_widget(buildingDamage.isDamageInRentedRooms) }}
+        {{ form_errors(buildingDamage.isDamageInRentedRooms) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.tenantFirstname) }}
+        {{ form_widget(buildingDamage.tenantFirstname) }}
+        {{ form_errors(buildingDamage.tenantFirstname) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.tenantLastname) }}
+        {{ form_widget(buildingDamage.tenantLastname) }}
+        {{ form_errors(buildingDamage.tenantLastname) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.homeInsurer) }}
+        {{ form_widget(buildingDamage.homeInsurer) }}
+        {{ form_errors(buildingDamage.homeInsurer) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(buildingDamage.homeInsurerNumber) }}
+        {{ form_widget(buildingDamage.homeInsurerNumber) }}
+        {{ form_errors(buildingDamage.homeInsurerNumber) }}
+    </div>
+</div>

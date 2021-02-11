@@ -1,0 +1,59 @@
+<div class="content">
+    <header>
+        <h2>
+            {{ form_label(damageEvent) }}
+        </h2>
+    </header>
+    <div class="line col-8">
+        {{ form_label(damageEvent.date) }}
+        {{ form_widget(damageEvent.date) }}
+        {{ form_errors(damageEvent.date) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.time) }}
+        {{ form_widget(damageEvent.time) }}
+        {{ form_errors(damageEvent.time) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.location) }}
+        {{ form_widget(damageEvent.location) }}
+        {{ form_errors(damageEvent.location) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-24">
+        {{ form_label(damageEvent.description) }}
+        {{ form_widget(damageEvent.description) }}
+        {{ form_errors(damageEvent.description) }}
+    </div>
+    <div class="newline"></div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.damageAmount) }}
+        {% set number = '' %}
+        {% if form.vars.value.damageEvent is not empty %}
+            {% set number = form.vars.value.damageEvent.damageAmount %}
+            {% set number = number|number_format(2,",","." ) %}
+        {% endif %}
+        {{ form_widget(damageEvent.damageAmount, {'value':number}) }}
+        {{ form_errors(damageEvent.damageAmount) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.damageAmountOnOpponent) }}
+        {% set number = '' %}
+        {% if form.vars.value.damageEvent is not empty %}
+            {% set number = form.vars.value.damageEvent.damageAmountOnOpponent %}
+            {% set number = number|number_format(2,",","." ) %}
+        {% endif %}
+        {{ form_widget(damageEvent.damageAmountOnOpponent, {'value':number}) }}
+        {{ form_errors(damageEvent.damageAmountOnOpponent) }}
+    </div>
+    <div class="line col-8">
+        {{ form_label(damageEvent.causedBy) }}
+        {{ form_widget(damageEvent.causedBy) }}
+        {{ form_errors(damageEvent.causedBy) }}
+    </div>
+    <div class="line col-24">
+        {{ form_label(damageEvent.typs) }}
+        {{ form_widget(damageEvent.typs) }}
+        {{ form_errors(damageEvent.typs) }}
+    </div>
+</div>
