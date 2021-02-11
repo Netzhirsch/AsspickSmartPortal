@@ -266,7 +266,6 @@ trait ControllerTrait
         $newFile = new File();
         $newFile->setUploadAt((new DateTime()));
         $newFile->setName($name);
-        $newFile->setSize($file->getSize());
         $newFile->setExtension($extension);
         $entity->addFile($newFile);
         $em->persist($newFile);

@@ -32,11 +32,6 @@ class File
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $size;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $extension;
@@ -81,18 +76,6 @@ class File
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(?string $size): self
-    {
-        $this->size = $size;
 
         return $this;
     }
