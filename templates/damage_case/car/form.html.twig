@@ -103,7 +103,10 @@
                 with {'payment':form.payment,'showTyp':true,'showTaxDeduction':true}
             %}
             {% include 'damage_case/part/_photo.html.twig'
-                with {'backTo':constant('App\\Entity\\DamageCase\\Car\\Car::UPLOAD_FOLDER'),'entityId':form.vars.value.id}
+                with {
+                'backTo':constant('App\\Entity\\DamageCase\\Car\\Car::FORM_ROUTES')|join(','),
+                'entityId':form.vars.value.id
+                }
             %}
             <div class="content">
                 <div class="line">

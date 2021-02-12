@@ -23,6 +23,10 @@ use Doctrine\ORM\Mapping as ORM;
 class GeneralDamage
 {
     const UPLOAD_FOLDER = 'generalDamage';
+    const FORM_ROUTES = [
+        'new' => 'damageCase_generalDamage_new',
+        'edit' => 'damageCase_generalDamage_edit',
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

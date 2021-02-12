@@ -22,6 +22,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Car
 {
     const UPLOAD_FOLDER = 'car';
+    const FORM_ROUTES = [
+        'new' => 'damageCase_car_new',
+        'edit' => 'damageCase_car_edit',
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

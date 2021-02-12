@@ -88,7 +88,7 @@ ohne dass hierdurch der Versicherer einen Nachteil erleidet.
             {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment,'showTaxDeduction':true}%}
             {% include 'damage_case/part/_photo.html.twig'
                 with {
-                'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::UPLOAD_FOLDER'),
+                'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::FORM_ROUTES')|join(','),
                 'entityId':form.vars.value.id
             }
             %}

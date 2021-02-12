@@ -133,23 +133,11 @@ class FileController extends AbstractController
         return $entity;
     }
 
-    private function getBackToUrl(string $backTo, int $entityId){
-        $getBackToUrl = 'getBackToUrlFor'.ucfirst($backTo);
-        return $this->$getBackToUrl($entityId);
-    }
-
-    /** @noinspection PhpUnusedPrivateMethodInspection dynamischer aufruf über getBackToUrl*/
-    private function getBackToUrlForLiability(int $entityId) :string {
-        return $backTo = $this->generateUrl('damageCase_liability_edit',['id' => $entityId]);
-    }
-
-    /** @noinspection PhpUnusedPrivateMethodInspection dynamischer aufruf über getBackToUrl*/
-    private function getBackToUrlForCar(int $entityId) :string {
-        return $backTo = $this->generateUrl('damageCase_car_edit',['id' => $entityId]);
-    }
-
-    /** @noinspection PhpUnusedPrivateMethodInspection dynamischer aufruf über getBackToUrl*/
-    private function getBackToUrlForGeneralDamage(int $entityId) :string {
-        return $backTo = $this->generateUrl('damageCase_generalDamage_edit',['id' => $entityId]);
+    private function getBackToUrl(string $backTo,?int $entityId): string
+    {
+        $backTo = explode(',', $backTo);
+        if (empty($entityId))
+            return $this->generateUrl($backTo[0]);
+        return $this->generateUrl($backTo[1],['id' => $entityId]);
     }
 }

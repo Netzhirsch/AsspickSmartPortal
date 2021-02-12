@@ -122,7 +122,7 @@
             </div>
             {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment} %}
             {% include 'damage_case/part/_photo.html.twig'
-                with {'backTo':constant('App\\Entity\\DamageCase\\Liability::UPLOAD_FOLDER'),'entityId':form.vars.value.id} %}
+                with {'backTo':constant('App\\Entity\\DamageCase\\Liability::FORM_ROUTES')|join(','),'entityId':form.vars.value.id} %}
             <div class="content">
                 <div class="line">
                     <button type="submit" class="btn">speichern</button>
