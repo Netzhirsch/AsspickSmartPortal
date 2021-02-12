@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"username"}, message="Der Benutzername wird bereits verwendet")
+ * @UniqueEntity(fields={"email"}, message="Die E-Mail Adresse wird bereits verwendet")
  */
 class User implements UserInterface
 {
@@ -19,11 +19,6 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $username;
 
     /**
      * @ORM\Column(type="json")
@@ -37,7 +32,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
@@ -68,12 +63,12 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->email = $username;
 
         return $this;
     }
@@ -152,10 +147,5 @@ class User implements UserInterface
         $this->isVerified = $isVerified;
 
         return $this;
-    }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->isVerified;
     }
 }

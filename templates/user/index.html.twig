@@ -20,7 +20,6 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>{{ knp_pagination_sortable(users,'Benutzername','u.username') }}</th>
                             <th>{{ knp_pagination_sortable(users,'E-Mail Adresse','u.email') }}</th>
                             <th>{{ knp_pagination_sortable(users,'Rechte','u.role') }}</th>
                             <th class="actions">
@@ -33,7 +32,6 @@
                         <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{ user }}</td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ ("ROLE_ADMIN" in user.roles ? "Admin" : "Benutzer") }}</td>
                                 <td class="actions">
