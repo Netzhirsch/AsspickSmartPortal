@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('fibo_delete', {'id': fibo.id}) }}" onsubmit="return confirm('Wollen Sie das Fibo Kürzel wirklich löschen');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ fibo.id) }}">
+    <button class="btn red">löschen</button>
+</form>

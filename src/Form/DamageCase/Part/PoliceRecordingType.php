@@ -10,6 +10,7 @@ use App\Repository\DamageCase\Part\CriminalProceedingsAgainstTypRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +34,7 @@ class PoliceRecordingType extends AbstractType
                 'required' => false,
                 'placeholder' => false
             ])
-            ->add('department',TextType::class,[
+            ->add('department',TextareaType::class,[
                 'label' => 'Dienststelle',
                 'required' => false
             ])

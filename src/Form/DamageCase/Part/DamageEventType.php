@@ -34,6 +34,9 @@ class DamageEventType extends AbstractType
             ->add('location',TextType::class,[
                 'label' => 'Ort',
             ])
+            ->add('locationTwo',TextType::class,[
+                'label' => 'zweiter Ort',
+            ])
             ->add('description',TextareaType::class,[
                 'label' => 'Schadenschilderung',
             ])

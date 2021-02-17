@@ -78,10 +78,22 @@
 						</a>
 					</div>
 				</div>
-				<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
-					<i class="fad fa-user-alt"></i>
-					Benutzerverwaltung
-				</a>
+				<div class="submenu-wrapper">
+					<h2{{ app.request.get('_route') in userRoutes ? ' class="active"' }}>
+						<i class="fad fa-user-alt"></i>
+						Benutzerverwaltung
+					</h2>
+					<div class="submenu">
+						<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
+							<i class="fad fa-user-alt"></i>
+							Benutzer
+						</a>
+						<a href="{{ path('fibo_index') }}"{% if app.request.get('_route') == 'fibo_index' %} class="active"{% endif %}>
+							<i class="fad fa-barcode"></i>
+							Fibo Kürzel
+						</a>
+					</div>
+				</div>
 			</nav>
 		</div>
 	{% endif %}

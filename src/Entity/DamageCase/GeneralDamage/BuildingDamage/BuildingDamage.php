@@ -15,37 +15,37 @@ class BuildingDamage
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=RelationshipToBuilding::class)
      */
-    private $relationshipToBuilding;
+    private ?RelationshipToBuilding $relationshipToBuilding;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isDamageInRentedRooms;
+    private ?bool $isDamageInRentedRooms;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tenantFirstname;
+    private ?string $tenantFirstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tenantLastname;
+    private ?string $tenantLastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $homeInsurer;
+    private ?string $homeInsurer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $homeInsurerNumber;
+    private ?string $homeInsurerNumber;
 
     public function getId(): ?int
     {

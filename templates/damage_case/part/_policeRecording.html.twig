@@ -4,16 +4,10 @@
             {{ form_label(policeRecording) }}
         </h2>
     </header>
-    <div class="line col-24">
+    <div class="line col-4">
         {{ form_label(policeRecording.isRecorded) }}
         {{ form_widget(policeRecording.isRecorded) }}
         {{ form_errors(policeRecording.isRecorded) }}
-    </div>
-    <div class="newline"></div>
-    <div class="line col-8">
-        {{ form_label(policeRecording.department) }}
-        {{ form_widget(policeRecording.department) }}
-        {{ form_errors(policeRecording.department) }}
     </div>
     <div class="line col-8">
         {{ form_label(policeRecording.fileReference) }}
@@ -24,6 +18,11 @@
         {{ form_label(policeRecording.diaryNumber) }}
         {{ form_widget(policeRecording.diaryNumber) }}
         {{ form_errors(policeRecording.diaryNumber) }}
+    </div>
+    <div class="line col-24">
+        {{ form_label(policeRecording.department) }}
+        {{ form_widget(policeRecording.department) }}
+        {{ form_errors(policeRecording.department) }}
     </div>
     <div class="newline"></div>
     {% if showLong is defined and showLong %}
@@ -37,6 +36,8 @@
             {{ form_widget(policeRecording.criminalProceedingsAgainst) }}
             {{ form_errors(policeRecording.criminalProceedingsAgainst) }}
         </div>
+    {% endif %}
+    {% if showCar is defined and showCar %}
         <div class="line col-8">
             {{ form_label(policeRecording.isWarnedWithCharge) }}
             {{ form_widget(policeRecording.isWarnedWithCharge) }}

@@ -19,37 +19,37 @@ class File
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $uploadAt;
+    private ?DateTimeInterface $uploadAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $extension;
+    private ?string $extension;
 
     /**
      * @ORM\ManyToOne(targetEntity=Liability::class, inversedBy="files")
      */
-    private $liability;
+    private ?Liability $liability;
 
     /**
      * @ORM\ManyToOne(targetEntity=Car::class, inversedBy="files")
      */
-    private $car;
+    private ?Car $car;
 
     /**
      * @ORM\ManyToOne(targetEntity=GeneralDamage::class, inversedBy="files")
      */
-    private $generalDamage;
+    private ?GeneralDamage $generalDamage;
 
     public function getId(): ?int
     {

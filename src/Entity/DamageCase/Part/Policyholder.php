@@ -15,42 +15,42 @@ class Policyholder
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $postCode;
+    private ?string $postCode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone;
+    private ?string $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private ?string $email;
 
     public function getId(): ?int
     {

@@ -7,7 +7,7 @@ use Twig\Environment;
 
 class TwigEventSubscriber implements EventSubscriberInterface
 {
-    private $twig;
+    private Environment $twig;
 
     public function __construct(Environment $twig) {
         $this->twig = $twig;
@@ -15,12 +15,21 @@ class TwigEventSubscriber implements EventSubscriberInterface
 
     public function onKernelController() {
 
-        $damageCases = [
-            'damageCase_liability_index'
-        ];
         $this->twig->addGlobal(
-            'damageCaseRoutes',$damageCases
+            'damageCaseRoutes',[
+                'damageCase_liability_index',
+                'damageCase_car_index',
+                'damageCase_generalDamage_index',
+            ]
         );
+
+        $this->twig->addGlobal(
+            'userRoutes',[
+                'user_index',
+                'fibo_index',
+            ]
+        );
+
     }
 
     public static function getSubscribedEvents(): array

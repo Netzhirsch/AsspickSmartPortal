@@ -32,7 +32,9 @@
                 {% include 'damage_case/car/part/_insured.html.twig' %}
             </div>
             {% include 'damage_case/part/_policyholder.html.twig' %}
-            {% include 'damage_case/car/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
+            {% include 'damage_case/car/part/_damageEvent.html.twig'
+                with {'damageEvent':form.damageEvent,'showLocationTwo':true}
+            %}
             <div class="content">
                 <header>
                     <h2>
@@ -86,7 +88,7 @@
             </div>
             {% include 'damage_case/car/part/_opponentCar.html.twig' with {'opponentCar':form.opponentCar}%}
             {% include 'damage_case/part/_policeRecording.html.twig'
-                with {'policeRecording':form.policeRecording, 'showLong':true} %}
+                with {'policeRecording':form.policeRecording, 'showLong':true, 'showCar':true} %}
             {% include 'damage_case/part/_witness.html.twig' %}
             <div class="content">
                 <header>

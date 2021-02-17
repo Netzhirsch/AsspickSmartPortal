@@ -8,9 +8,8 @@ use App\Controller\ControllerTrait;
 use App\Entity\DamageCase\Liability;
 use App\Form\DamageCase\LiabilityType;
 use App\Repository\DamageCase\LiabilityRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -20,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  * @Route ("/damageCase/liability")
  */
-class LiabilityController extends AbstractController
+class LiabilityController extends DamageCaseController
 {
     use ControllerTrait;
 
@@ -48,8 +47,12 @@ class LiabilityController extends AbstractController
             $action = "erstellen";
             $liability = new Liability();
         } else {
-            $liability = $liabilityRepository->find($id);
             $action = "bearbeiten";
+            $liability = $liabilityRepository->find($id);
+            if (empty($liability)) {
+                $this->addFlashNotFound($id);
+                return $this->redirectToRoute('damageCase_liability_index');
+            }
         }
 
         $form = $this->createForm(LiabilityType::class,$liability);
@@ -76,16 +79,18 @@ class LiabilityController extends AbstractController
 
     /**
      * @Route("/download", name="damageCase_liability_download")
-     * @return BinaryFileResponse|JsonResponse
+     * @return BinaryFileResponse|RedirectResponse
      */
     public function downloadAction()
     {
         $filename = 'Schadenanzeige_HAFTPFLICHT';
         $filePath = $this->getUnfilledPdfDir().DIRECTORY_SEPARATOR.$filename.'.pdf';
 
-        if (!file_exists($filePath)) {
-            return new JsonResponse();
+        if (!file_exists($filePath)){
+            $this->addFlash('error', 'PDF konnte nicht gefunden werden:');
+            return $this->redirectToRoute('damageCase_liability_index');
         }
+
         $binaryFileResponse = new BinaryFileResponse($filePath);
         $binaryFileResponse->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
@@ -111,11 +116,7 @@ class LiabilityController extends AbstractController
 
         $liability = $liabilityRepository->find($id);
         if (empty($liability)) {
-            $this->addFlash(
-                'error',
-                'Haftpflicht Schadensanzeige mit der Id:'.$id.' nicht gefunden.'
-            );
-
+            $this->addFlashNotFound($id);
             return $this->redirectToRoute('damageCase_liability_index');
         } elseif ($this->isCsrfTokenValid('delete' . $liability->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -127,5 +128,20 @@ class LiabilityController extends AbstractController
         }
 
         return $this->redirectToRoute('damageCase_liability_index');
+    }
+
+    /**
+     * @Route("/{id}", name="damageCase_liability_lock", methods={"GET"})
+     * @param LiabilityRepository $liabilityRepository
+     * @param int $id
+     * @return Response
+     */
+    public function lockAction(
+        LiabilityRepository $liabilityRepository,
+        int $id
+    ): Response
+    {
+        $liability = $liabilityRepository->find($id);
+        return $this->lock($liability,$id);
     }
 }

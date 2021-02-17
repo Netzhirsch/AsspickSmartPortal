@@ -25,8 +25,8 @@
                         <tr>
                             <th>erstellt am</th>
                             <th>Versicherer</th>
-                            <th>Versicherungs-Nr/Schaden-Nr</th>
                             <th>Versicherungsnehmer</th>
+                            <th>Versicherungs-Nr/Schaden-Nr</th>
                             <th>Schadentag</th>
                             <th class="actions">
                                 <a href="{{ path('damageCase_liability_new') }}" class="btn green">
@@ -45,13 +45,23 @@
                                 <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
                                 <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
                                 <td class="actions">
-                                    {% include 'damage_case/liability/_delete.html.twig' %}
-                                    <a
-                                            href="{{ path('damageCase_liability_edit',{'id':entry.id})}}"
-                                            class="btn edit"
-                                    >
-                                        bearbeiten
-                                    </a>
+                                    {% if entry.isLocked %}
+                                        <button class="btn" type="button">gesendet</button>
+                                    {% else %}
+                                        {% include 'damage_case/liability/_delete.html.twig' %}
+                                        <a
+                                                href="{{ path('damageCase_liability_edit',{'id':entry.id})}}"
+                                                class="btn edit"
+                                        >
+                                            bearbeiten
+                                        </a>
+                                        <a
+                                                href="{{ path('damageCase_liability_lock',{'id':entry.id}) }}"
+                                                class="btn edit"
+                                        >
+                                            einreichen
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% else %}

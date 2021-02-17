@@ -128,6 +128,10 @@ class CarType extends AbstractType
             ->add('witness',WitnessType::class,[
                 'label' => 'Zeuge'
             ])
+            ->add('witnessTwo',WitnessType::class,[
+                'label' => 'Zeugen',
+                'required' => false,
+            ])
             ->add('other',TextareaType::class,[
                 'label' => 'Sonstiges',
                 'required' => false

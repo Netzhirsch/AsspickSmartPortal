@@ -15,53 +15,69 @@ class Claimant
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $postCode;
+    private ?string $postCode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone;
+    private ?string $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity=ClaimantTyp::class, inversedBy="claimants")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $typ;
+    private ?ClaimantTyp $typ;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $kindOfRelationship;
+    private ?string $kindOfRelationship;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isInDomesticCommunityWithMe;
+    private ?bool $isInDomesticCommunityWithMe;
+
+    public function __toString()
+    {
+        $name = '';
+        $firstname = $this->getFirstname();
+        if (empty($firstname))
+            return $name;
+        $name .= $firstname;
+
+        $lastname = $this->getLastname();
+        if (empty($lastname))
+            return $name;
+        $name .= ' '.$lastname;
+
+        return $name;
+    }
 
     public function getId(): ?int
     {

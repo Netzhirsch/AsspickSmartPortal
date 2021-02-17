@@ -32,72 +32,77 @@ class GeneralDamage
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=GeneralDamageTyp::class)
      */
-    private $typs;
+    private ArrayCollection $typs;
 
     /**
      * @ORM\OneToOne(targetEntity=Insured::class, cascade={"persist", "remove"})
      */
-    private $insured;
+    private ?Insured $insured;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
      */
-    private $policyholder;
+    private ?Policyholder $policyholder;
 
     /**
      * @ORM\OneToOne(targetEntity=Payment::class, cascade={"persist", "remove"})
      */
-    private $payment;
+    private ?Payment $payment;
 
     /**
      * @ORM\OneToOne(targetEntity=RepairCompany::class, cascade={"persist", "remove"})
      */
-    private $repairCompany;
+    private ?RepairCompany $repairCompany;
 
     /**
      * @ORM\OneToOne(targetEntity=PoliceRecording::class, cascade={"persist", "remove"})
      */
-    private $policeRecording;
+    private ?PoliceRecording $policeRecording;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTimeInterface $createdAt;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageEvent::class, cascade={"persist", "remove"})
      */
-    private $damageEvent;
+    private ?DamageEvent $damageEvent;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageCause::class, cascade={"persist", "remove"})
      */
-    private $damageCause;
+    private ?DamageCause $damageCause;
 
     /**
      * @ORM\OneToOne(targetEntity=BuildingDamage::class, cascade={"persist", "remove"})
      */
-    private $buildingDamage;
+    private ?BuildingDamage $buildingDamage;
 
     /**
      * @ORM\OneToOne(targetEntity=ItemsOtherInsurance::class, cascade={"persist", "remove"})
      */
-    private $itemsOtherInsurance;
+    private ?ItemsOtherInsurance $itemsOtherInsurance;
 
     /**
      * @ORM\OneToOne(targetEntity=TraceOfBreakIn::class, cascade={"persist", "remove"})
      */
-    private $traceOfBreakIn;
+    private ?TraceOfBreakIn $traceOfBreakIn;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="generalDamage", cascade={"persist", "remove"})
      */
-    private $files;
+    private ArrayCollection $files;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $isLocked;
 
 
     public function __construct()
@@ -294,6 +299,18 @@ class GeneralDamage
                 $file->setGeneralDamage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsLocked(): ?bool
+    {
+        return $this->isLocked;
+    }
+
+    public function setIsLocked(bool $isLocked): self
+    {
+        $this->isLocked = $isLocked;
 
         return $this;
     }

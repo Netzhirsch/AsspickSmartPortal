@@ -21,6 +21,7 @@
                         <thead>
                         <tr>
                             <th>{{ knp_pagination_sortable(users,'E-Mail Adresse','u.email') }}</th>
+                            <th>{{ knp_pagination_sortable(users,'Status','u.isVerified') }}</th>
                             <th>{{ knp_pagination_sortable(users,'Rechte','u.role') }}</th>
                             <th class="actions">
                                 <a class="btn green" href="{{ path('user_new') }}" title="neuen Benutzer erstellen">
@@ -33,6 +34,7 @@
                         {% for user in users %}
                             <tr>
                                 <td>{{ user.email }}</td>
+                                <td>{{ user.isVerified?'aktiviert':'deaktiviert' }}</td>
                                 <td>{{ ("ROLE_ADMIN" in user.roles ? "Admin" : "Benutzer") }}</td>
                                 <td class="actions">
                                     {% include "user/_delete_form.html.twig" %}

@@ -1,0 +1,56 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Fibo{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>Fibo</h2>
+            </header>
+            <div class="content">
+                <i class="fa fa-pdf"></i>
+                {{ form_start(form) }}
+                    <div class="line col-8">
+                        {{ form_label(form.file) }}
+                        {{ form_widget(form.file) }}
+                        {{ form_errors(form.file) }}
+                    </div>
+                <div class="line col-8">
+                    <button type="submit" class="btn">speichern</button>
+                </div>
+                {{ form_row(form._token) }}
+                {{ form_end(form,{'render_rest':false}) }}
+            </div>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Kürzel</th>
+                            <th class="actions">
+                                <a class="btn green" href="{{ path('fibo_new') }}">Neues Fibo Kürzel erstellen</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for fibo in fibos %}
+                            <tr>
+                                <td>{{ fibo.code }}</td>
+                                <td class="actions">
+                                    {{ include('fibo/_delete_form.html.twig') }}
+                                    <a class="btn" href="{{ path('fibo_edit', {'id': fibo.id}) }}">bearbeiten</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2">Keine Fibo Kürzel im System.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

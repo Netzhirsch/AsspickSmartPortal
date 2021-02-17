@@ -14,11 +14,25 @@
         {{ form_widget(damageEvent.time) }}
         {{ form_errors(damageEvent.time) }}
     </div>
-    <div class="line col-8">
+
+    <div class="newline"></div>
+    {% set class = 'line col-16' %}
+    {% if showLocationTwo is defined and showLocationTwo %}
+        {% set class = 'line col-8' %}
+    {% endif %}
+    <div class="{{ class }}">
         {{ form_label(damageEvent.location) }}
         {{ form_widget(damageEvent.location) }}
         {{ form_errors(damageEvent.location) }}
     </div>
+    {% if showLocationTwo is defined and showLocationTwo %}
+        <div class="{{ class }}">
+            {{ form_label(damageEvent.locationTwo) }}
+            {{ form_widget(damageEvent.locationTwo) }}
+            {{ form_errors(damageEvent.locationTwo) }}
+        </div>
+    {% endif %}
+
     <div class="newline"></div>
     <div class="line col-24">
         {{ form_label(damageEvent.description) }}

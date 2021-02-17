@@ -16,47 +16,57 @@ class DamageCause
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $postcode;
+    private ?string $postcode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone;
+    private ?string $phone;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $dateOfBirth;
+    private ?DateTimeInterface $dateOfBirth;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $location;
+    private ?string $location;
+
+    public function __toString()
+    {
+        $name = '';
+        $firstname = $this->getFirstname();
+        if (!empty($firstname))
+            $name .= $firstname;
+
+        $lastname = $this->getLastname();
+        if (empty($lastname))
+            return $name;
+
+        return $name.' '.$lastname;
+    }
 
     public function getId(): ?int
     {
@@ -119,18 +129,6 @@ class DamageCause
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }

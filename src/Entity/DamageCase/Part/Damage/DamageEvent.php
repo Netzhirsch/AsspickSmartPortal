@@ -18,32 +18,32 @@ class DamageEvent
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date;
+    private ?DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="time", nullable=true)
      */
-    private $time;
+    private ?DateTimeInterface $time;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $itemsDamaged;
+    private ?string $itemsDamaged;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
@@ -53,27 +53,32 @@ class DamageEvent
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $numberOfVehiclesInvolved;
+    private ?int $numberOfVehiclesInvolved;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $damageAmountOnOpponent;
+    private ?string $damageAmountOnOpponent;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageCausedBy::class, cascade={"persist", "remove"})
      */
-    private $causedBy;
+    private ?DamageCausedBy $causedBy;
 
     /**
      * @ORM\ManyToMany(targetEntity=DamageTyp::class)
      */
-    private $typs;
+    private ArrayCollection $typs;
 
     /**
      * @ORM\ManyToMany(targetEntity=CauseOfDamageTyp::class)
      */
-    private $causeOfDamage;
+    private ArrayCollection $causeOfDamage;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $locationTwo;
 
     public function __construct()
     {
@@ -239,6 +244,18 @@ class DamageEvent
     public function removeCauseOfDamage(CauseOfDamageTyp $causeOfDamage): self
     {
         $this->causeOfDamage->removeElement($causeOfDamage);
+
+        return $this;
+    }
+
+    public function getLocationTwo(): ?string
+    {
+        return $this->locationTwo;
+    }
+
+    public function setLocationTwo(?string $locationTwo): self
+    {
+        $this->locationTwo = $locationTwo;
 
         return $this;
     }

@@ -15,37 +15,37 @@ class RepairCompany
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $postCode;
+    private ?string $postCode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $phone;
+    private ?string $phone;
 
     public function getId(): ?int
     {

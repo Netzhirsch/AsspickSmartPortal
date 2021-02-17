@@ -25,21 +25,4 @@
         {{ form_widget(damageEvent.description) }}
         {{ form_errors(damageEvent.description) }}
     </div>
-    <div class="newline"></div>
-    <div class="line col-24">
-        {{ form_label(damageEvent.itemsDamaged) }}
-        {{ form_widget(damageEvent.itemsDamaged) }}
-        {{ form_errors(damageEvent.itemsDamaged) }}
-    </div>
-    <div class="newline"></div>
-    <div class="line col-8">
-        {{ form_label(damageEvent.damageAmount) }}
-        {% set number = ''  %}
-        {% if form.vars.value is not empty and form.vars.value.damageEvent is not empty %}
-            {% set number = form.vars.value.damageEvent.damageAmount  %}
-            {% set number = number|number_format(2,",","." )%}
-        {% endif %}
-        {{ form_widget(damageEvent.damageAmount, {'value':number}) }}
-        {{ form_errors(damageEvent.damageAmount) }}
-    </div>
 </div>

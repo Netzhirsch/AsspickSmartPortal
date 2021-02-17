@@ -9,6 +9,7 @@ use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
 use App\Entity\DamageCase\Part\Witness;
 use App\Entity\File;
+use App\PDF\DamageCase\CarPDF;
 use App\Repository\DamageCase\Car\CarRepository;
 use DateTime;
 use DateTimeInterface;
@@ -23,115 +24,127 @@ class Car
 {
     const UPLOAD_FOLDER = 'car';
     const FORM_ROUTES = [
+        'index' => 'damageCase_car_index',
         'new' => 'damageCase_car_new',
         'edit' => 'damageCase_car_edit',
     ];
+    const PDF_CLASS = CarPDF::class;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypOfInsurance::class, inversedBy="cars")
      */
-    private $typOfInsurance;
+    private ?TypOfInsurance $typOfInsurance;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypOfTrip::class, inversedBy="cars")
      */
-    private $typOfTrip;
+    private ?TypOfTrip $typOfTrip;
 
     /**
      * @ORM\OneToOne(targetEntity=Insured::class, inversedBy="car", cascade={"persist", "remove"})
      */
-    private $insured;
+    private ?Insured $insured;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
      */
-    private $policyholder;
+    private ?Policyholder $policyholder;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageEvent::class, cascade={"persist", "remove"})
      */
-    private $damageEvent;
+    private ?DamageEvent $damageEvent;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $licensePlate;
+    private ?string $licensePlate;
 
     /**
      * @ORM\OneToOne(targetEntity=Driver::class, cascade={"persist", "remove"})
      */
-    private $driver;
+    private ?Driver $driver;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasOwnClaims;
+    private ?bool $hasOwnClaims;
 
     /**
      * @ORM\OneToOne(targetEntity=AccidentOpponent::class, cascade={"persist", "remove"})
      */
-    private $accidentOpponent;
+    private ?AccidentOpponent $accidentOpponent;
 
     /**
      * @ORM\OneToOne(targetEntity=OpponentCar::class, cascade={"persist", "remove"})
      */
-    private $opponentCar;
+    private ?OpponentCar $opponentCar;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $typeOfInjury;
+    private ?string $typeOfInjury;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTimeInterface $createdAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=TheftProtectionTyp::class)
      */
-    private $theftProtection;
+    private ArrayCollection $theftProtection;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $viewedOn;
+    private ?string $viewedOn;
 
     /**
      * @ORM\ManyToMany(targetEntity=WhoseCar::class)
      */
-    private $whoseCars;
+    private ArrayCollection $whoseCars;
 
     /**
      * @ORM\OneToOne(targetEntity=PoliceRecording::class, cascade={"persist", "remove"})
      */
-    private $policeRecording;
+    private ?PoliceRecording $policeRecording;
 
     /**
      * @ORM\OneToOne(targetEntity=Witness::class, cascade={"persist", "remove"})
      */
-    private $witness;
+    private ?Witness $witness;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $other;
+    private ?string $other;
 
     /**
      * @ORM\OneToOne(targetEntity=Payment::class, cascade={"persist", "remove"})
      */
-    private $payment;
+    private ?Payment $payment;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="car", cascade={"persist", "remove"})
      */
-    private $files;
+    private ArrayCollection $files;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $isLocked;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Witness::class, cascade={"persist", "remove"})
+     */
+    private ?Witness $witnessTwo;
 
     public function __construct()
     {
@@ -424,6 +437,30 @@ class Car
                 $file->setCar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsLocked(): ?bool
+    {
+        return $this->isLocked;
+    }
+
+    public function setIsLocked(bool $isLocked): self
+    {
+        $this->isLocked = $isLocked;
+
+        return $this;
+    }
+
+    public function getWitnessTwo(): ?Witness
+    {
+        return $this->witnessTwo;
+    }
+
+    public function setWitnessTwo(?Witness $witnessTwo): self
+    {
+        $this->witnessTwo = $witnessTwo;
 
         return $this;
     }

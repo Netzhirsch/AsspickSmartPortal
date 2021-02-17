@@ -12,6 +12,7 @@ use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
 use App\Entity\DamageCase\Part\Witness;
 use App\Entity\File;
+use App\PDF\DamageCase\LiabilityPDF;
 use App\Repository\DamageCase\LiabilityRepository;
 use DateTime;
 use DateTimeInterface;
@@ -26,80 +27,92 @@ class Liability
 {
     const UPLOAD_FOLDER = 'liability';
     const FORM_ROUTES= [
+        'index' => 'damageCase_liability_index',
         'new' => 'damageCase_liability_new',
         'edit' => 'damageCase_liability_edit'
     ];
+    const PDF_CLASS = LiabilityPDF::class;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\OneToOne(targetEntity=Insured::class, cascade={"persist", "remove"})
      */
-    private $insured;
+    private ?Insured $insured;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
      */
-    private $policyholder;
+    private ?Policyholder $policyholder;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageEvent::class, cascade={"persist", "remove"})
      */
-    private $damageEvent;
+    private ?DamageEvent $damageEvent;
 
     /**
      * @ORM\OneToOne(targetEntity=DamageCause::class, cascade={"persist", "remove"})
      */
-    private $damageCause;
+    private ?DamageCause $damageCause;
 
     /**
      * @ORM\OneToOne(targetEntity=Witness::class, cascade={"persist", "remove"})
      */
-    private $witness;
+    private ?Witness $witness;
 
     /**
      * @ORM\OneToOne(targetEntity=PoliceRecording::class, cascade={"persist", "remove"})
      */
-    private $policeRecording;
+    private ?PoliceRecording $policeRecording;
 
     /**
      * @ORM\OneToOne(targetEntity=Claimant::class, cascade={"persist", "remove"})
      */
-    private $claimant;
+    private ?Claimant $claimant;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isRepairPossible;
+    private ?bool $isRepairPossible;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeOfOwnership::class)
      */
-    private $typeOfOwnership;
+    private ?TypeOfOwnership $typeOfOwnership;
 
     /**
      * @ORM\OneToOne(targetEntity=PersonalInjury::class, cascade={"persist", "remove"})
      */
-    private $personalInjury;
+    private ?PersonalInjury $personalInjury;
 
     /**
      * @ORM\OneToOne(targetEntity=Payment::class, cascade={"persist", "remove"})
      */
-    private $payment;
+    private ?Payment $payment;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="liability", cascade={"persist", "remove"})
      */
-    private $files;
+    private ArrayCollection $files;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?DateTimeInterface $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $isLocked;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Witness::class, cascade={"persist", "remove"})
+     */
+    private ?Witness $witnessTwo;
 
     public function __construct()
     {
@@ -282,6 +295,30 @@ class Liability
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsLocked(): ?bool
+    {
+        return $this->isLocked;
+    }
+
+    public function setIsLocked(bool $isLocked): self
+    {
+        $this->isLocked = $isLocked;
+
+        return $this;
+    }
+
+    public function getWitnessTwo(): ?Witness
+    {
+        return $this->witnessTwo;
+    }
+
+    public function setWitnessTwo(?Witness $witnessTwo): self
+    {
+        $this->witnessTwo = $witnessTwo;
 
         return $this;
     }

@@ -15,22 +15,22 @@ class ItemsOtherInsurance
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasOtherInsurance;
+    private ?bool $hasOtherInsurance;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $insured;
+    private ?string $insured;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $insuranceNumber;
+    private ?string $insuranceNumber;
 
     public function getId(): ?int
     {

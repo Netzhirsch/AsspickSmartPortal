@@ -8,7 +8,6 @@ use App\Controller\ControllerTrait;
 use App\Entity\DamageCase\Car\Car;
 use App\Form\DamageCase\Car\CarType;
 use App\Repository\DamageCase\Car\CarRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  * @Route ("/damageCase/car")
  */
-class CarController extends AbstractController
+class CarController extends DamageCaseController
 {
     use ControllerTrait;
 
@@ -134,4 +133,18 @@ class CarController extends AbstractController
         return $this->redirectToRoute('damageCase_car_index');
     }
 
+    /**
+     * @Route("/{id}", name="damageCase_car_lock", methods={"GET"})
+     * @param CarRepository $carRepository
+     * @param int $id
+     * @return Response
+     */
+    public function lockAction(
+        CarRepository $carRepository,
+        int $id
+    ): Response
+    {
+        $car = $carRepository->find($id);
+        return $this->lock($car,$id);
+    }
 }

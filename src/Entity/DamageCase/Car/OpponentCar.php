@@ -15,42 +15,42 @@ class OpponentCar
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $licensePlate;
+    private ?string $licensePlate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $manufacturer;
+    private ?string $manufacturer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $model;
+    private ?string $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $yearOfManufacture;
+    private ?string $yearOfManufacture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $kmStatus;
+    private ?int $kmStatus;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $insuredWith;
+    private ?string $insuredWith;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $insuranceNumber;
+    private ?string $insuranceNumber;
 
     public function getId(): ?int
     {

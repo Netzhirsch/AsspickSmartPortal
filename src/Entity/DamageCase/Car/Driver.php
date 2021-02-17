@@ -16,58 +16,73 @@ class Driver
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $postCode;
+    private ?string $postCode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasLicense;
+    private ?bool $hasLicense;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $licenseClass;
+    private ?string $licenseClass;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $licenseNumber;
+    private ?string $licenseNumber;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $dateOfIssue;
+    private ?DateTimeInterface $dateOfIssue;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $exhibitionLocation;
+    private ?string $exhibitionLocation;
 
+    public function __toString()
+    {
+        $name = '';
+        $firstname = $this->getFirstname();
+        if (empty($firstname))
+            return $name;
+        $name .= $firstname;
+
+        $lastname = $this->getLastname();
+        if (empty($lastname))
+            return $name;
+        $name .= ' '.$lastname;
+
+        return $name;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -192,4 +207,5 @@ class Driver
 
         return $this;
     }
+
 }

@@ -43,18 +43,6 @@
             </div>
             {% include 'damage_case/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
             <div class="content">
-                <div class="line col-16">
-                    {{ form_label(form.isRepairPossible) }}
-                    {{ form_widget(form.isRepairPossible) }}
-                    {{ form_errors(form.isRepairPossible) }}
-                </div>
-                <div class="line col-8">
-                    {{ form_label(form.typeOfOwnership) }}
-                    {{ form_widget(form.typeOfOwnership) }}
-                    {{ form_errors(form.typeOfOwnership) }}
-                </div>
-            </div>
-            <div class="content">
                 <header>
                     <h2>
                         {{ form_label(form.damageCause) }}
@@ -62,18 +50,13 @@
                 </header>
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.damageCause} %}
                 <div class="line col-8">
-                    {{ form_label(form.damageCause.email) }}
-                    {{ form_widget(form.damageCause.email) }}
-                    {{ form_errors(form.damageCause.email) }}
-                </div>
-                <div class="line col-8">
                     {{ form_label(form.damageCause.dateOfBirth) }}
                     {{ form_widget(form.damageCause.dateOfBirth) }}
                     {{ form_errors(form.damageCause.dateOfBirth) }}
                 </div>
             </div>
             {% include 'damage_case/part/_witness.html.twig' %}
-            {% include 'damage_case/part/_policeRecording.html.twig' with {'policeRecording':form.policeRecording} %}
+            {% include 'damage_case/part/_policeRecording.html.twig' with {'policeRecording':form.policeRecording,'showLong':true} %}
             <div class="content">
                 <header>
                     <h2>
@@ -96,6 +79,39 @@
                     {{ form_label(form.claimant.isInDomesticCommunityWithMe) }}
                     {{ form_widget(form.claimant.isInDomesticCommunityWithMe) }}
                     {{ form_errors(form.claimant.isInDomesticCommunityWithMe) }}
+                </div>
+            </div>
+            <div class="content">
+                <header>
+                    <h2>
+                        Sachschäden (was wurde beschädigt):
+                    </h2>
+                </header>
+                <div class="newline"></div>
+                <div class="line col-24">
+                    {{ form_widget(form.damageEvent.itemsDamaged) }}
+                    {{ form_errors(form.damageEvent.itemsDamaged) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.damageEvent.damageAmount) }}
+                    {% set number = ''  %}
+                    {% if form.vars.value is not empty and form.vars.value.damageEvent is not empty %}
+                        {% set number = form.vars.value.damageEvent.damageAmount  %}
+                        {% set number = number|number_format(2,",","." )%}
+                    {% endif %}
+                    {{ form_widget(form.damageEvent.damageAmount, {'value':number}) }}
+                    {{ form_errors(form.damageEvent.damageAmount) }}
+                </div>
+                <div class="line col-16">
+                    {{ form_label(form.isRepairPossible) }}
+                    {{ form_widget(form.isRepairPossible) }}
+                    {{ form_errors(form.isRepairPossible) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.typeOfOwnership) }}
+                    {{ form_widget(form.typeOfOwnership) }}
+                    {{ form_errors(form.typeOfOwnership) }}
                 </div>
             </div>
             <div class="content">

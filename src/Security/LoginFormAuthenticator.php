@@ -28,11 +28,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public const LOGIN_ROUTE = 'login';
 
-    private $entityManager;
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $passwordEncoder;
-    private $flashBag;
+    private EntityManagerInterface $entityManager;
+    private UrlGeneratorInterface $urlGenerator;
+    private CsrfTokenManagerInterface $csrfTokenManager;
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private FlashBagInterface $flashBag;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -81,7 +81,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Username could not be found.');
+            throw new CustomUserMessageAuthenticationException('E-Mail Adresse konnte nicht gefunden werden.');
         }
 
         return $user;
@@ -89,6 +89,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user): bool
     {
+        /** @var User $customUser */
+        $customUser
+            = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        if (!$customUser->isVerified()) {
+            $this->flashBag->set('error',"Dieser Account muss von einem Admin aktiviert werden.");
+            return false;
+        }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -129,7 +136,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         $url = $this->getLoginUrl();
-        $this->flashBag->set('error',"Die Anmeldung ist fehlgeschlagen.");
+        $this->flashBag->add('error',"Die Anmeldung ist fehlgeschlagen.");
 
         return new RedirectResponse($url);
     }

@@ -15,17 +15,17 @@ class TheftProtectionTyp
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Car::class, inversedBy="theftProtecion")
      */
-    private $car;
+    private ?Car $car;
 
     public function getId(): ?int
     {

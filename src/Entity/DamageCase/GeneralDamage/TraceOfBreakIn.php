@@ -15,17 +15,17 @@ class TraceOfBreakIn
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isTracePresent;
+    private ?bool $isTracePresent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     public function getId(): ?int
     {

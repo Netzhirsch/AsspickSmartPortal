@@ -50,6 +50,20 @@ class UserType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'speichern'
             ])
+            ->add('isVerified', ChoiceType::class, [
+                'label' => false,
+                'choices' => [
+                    'aktiviert' => true,
+                    'deaktiviert' => false
+                ],
+                'multiple' => false,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'line two-per-line wrap-checkboxes'
+                ],
+                'required' => false,
+                'placeholder' => false
+            ])
         ;
     }
 

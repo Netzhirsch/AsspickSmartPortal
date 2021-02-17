@@ -15,37 +15,49 @@ class Witness
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $streetMailbox;
+    private ?string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $postcode;
+    private ?string $postcode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $phone;
+    private ?string $phone;
+
+    public function __toString(): string
+    {
+        $name = '';
+        $firstname = $this->getFirstname();
+        if (!empty($firstname))
+            $name .= $firstname;
+        $lastname = $this->getLastname();
+        if (!empty($lastname))
+            $name .= ' '.$lastname;
+        return $name;
+    }
 
     public function getId(): ?int
     {

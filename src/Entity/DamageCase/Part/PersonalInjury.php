@@ -15,22 +15,38 @@ class PersonalInjury
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $personFirstname;
+    private ?string $personFirstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $personLastname;
+    private ?string $personLastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $injuries;
+    private ?string $injuries;
+
+    public function __toString(): string
+    {
+        $name = '';
+        $firstname = $this->getPersonFirstname();
+        if (empty($firstname))
+            return $name;
+        $name .= $firstname;
+
+        $lastname = $this->getPersonLastname();
+        if (empty($lastname))
+            return $name;
+        $name .= ' '.$lastname;
+
+        return $name;
+    }
 
     public function getId(): ?int
     {

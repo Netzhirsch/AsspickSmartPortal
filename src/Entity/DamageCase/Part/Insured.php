@@ -16,27 +16,27 @@ class Insured
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $insured;
+    private ?string $insured;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $insuranceNumber;
+    private ?string $insuranceNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $dangerNumber;
+    private ?string $dangerNumber;
 
     /**
      * @ORM\OneToOne(targetEntity=Car::class, mappedBy="insured", cascade={"persist", "remove"})
      */
-    private $car;
+    private ?Car $car;
 
     public function getId(): ?int
     {

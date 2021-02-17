@@ -1,0 +1,39 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Einloggen{% endblock %}
+
+{% block content %}
+<div class="container container--login">
+    <div class="inner">
+        <header>
+            <h2>
+                <i class="fad fa-sign-in-alt"></i>
+                Registrieren
+            </h2>
+        </header>
+
+    {{ form_start(registrationForm) }}
+        <div class="content">
+            <div class="line col-16">
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div class="newline"></div>
+            <div class="line col-16">
+                {{ form_label(registrationForm.plainPassword) }}
+                {{ form_widget(registrationForm.plainPassword)}}
+                {{ form_errors(registrationForm.plainPassword)}}
+            </div>
+            <div class="line col-16">
+                {{ form_label(registrationForm.fiboCode) }}
+                {{ form_widget(registrationForm.fiboCode) }}
+                {{ form_errors(registrationForm.fiboCode) }}
+            </div>
+            <div class="newline"></div>
+            <button type="submit" class="btn">Register</button>
+        </div>
+    {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

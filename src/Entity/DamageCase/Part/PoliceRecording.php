@@ -17,62 +17,62 @@ class PoliceRecording
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isRecorded;
+    private ?bool $isRecorded;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $department;
+    private ?string $department;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $fileReference;
+    private ?string $fileReference;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $diaryNumber;
+    private ?string $diaryNumber;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasCriminalProceedings;
+    private ?bool $hasCriminalProceedings;
 
     /**
      * @ORM\ManyToMany(targetEntity=CriminalProceedingsAgainstTyp::class)
      */
-    private $criminalProceedingsAgainst;
+    private ArrayCollection $criminalProceedingsAgainst;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isWarnedWithCharge;
+    private ?bool $isWarnedWithCharge;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasDrugUse;
+    private ?bool $hasDrugUse;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasDrugTest;
+    private ?bool $hasDrugTest;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=1, nullable=true)
      */
-    private $drugTestResult;
+    private ?string $drugTestResult;
 
     /**
      * @ORM\ManyToMany(targetEntity=WhoIsWarnedWithCharge::class)
      */
-    private $whoIsWarnedWithCharge;
+    private ArrayCollection $whoIsWarnedWithCharge;
 
     public function __construct()
     {

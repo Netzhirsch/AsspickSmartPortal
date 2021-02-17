@@ -5,7 +5,6 @@ namespace App\Form\DamageCase\Part;
 use App\Entity\DamageCase\Part\Damage\DamageCause;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,9 +31,6 @@ class DamageCauseType extends AbstractType
             ])
             ->add('phone',TextType::class,[
                 'label' => 'Telefon',
-            ])
-            ->add('email',EmailType::class,[
-                'label' => 'E-Mail Adresse',
             ])
             ->add('dateOfBirth',DateType::class,[
                 'html5' => true,

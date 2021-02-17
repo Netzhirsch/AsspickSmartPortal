@@ -72,6 +72,7 @@ class UserController extends AbstractController
     {
         if (empty($id)) {
             $user = new User();
+            $user->setIsVerified(true);
             $action = "erstellen";
         } else {
             $user = $userRepository->find($id);

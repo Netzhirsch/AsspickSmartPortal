@@ -15,42 +15,42 @@ class Payment
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $bank;
+    private ?string $bank;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $iban;
+    private ?string $iban;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $bic;
+    private ?string $bic;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $accountHolder;
+    private ?string $accountHolder;
 
     /**
      * @ORM\ManyToOne(targetEntity=PaymentTransferToTyp::class)
      */
-    private $transferTo;
+    private ?PaymentTransferToTyp $transferTo;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $hasInputTaxDeduction;
+    private ?bool $hasInputTaxDeduction;
 
     public function getId(): ?int
     {

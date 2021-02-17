@@ -45,6 +45,10 @@ class LiabilityType extends AbstractType
                 'label' => 'Zeuge',
                 'required' => false
             ])
+            ->add('witnessTwo',WitnessType::class,[
+                'label' => 'Zeugen',
+                'required' => false,
+            ])
             ->add('isRepairPossible', ChoiceType::class, [
                 'label' => 'Reparatur möglich?',
                 'choices' => [

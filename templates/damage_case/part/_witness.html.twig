@@ -1,8 +1,15 @@
-<div class="content">
-    <header>
-        <h2>
-            {{ form_label(form.witness) }}
-        </h2>
-    </header>
-    {% include 'damage_case/part/_person.html.twig' with {'person':form.witness} %}
-</div>
+{% if form.witnessTwo is defined %}
+    <div class="content">
+        <header>
+            <h2>
+                {{ form_label(form.witnessTwo) }}
+            </h2>
+        </header>
+        <div class="line col-12">
+            {% include 'damage_case/part/_person.html.twig' with {'person':form.witness} %}
+        </div>
+        <div class="line col-12">
+            {% include 'damage_case/part/_person.html.twig' with {'person':form.witnessTwo} %}
+        </div>
+    </div>
+{% endif %}

@@ -23,7 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class GeneralDamageController extends AbstractController
 {
     use ControllerTrait;
-
     /**
      * @Route("/", name="damageCase_generalDamage_index")
      * @param GeneralDamageRepository $generalDamageRepository
