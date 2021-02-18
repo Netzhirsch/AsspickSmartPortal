@@ -1,0 +1,14 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    base_path: "build/ckeditor"
+    js_path: "build/ckeditor/ckeditor.js"
+    configs:
+        default:
+            toolbar: [ [ "Source", "-", "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo" ],[ "Scayt" ],[ "Link", "Unlink" ],[ "Table", "HorizontalRule", "SpecialChar" ],[ "Maximize" ],"\/",[ "Bold", "Italic", "Strike", 'TextColor' ],[ "NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "Blockquote" ],[ "Format" ] ]
+            extraPlugins: "autogrow"
+            removePlugins: [ "elementspath", "resize" ]

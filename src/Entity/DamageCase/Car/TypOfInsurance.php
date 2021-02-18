@@ -27,7 +27,7 @@ class TypOfInsurance
     /**
      * @ORM\OneToMany(targetEntity=Car::class, mappedBy="typOfInsurance")
      */
-    private ArrayCollection $cars;
+    private Collection $cars;
 
     public function __construct()
     {

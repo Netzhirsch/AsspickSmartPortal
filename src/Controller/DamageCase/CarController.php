@@ -62,17 +62,30 @@ class CarController extends DamageCaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if (isset($form['file']))
-                $this->saveUploadedPhotos($form['file']->getData(),$car,$em);
-            $em->persist($car);
-            $em->flush();
+            $error = $this->saveUploadedPhotos($request,$car,$em);
+            if (!empty($error)) {
+                $this->addFlash('error', $error);
+            } else {
+                $em->persist($car);
+                $em->flush();
+                $this->addFlash('success', 'Formular wurde erfolgreich gespeichert.');
+            }
             return $this->redirectToRoute('damageCase_car_index');
+        }
+
+        foreach ($car->getFiles() as $file) {
+            $path = $car::UPLOAD_FOLDER
+                .DIRECTORY_SEPARATOR
+                .$car->getCreatedAt()->format('Y-m-d')
+                .DIRECTORY_SEPARATOR
+                .$file->getName();
+            $file->setPath($path);
         }
 
         $parameters = [
             'form'       => $form->createView(),
             'action'     => $action,
-            'photos' => $this->getFiles($car)
+            'car' => $car
         ];
 
         return $this->render('damage_case/car/form.html.twig', $parameters);

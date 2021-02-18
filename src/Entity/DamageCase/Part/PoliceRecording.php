@@ -47,7 +47,7 @@ class PoliceRecording
     /**
      * @ORM\ManyToMany(targetEntity=CriminalProceedingsAgainstTyp::class)
      */
-    private ArrayCollection $criminalProceedingsAgainst;
+    private Collection $criminalProceedingsAgainst;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -72,7 +72,7 @@ class PoliceRecording
     /**
      * @ORM\ManyToMany(targetEntity=WhoIsWarnedWithCharge::class)
      */
-    private ArrayCollection $whoIsWarnedWithCharge;
+    private Collection $whoIsWarnedWithCharge;
 
     public function __construct()
     {

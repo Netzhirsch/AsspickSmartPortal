@@ -11,7 +11,7 @@
 // start the Stimulus application
 // import './bootstrap';
 
-import './less/global.less';
-import './less/messages.less';
+import './../less/global.less';
+import './../less/messages.less';
 // import 'libraries/jquery-ui-1.12.1/jquery-ui.min.css';
 // import 'libraries/jquery-ui-1.12.1/jquery-ui.min.js';

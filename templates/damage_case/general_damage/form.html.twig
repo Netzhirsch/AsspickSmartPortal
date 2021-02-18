@@ -2,6 +2,16 @@
 
 {% block title %}SACH -  Schadenanzeige {{ action }}{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('generalDamage-form') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('generalDamage-form') }}
+{% endblock %}
+
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
@@ -64,11 +74,6 @@
                 </header>
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.damageCause} %}
                 <div class="line col-8">
-                    {{ form_label(form.damageCause.email) }}
-                    {{ form_widget(form.damageCause.email) }}
-                    {{ form_errors(form.damageCause.email) }}
-                </div>
-                <div class="line col-8">
                     {{ form_label(form.damageCause.dateOfBirth) }}
                     {{ form_widget(form.damageCause.dateOfBirth) }}
                     {{ form_errors(form.damageCause.dateOfBirth) }}
@@ -86,11 +91,13 @@ ohne dass hierdurch der Versicherer einen Nachteil erleidet.
                 </div>
             </div>
             {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment,'showTaxDeduction':true}%}
-            {% include 'damage_case/part/_photo.html.twig'
+            {% include '_widgets/image.html.twig'
                 with {
+                'files':generalDamage.files,
                 'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::FORM_ROUTES')|join(','),
-                'entityId':form.vars.value.id
-            }
+                'maxFiles' : null,
+                'acceptedFiles' : 'images/*'
+                }
             %}
             <div class="content">
                 <div class="line">

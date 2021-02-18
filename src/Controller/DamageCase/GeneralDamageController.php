@@ -53,7 +53,6 @@ class GeneralDamageController extends AbstractController
         } else {
             $generalDamage = $generalDamageRepository->find($id);
             $action = "bearbeiten";
-
         }
 
         $form = $this->createForm(GeneralDamageType::class,$generalDamage);
@@ -62,17 +61,30 @@ class GeneralDamageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if (isset($form['file']))
-                $this->saveUploadedPhotos($form['file']->getData(),$generalDamage,$em);
-            $em->persist($generalDamage);
-            $em->flush();
+            $error = $this->saveUploadedPhotos($request,$generalDamage,$em);
+            if (!empty($error)) {
+                $this->addFlash('error', $error);
+            } else {
+                $em->persist($generalDamage);
+                $em->flush();
+                $this->addFlash('success', 'Formular wurde erfolgreich gespeichert.');
+            }
             return $this->redirectToRoute('damageCase_generalDamage_index');
+        }
+
+        foreach ($generalDamage->getFiles() as $file) {
+            $path = $generalDamage::UPLOAD_FOLDER
+                .DIRECTORY_SEPARATOR
+                .$generalDamage->getCreatedAt()->format('Y-m-d')
+                .DIRECTORY_SEPARATOR
+                .$file->getName();
+            $file->setPath($path);
         }
 
         $parameters = [
             'form'       => $form->createView(),
             'action'     => $action,
-            'photos' => $this->getFiles($generalDamage)
+            'generalDamage' => $generalDamage
         ];
 
         return $this->render('damage_case/general_damage/form.html.twig', $parameters);
@@ -127,7 +139,7 @@ class GeneralDamageController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Haftpflicht Schadensanzeige gelöscht');
         } else {
-            $this->addFlash('error', 'Sicherheitsüberprüfung fehlgeschlagen bitte nochmal versuchen.');
+            $this->addFlash('error', 'Sicherheitsüberprüfung ist fehlgeschlagen bitte Sie es erneut.');
         }
 
         return $this->redirectToRoute('damageCase_generalDamage_index');

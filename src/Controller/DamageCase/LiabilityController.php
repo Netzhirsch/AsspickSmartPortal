@@ -61,17 +61,30 @@ class LiabilityController extends DamageCaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if (isset($form['file']))
-                $this->saveUploadedPhotos($form['file']->getData(),$liability,$em);
-            $em->persist($liability);
-            $em->flush();
+            $error = $this->saveUploadedPhotos($request,$liability,$em);
+            if (!empty($error)) {
+                $this->addFlash('error', $error);
+            } else {
+                $this->addFlash('success', 'Formular erfolgreich gespeichert.');
+                $em->persist($liability);
+                $em->flush();
+            }
             return $this->redirectToRoute('damageCase_liability_index');
+        }
+
+        foreach ($liability->getFiles() as $file) {
+            $path = $liability::UPLOAD_FOLDER
+                .DIRECTORY_SEPARATOR
+                .$liability->getCreatedAt()->format('Y-m-d')
+                .DIRECTORY_SEPARATOR
+                .$file->getName();
+            $file->setPath($path);
         }
 
         $parameters = [
             'form'       => $form->createView(),
             'action'     => $action,
-            'photos' => $this->getFiles($liability)
+            'liability' => $liability
         ];
 
         return $this->render('damage_case/liability/form.html.twig', $parameters);

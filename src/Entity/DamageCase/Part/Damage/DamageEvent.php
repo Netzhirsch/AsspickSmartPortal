@@ -68,12 +68,12 @@ class DamageEvent
     /**
      * @ORM\ManyToMany(targetEntity=DamageTyp::class)
      */
-    private ArrayCollection $typs;
+    private Collection $typs;
 
     /**
      * @ORM\ManyToMany(targetEntity=CauseOfDamageTyp::class)
      */
-    private ArrayCollection $causeOfDamage;
+    private Collection $causeOfDamage;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

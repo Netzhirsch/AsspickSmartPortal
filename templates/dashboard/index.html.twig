@@ -68,33 +68,17 @@
                     clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </div>
             <div class="content">
+                {% for news in newsroom %}
                 <div class="line news col-6">
-                    <img src="/img/martens-prahl-asspick-teaser-login-1610.jpg">
-                    <h2><strong>TRAMPOLIN ist da:</strong><br>Die Plattform für den Sprung nach oben!</h2>
-                    <p>Unser Karriereportal TRAMPOLIN ist der neue Weg, die besten Job-Perspektiven zu entdecken.
-                        Natürlich
-                        bei MARTENS & PRAHL. Aktuelle Stellenangebote, Informationen zu Aus- & Weiterbildung und
-                        mehr.</p>
+                    {% for file in news.files %}
+                        <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
+                    {% endfor %}
+                    <h2><strong>{{ news.titel }}</strong>{{ news.subtitel|raw|default('') }}</h2>
+                    <p>
+                        {{ news.text|raw }}
+                    </p>
                 </div>
-                <div class="line news col-6">
-                    <img src="/img/martens-prahl-asspick-cybersicherheit-teaser.jpg">
-                    <h2><strong>Cyberversicherung Asspick</strong><br>Kompletter Versicherungsschutz für Daten und
-                        Systeme
-                        gegen alle Risiken</h2>
-                </div>
-                <div class="line news col-6">
-                    <img src="/img/martens-prahl-asspick-corona-folgen-teaser.jpg">
-                    <h2><strong>Das Coronavirus</strong><br>hat viele Folgen.</h2>
-                    <p>Händler, die nicht öffnen dürfen. Unternehmen, deren Produktion stillsteht. Und Menschen, die
-                        schwer
-                        erkranken. Versicherungen können diese abmildern – aber nicht immer</p>
-                </div>
-                <div class="line news col-6">
-                    <img src="/img/martens-prahl-asspick-teaser-login-1610.jpg">
-                    <h2><strong>Partner-Log-In</strong><br>Exklusive Informationen für Sie</h2>
-                    <p>Hier finden Sie als Makler aktuelle Informationen, Updates, Hintergründe. Exklusiv für unsere
-                        Kooperationspartner.</p>
-                </div>
+                {% endfor %}
             </div>
             <div class="content">
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut

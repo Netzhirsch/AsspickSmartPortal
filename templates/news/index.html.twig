@@ -1,0 +1,52 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Newsroom{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>Newsroom</h2>
+            </header>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Titel</th>
+                            <th class="actions">
+                                <a title="News erstellen" class="btn green" href="{{ path('news_new') }}">
+                                    Neue News erstellen
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for news in news %}
+                            <tr>
+                                <td>{{ news.createdAt|date('d.m.Y') }}</td>
+                                <td>{{ news.titel }}</td>
+                                <td class="actions">
+                                    {{ include('news/_delete_form.html.twig') }}
+                                    <a
+                                       class="btn"
+                                       href="{{ path('news_edit', {'id': news.id}) }}"
+                                       title="News bearbeiten"
+                                    >
+                                        bearbeiten
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">Keine News im System</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

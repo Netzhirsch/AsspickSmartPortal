@@ -1,14 +1,32 @@
-# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
 liip_imagine:
-    # valid drivers options include "gd" or "gmagick" or "imagick"
-    driver: "gd"
+    loaders:
+        default:
+            filesystem:
+                data_root: '%kernel.project_dir%/assets/uploaded/'
+                bundle_resources:
+                    enabled: true
+#    resolvers:
+#        default:
+#            web_path:
+#                web_root: '%kernel.project_dir%/media/cache'
+#                cache_prefix: "build"
     filter_sets:
-        #
-        #        # an example thumbnail transformation definition
-        #        # https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html#create-thumbnails
-        squared_thumbnail_small:
+        cache: ~
+#        cover_355x355: # Dropzone in Vorgängen
+#            quality: 75
+#            filters:
+#                thumbnail: { size: [ 355, 355 ], mode: outbound, allow_upscale: true }
+        cover_355x355: # Dropzone in Vorgängen
+            quality: 75
             filters:
-                thumbnail:
-                    size: [ 200, 200 ]
-                    mode: outbound
-                    allow_upscale: true
+                thumbnail: { size: [355, 355], mode : outbound, allow_upscale: true } # liefert genau 355x355 und schneidet überreste ab
+        contain_600x600: # Vorgang-Ansicht
+            quality: 75
+            filters:
+                scale: { dim: [ 600, 600 ] } # liefert maximale Weite/Höhe von 600 und behält das Seitenverhältnis
+                background: { size: [600, 600], position: center, color: '#FFFFFF' } # und füllt den Rest des Bildes mit weiß
+        contain_400x400: # Vorgang-Ansicht (Zusatzdokumente)
+            quality: 75
+            filters:
+                scale: { dim: [ 400, 400 ] } # liefert maximale Weite/Höhe von 400 und behält das Seitenverhältnis
+                background: { size: [400, 400], position: center, color: '#FFFFFF' } # und füllt den Rest des Bildes mit weiß

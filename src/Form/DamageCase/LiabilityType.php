@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -85,12 +86,15 @@ class LiabilityType extends AbstractType
                 'label' => 'Zahlungen',
                 'required' => false
             ])
-            ->add('file', FileType::class, [
-                'label' => 'Fotos',
+            ->add('files', FileType::class, [
+                'label' => 'Bilder',
                 'mapped' => false,
                 'multiple' => true,
-                'required' => false
+                'required' => false,
             ])
+            ->add('tmpFolder', HiddenType::class, [
+                'mapped' => false,
+            ]);
         ;
     }
 

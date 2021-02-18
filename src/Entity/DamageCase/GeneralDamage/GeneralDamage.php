@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GeneralDamage
 {
-    const UPLOAD_FOLDER = 'generalDamage';
+    const UPLOAD_FOLDER = 'general_damage';
     const FORM_ROUTES = [
         'new' => 'damageCase_generalDamage_new',
         'edit' => 'damageCase_generalDamage_edit',
@@ -37,7 +37,7 @@ class GeneralDamage
     /**
      * @ORM\ManyToMany(targetEntity=GeneralDamageTyp::class)
      */
-    private ArrayCollection $typs;
+    private Collection $typs;
 
     /**
      * @ORM\OneToOne(targetEntity=Insured::class, cascade={"persist", "remove"})
@@ -97,7 +97,7 @@ class GeneralDamage
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="generalDamage", cascade={"persist", "remove"})
      */
-    private ArrayCollection $files;
+    private Collection $files;
 
     /**
      * @ORM\Column(type="boolean")
@@ -107,6 +107,7 @@ class GeneralDamage
 
     public function __construct()
     {
+        $this->setIsLocked(false);
         $this->createdAt = (new DateTime());
         $this->typs = new ArrayCollection();
         $this->files = new ArrayCollection();

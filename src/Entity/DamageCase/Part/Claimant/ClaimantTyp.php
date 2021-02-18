@@ -27,7 +27,7 @@ class ClaimantTyp
     /**
      * @ORM\OneToMany(targetEntity=Claimant::class, mappedBy="typ")
      */
-    private ArrayCollection $claimants;
+    private Collection $claimants;
 
     public function __construct()
     {

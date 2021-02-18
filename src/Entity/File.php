@@ -32,11 +32,6 @@ class File
     private ?string $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private ?string $extension;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Liability::class, inversedBy="files")
      */
     private ?Liability $liability;
@@ -50,6 +45,13 @@ class File
      * @ORM\ManyToOne(targetEntity=GeneralDamage::class, inversedBy="files")
      */
     private ?GeneralDamage $generalDamage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=News::class, inversedBy="files")
+     */
+    private ?News $news;
+
+    private string $path = '';
 
     public function getId(): ?int
     {
@@ -76,18 +78,6 @@ class File
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getExtension(): ?string
-    {
-        return $this->extension;
-    }
-
-    public function setExtension(string $extension): self
-    {
-        $this->extension = $extension;
 
         return $this;
     }
@@ -126,5 +116,33 @@ class File
         $this->generalDamage = $generalDamage;
 
         return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->news;
+    }
+
+    public function setNews(?News $news): self
+    {
+        $this->news = $news;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
     }
 }

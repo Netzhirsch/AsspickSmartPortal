@@ -39,7 +39,7 @@
 					<i class="fad fa-car-crash"></i>
 					Angebotsrechner
 				</a>
-				<a href="/"{% if app.request.get('_route') == 'newsletter' %} class="active"{% endif %}>
+				<a href="{{ path('news_index') }}"{% if app.request.get('_route') == 'news_index' %} class="active"{% endif %}>
 					<i class="fad fa-paper-plane"></i>
 					Newsroom
 				</a>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,22 @@ class DashboardController
     {
 
 		$parameters = [];
-
+        $em = $this->getDoctrine()->getManager();
+        $repoNews = $em->getRepository(News::class);
+        $newsroom = $repoNews->findBy([],['createdAt' => 'DESC']);
+        foreach ($newsroom as $news) {
+            foreach ($news->getFiles() as $file) {
+                $path = $news::UPLOAD_FOLDER
+                    .DIRECTORY_SEPARATOR
+                    .$news->getCreatedAt()->format('Y-m-d')
+                    .DIRECTORY_SEPARATOR
+                    .$file->getName();
+    //            if (file_exists($path)) {
+                $file->setPath($path);
+    //            }
+            }
+        }
+        $parameters['newsroom'] = $newsroom;
 		return $this->render('dashboard/index.html.twig', $parameters);
 	}
 

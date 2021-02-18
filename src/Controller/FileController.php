@@ -9,9 +9,13 @@ use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
 use App\Entity\File;
 use App\Repository\FileRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -90,7 +94,62 @@ class FileController extends AbstractController
         return $this->redirect($backTo);
     }
 
-    private function getFilePath(File $file): string
+    /**
+     * @Route("/filedrop/{uid}", name="file_drop")
+     * @param Request $request
+     * @param string|null $uid
+     * @return JsonResponse
+     */
+    public function fileDropAction(Request $request,string $uid = null): JsonResponse
+    {
+        $files = $request->files->all();
+        /** @var UploadedFile $file */
+        if (empty($uid))
+            $uid = uniqid();
+        $tmpDir = self::getTmp($uid);
+
+        if (!file_exists($tmpDir))
+            mkdir($tmpDir,0755,true);
+        foreach ($files as $file) {
+            $name = $file->getClientOriginalName();
+            $uniqName = self::getUniqName($tmpDir, $name);
+            rename($file->getPathname(), $tmpDir.DIRECTORY_SEPARATOR.$uniqName);
+        }
+        return new JsonResponse(['uid' => $uid]);
+    }
+
+    public static function getTmp(string $uid): string
+    {
+        return dirname(__DIR__, 2)
+            .DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.$uid;
+    }
+
+    /**
+     * @param string $dir
+     * @param string $name
+     * @return array|string
+     */
+    public static function getUniqName(
+        string $dir,
+        string $name
+    )
+    {
+
+        $filesInDir = scandir($dir);
+        $nameIndex = 0;
+        foreach ($filesInDir as $fileInDir) {
+            if ($fileInDir != "." && $fileInDir != "..") {
+                $nameIndex++;
+            }
+        }
+        if (!empty($nameIndex)) {
+            $name = $nameIndex.'-'.$name;
+        }
+
+        return $name;
+    }
+
+    public function getFilePath(File $file): string
     {
 
         $entity = $this->getPathInfos($file);
@@ -101,8 +160,6 @@ class FileController extends AbstractController
             $this->getUploadedIDr($entity->getCreatedAt(), $entity::UPLOAD_FOLDER)
             .DIRECTORY_SEPARATOR
             .$file->getName()
-            .'.'
-            .$file->getExtension()
         ;
 
         if (!file_exists($filePath)) {
@@ -124,6 +181,8 @@ class FileController extends AbstractController
             $entity = $file->getCar();
         if (empty($entity))
             $entity = $file->getGeneralDamage();
+        if (empty($entity))
+            $entity = $file->getNews();
 
         if (empty($entity)) {
             $this->addFlash('error', 'Datei konnte nicht zugeordnet werden.');
@@ -138,6 +197,6 @@ class FileController extends AbstractController
         $backTo = explode(',', $backTo);
         if (empty($entityId))
             return $this->generateUrl($backTo[0]);
-        return $this->generateUrl($backTo[1],['id' => $entityId]);
+        return $this->generateUrl($backTo[2],['id' => $entityId]);
     }
 }

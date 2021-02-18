@@ -6,6 +6,7 @@ use App\Entity\DamageCase\Car\Car;
 use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
 use App\Entity\File;
+use App\Entity\News;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,7 +15,6 @@ use Doctrine\Persistence\ObjectManager;
 use Exception;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 trait ControllerTrait
@@ -155,60 +155,47 @@ trait ControllerTrait
     }
 
     /**
-     * @param $files
-     * @param Liability|Car|GeneralDamage $entity
+     * @param Request $request
+     * @param Liability|Car|GeneralDamage|news $entity
      * @param ObjectManager $em
      * @return string
      */
-    protected function saveUploadedPhotos($files,$entity,ObjectManager $em): string
+    protected function saveUploadedPhotos(Request $request,$entity,ObjectManager $em): string
     {
-        if (empty($files))
+        $data = $request->request->get($entity::UPLOAD_FOLDER);
+        if (!isset($data['tmpFolder']) || empty($data['tmpFolder']))
             return '';
-        $error = '';
-        if (!is_array($files))
-            $files = [$files];
-        /** @var UploadedFile $file */
-        foreach ($files as $file) {
-            if (strpos($file->getMimeType(), 'image') !== false)
-                $error .= $this->saveUploadedFile($file, $entity, $em);
-            else
-                $error = 'Bitte nur Bilder hochladen.';
-        }
-        return $error;
-    }
+        $tmpFolder = FileController::getTmp($data['tmpFolder']);
+        if (!file_exists($tmpFolder))
+            return 'Bilder sind nicht mehr auf dem Server bitte erneut hochladen';
 
-    /**
-     * @param $files
-     * @param Liability|Car|GeneralDamage $entity
-     * @param ObjectManager $em
-     * @return string
-     */
-    protected function saveUploadedFiles($files,$entity,ObjectManager $em): string
-    {
-        if (empty($files))
-            return '';
+        $files = scandir($tmpFolder);
         $error = '';
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                $error .= $this->saveUploadedFile($file, $entity, $em);
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                $error .= $this->saveUploadedFile($tmpFolder,$file,$entity,$em);
             }
-        } else {
-            $file = $files;
-            $error .= $this->saveUploadedFile($file, $entity, $em);
         }
+        if (!rmdir($tmpFolder))
+            return 'Tmp-Verzeichnis im folgenden Pfad konnte nicht gelöscht werden. '.$tmpFolder;
+
         return $error;
     }
 
     protected function getUploadedIDr(DateTimeInterface $date,string $uploadFolder): string
     {
-        return $this->getRootDir()
+        $dir =  $this->getRootDir()
             .DIRECTORY_SEPARATOR
             .'uploaded'
             .DIRECTORY_SEPARATOR
             .$uploadFolder
             .DIRECTORY_SEPARATOR
             .$date->format('Y-m-d')
-            ;
+        ;
+        if (!file_exists($dir))
+            mkdir($dir, 0755, true);
+
+        return $dir;
     }
 
     /**
@@ -222,8 +209,6 @@ trait ControllerTrait
             $filePath = $this->getUploadedIDr($entity->getCreatedAt(), $entity::UPLOAD_FOLDER)
                 .DIRECTORY_SEPARATOR
                 .$file->getName()
-                .'.'
-                .$file->getExtension()
             ;
             if (file_exists($filePath))
                 $files[] = $file;
@@ -232,51 +217,35 @@ trait ControllerTrait
     }
 
     /**
-     * @param UploadedFile|null $file
-     * @param Liability|Car|GeneralDamage $entity
+     * @param string $tmpDir
+     * @param string $file
+     * @param Liability|Car|GeneralDamage|News $entity
      * @param ObjectManager $em
      * @return string
      */
-    private function saveUploadedFile(?UploadedFile $file,$entity,ObjectManager $em): string
+    private function saveUploadedFile(string $tmpDir,string $file,$entity,ObjectManager $em): string
     {
 
 	    if (empty($file))
             return '';
         $date = $entity->getCreatedAt();
         $dir = $this->getUploadedIDr(($date), $entity::UPLOAD_FOLDER);
-        if (!file_exists($dir))
-            mkdir($dir, 0755, true);
-        $name = $file->getClientOriginalName();
-        $extension = $file->guessClientExtension();
-        $name = $this->getFileWithoutExtension($extension,$name);
-        $nameIndex = 0;
-        $filesInDir = scandir($dir);
-        foreach($filesInDir as $fileInDir) {
-            if  ($fileInDir != "." && $fileInDir != "..") {
-                $nameIndex++;
-            }
-        }
-        if (!empty($nameIndex))
-            $name = $nameIndex.'-'.$name;
+        $tmpFilePath = $tmpDir.DIRECTORY_SEPARATOR.$file;
+        if (!file_exists($tmpDir))
+            mkdir($tmpDir, 0755, true);
         try {
-            $file->move($dir, $name.'.'.$extension);
+            rename($tmpFilePath, $dir.DIRECTORY_SEPARATOR.$file);
         } catch (FileException $fileException) {
             return 'Datei konnte nicht gespeichert werden.';
         }
         $newFile = new File();
         $newFile->setUploadAt((new DateTime()));
-        $newFile->setName($name);
-        $newFile->setExtension($extension);
-        $entity->addFile($newFile);
+        $newFile->setName($file);
+        if (method_exists($entity, 'addFile'))
+            $entity->addFile($newFile);
         $em->persist($newFile);
 
         return '';
-    }
-
-    private function getFileWithoutExtension($extension,$name){
-        $extension = '.'.$extension;
-        $name = str_replace($extension, '', $name);
-        return str_replace(strtoupper($extension), '', $name);
     }
 
     private function getRootDir(): string {
@@ -285,6 +254,8 @@ trait ControllerTrait
             .'assets'
             ;
     }
+
+
 
 
 }

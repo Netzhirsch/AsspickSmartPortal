@@ -97,7 +97,7 @@ class Liability
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="liability", cascade={"persist", "remove"})
      */
-    private ArrayCollection $files;
+    private Collection $files;
 
     /**
      * @ORM\Column(type="datetime")

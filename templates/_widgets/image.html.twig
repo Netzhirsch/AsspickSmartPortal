@@ -1,0 +1,35 @@
+<div class="content">
+    <header>
+        <h3>
+            Bilder
+        </h3>
+    </header>
+    <div
+            id="myAwesomeDropzone"
+            class="line col-24 dropzone"
+            data-src="{{ path('file_drop') }}"
+            data-acceptedFiles="{{ acceptedFiles }}"
+            data-maxFiles="{{ maxFiles }}"
+    >
+    </div>
+</div>
+{{ form_widget(form.tmpFolder) }}
+<div class="content images">
+    {% for file in files %}
+        <div class="line col-12">
+            {% if file.path is not empty %}
+                <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
+            {% endif %}
+            <br>
+            <a class="btn red" href="{{ path(
+                'file_delete',{
+                    'id':file.id
+                    ,'backTo':backTo
+                    ,'entityId':form.vars.value.id
+                }
+            ) }}">
+                Löschen
+            </a>
+        </div>
+    {% endfor %}
+</div>

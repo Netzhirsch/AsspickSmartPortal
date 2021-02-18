@@ -99,7 +99,7 @@ class Car
     /**
      * @ORM\ManyToMany(targetEntity=TheftProtectionTyp::class)
      */
-    private ArrayCollection $theftProtection;
+    private Collection $theftProtection;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -109,7 +109,7 @@ class Car
     /**
      * @ORM\ManyToMany(targetEntity=WhoseCar::class)
      */
-    private ArrayCollection $whoseCars;
+    private Collection $whoseCars;
 
     /**
      * @ORM\OneToOne(targetEntity=PoliceRecording::class, cascade={"persist", "remove"})
@@ -134,7 +134,7 @@ class Car
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="car", cascade={"persist", "remove"})
      */
-    private ArrayCollection $files;
+    private Collection $files;
 
     /**
      * @ORM\Column(type="boolean")
