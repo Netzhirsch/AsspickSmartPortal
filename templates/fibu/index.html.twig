@@ -28,6 +28,7 @@
                         <thead>
                         <tr>
                             <th>Kürzel</th>
+                            <th>Vermittlername</th>
                             <th class="actions">
                                 <a class="btn green" href="{{ path('fibu_new') }}">Neues FiBu. Kürzel erstellen</a>
                             </th>
@@ -37,6 +38,7 @@
                         {% for fibu in fibus %}
                             <tr>
                                 <td>{{ fibu.code }}</td>
+                                <td>{{ fibu.intermediaryName }}</td>
                                 <td class="actions">
                                     {{ include('fibu/_delete_form.html.twig') }}
                                     <a class="btn" href="{{ path('fibu_edit', {'id': fibu.id}) }}">bearbeiten</a>

@@ -165,15 +165,20 @@ class FibuController extends AbstractController
             if (empty($code))
                 continue;
 
-            $isNew = true;
+            $isOld = false;
             foreach ($fibus as $fibu)
-                if ($isNew = $fibu->getCode() == $code)
+                if ($isOld = $fibu->getCode() == $code)
                     break;
 
-            if (!$isNew)
+            if ($isOld)
                 continue;
             $fibu = new Fibu();
             $fibu->setCode($code);
+            $intermediaryName = $key - 2;
+            if (isset($content[$intermediaryName])) {
+                $operatorNumber = $content[$intermediaryName];
+                $fibu->setIntermediaryName($operatorNumber);
+            }
             $entityManager->persist($fibu);
         }
         $entityManager->flush();

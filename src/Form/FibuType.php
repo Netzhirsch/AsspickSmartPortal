@@ -16,6 +16,9 @@ class FibuType extends AbstractType
             ->add('code',TextType::class,[
                 'label' => 'Kürzel'
             ])
+            ->add('intermediaryName',TextType::class,[
+                'label' => 'Vermittlernummer'
+            ])
         ;
     }
 

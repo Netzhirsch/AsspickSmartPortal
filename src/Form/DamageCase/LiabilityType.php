@@ -95,7 +95,6 @@ class LiabilityType extends AbstractType
             ->add('tmpFolder', HiddenType::class, [
                 'mapped' => false,
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

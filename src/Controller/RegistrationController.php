@@ -41,7 +41,16 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            if ($user->isVerified()) {
+                $this->addFlash('success', 'Sie können sich nun einloggen');
 
+            } else {
+                $this->addFlash
+                (
+                    'error'
+                    , 'Die Daten Ihrer Finanzbuchhalten sind nicht im System.'.'
+                     Ein Admin muss Ihren Account aktivieren');
+            }
             return $this->redirectToRoute('login');
         }
 
@@ -66,17 +75,16 @@ class RegistrationController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $requestData = $request->request->get('registration_form');
-        if (empty($requestData) || isset($requestData['fiboCode']))
+        if (empty($requestData) || !isset($requestData['code']) || !isset($requestData['intermediaryName']))
             return;
 
-        $fiboCode = $requestData['fiboCode'];
-        if (!empty($fiboCode))
-            return;
+        $fiboCode = $requestData['code'];
+        $intermediaryName = $requestData['intermediaryName'];
 
         $repo = $entityManager->getRepository(Fibu::class);
-        $fibo = $repo->findBy(['code' => $fiboCode]);
+        $fibu = $repo->findBy(['code' => $fiboCode,'intermediaryName' => $intermediaryName]);
 
-        if (!empty($fibo))
+        if (!empty($fibu))
             $user->setIsVerified(true);
 
     }

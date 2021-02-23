@@ -9,7 +9,6 @@ use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
 use App\Entity\File;
 use App\Repository\FileRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
