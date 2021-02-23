@@ -1,12 +1,12 @@
 {% extends '_general/base.html.twig' %}
 
-{% block title %}Fibo{% endblock %}
+{% block title %}Finanzbuchhaltung{% endblock %}
 
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
-                <h2>Fibo</h2>
+                <h2>Finanzbuchhaltung</h2>
             </header>
             <div class="content">
                 <i class="fa fa-pdf"></i>
@@ -17,7 +17,7 @@
                         {{ form_errors(form.file) }}
                     </div>
                 <div class="line col-8">
-                    <button type="submit" class="btn">speichern</button>
+                    <button type="submit" class="btn">Speichern</button>
                 </div>
                 {{ form_row(form._token) }}
                 {{ form_end(form,{'render_rest':false}) }}
@@ -29,22 +29,22 @@
                         <tr>
                             <th>Kürzel</th>
                             <th class="actions">
-                                <a class="btn green" href="{{ path('fibo_new') }}">Neues Fibo Kürzel erstellen</a>
+                                <a class="btn green" href="{{ path('fibu_new') }}">Neues FiBu. Kürzel erstellen</a>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for fibo in fibos %}
+                        {% for fibu in fibus %}
                             <tr>
-                                <td>{{ fibo.code }}</td>
+                                <td>{{ fibu.code }}</td>
                                 <td class="actions">
-                                    {{ include('fibo/_delete_form.html.twig') }}
-                                    <a class="btn" href="{{ path('fibo_edit', {'id': fibo.id}) }}">bearbeiten</a>
+                                    {{ include('fibu/_delete_form.html.twig') }}
+                                    <a class="btn" href="{{ path('fibu_edit', {'id': fibu.id}) }}">bearbeiten</a>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="2">Keine Fibo Kürzel im System.</td>
+                                <td colspan="2">Keine FiBu. Kürzel im System.</td>
                             </tr>
                         {% endfor %}
                         </tbody>

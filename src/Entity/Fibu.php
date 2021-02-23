@@ -2,19 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\FiboRepository;
+use App\Repository\FibuRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=FiboRepository::class)
+ * @ORM\Entity(repositoryClass=FibuRepository::class)
  */
-class Fibo
+class Fibu
 {
-    const UPLOAD_FOLDER = 'fibo';
-    const FORM_ROUTES= [
-        'new' => 'damageCase_liability_new',
-        'edit' => 'damageCase_liability_edit'
-    ];
+    const UPLOAD_FOLDER = 'fibu';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
