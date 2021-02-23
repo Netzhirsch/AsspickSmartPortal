@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Fibo;
+use App\Entity\Fibu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Fibo|null find($id, $lockMode = null, $lockVersion = null)
- * @method Fibo|null findOneBy(array $criteria, array $orderBy = null)
- * @method Fibo[]    findAll()
- * @method Fibo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Fibu|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Fibu|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Fibu[]    findAll()
+ * @method Fibu[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FiboRepository extends ServiceEntityRepository
+class FibuRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Fibo::class);
+        parent::__construct($registry, Fibu::class);
     }
 
     // /**

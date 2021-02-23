@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Fibo;
+use App\Entity\Fibu;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -73,7 +73,7 @@ class RegistrationController extends AbstractController
         if (!empty($fiboCode))
             return;
 
-        $repo = $entityManager->getRepository(Fibo::class);
+        $repo = $entityManager->getRepository(Fibu::class);
         $fibo = $repo->findBy(['code' => $fiboCode]);
 
         if (!empty($fibo))

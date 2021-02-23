@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Fibo;
+use App\Entity\Fibu;
 use App\Entity\File;
-use App\Form\FiboFileType;
-use App\Form\FiboType;
-use App\Repository\FiboRepository;
+use App\Form\FibuFileType;
+use App\Form\FibuType;
+use App\Repository\FibuRepository;
 use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,110 +17,110 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/fibo")
+ * @Route("/fibu")
  */
-class FiboController extends AbstractController
+class FibuController extends AbstractController
 {
     /**
-     * @Route("/", name="fibo_index", methods={"GET","POST"})
+     * @Route("/", name="fibu_index", methods={"GET","POST"})
      * @param Request $request
-     * @param FiboRepository $fiboRepository
+     * @param FibuRepository $fibuRepository
      * @return Response
      */
     public function indexAction(
         Request $request,
-        FiboRepository $fiboRepository
+        FibuRepository $fibuRepository
     ): Response
     {
         $file = new File();
         $file->setUploadAt((new DateTime()));
-        $form = $this->createForm(FiboFileType::class, $file);
+        $form = $this->createForm(FibuFileType::class, $file);
         $form->handleRequest($request);
-        $fibos = $fiboRepository->findAll();
+        $fibus = $fibuRepository->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             if (isset($form['file'])) {
-                $this->readCsv($form, $fibos, $entityManager);
+                $this->readCsv($form, $fibus, $entityManager);
             }
 
-            return $this->redirectToRoute('fibo_index');
+            return $this->redirectToRoute('fibu_index');
         }
 
         return $this->render(
-            'fibo/index.html.twig',
+            'fibu/index.html.twig',
             [
-                'fibos' => $fibos,
+                'fibus' => $fibus,
                 'form' => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/new", name="fibo_new", methods={"GET","POST"})
-     * @Route("/{id}/edit", name="fibo_edit", methods={"GET","POST"})
+     * @Route("/new", name="fibu_new", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="fibu_edit", methods={"GET","POST"})
      * @param Request $request
-     * @param FiboRepository $fiboRepository
+     * @param FibuRepository $fibuRepository
      * @param int|null $id
      * @return Response
      */
     public function formAction(
         Request $request,
-        FiboRepository $fiboRepository,
+        FibuRepository $fibuRepository,
         int $id = null
     ): Response
     {
         if (empty($id)) {
             $action = 'erstellen';
-            $fibo = new Fibo();
+            $fibu = new Fibu();
         } else {
             $action = 'bearbeiten';
-            $fibo = $fiboRepository->find($id);
-            if (empty($fibo)) {
+            $fibu = $fibuRepository->find($id);
+            if (empty($fibu)) {
                 $this->notFoundFlash($id);
-                $this->redirectToRoute('fibo_index');
+                $this->redirectToRoute('fibu_index');
             }
 
         }
-        $form = $this->createForm(FiboType::class, $fibo);
+        $form = $this->createForm(FibuType::class, $fibu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($fibo);
+            $entityManager->persist($fibu);
             $entityManager->flush();
 
-            return $this->redirectToRoute('fibo_index');
+            return $this->redirectToRoute('fibu_index');
         }
 
         return $this->render(
-            'fibo/form.html.twig',
+            'fibu/form.html.twig',
             [
                 'action' => $action,
-                'fibo' => $fibo,
+                'fibu' => $fibu,
                 'form' => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="fibo_delete", methods={"DELETE"})
+     * @Route("/{id}", name="fibu_delete", methods={"DELETE"})
      * @param Request $request
-     * @param FiboRepository $fiboRepository
+     * @param FibuRepository $fibuRepository
      * @param int $id
      * @return Response
      */
     public function deleteAction(
         Request $request,
-        FiboRepository $fiboRepository,
+        FibuRepository $fibuRepository,
         int $id
     ): Response
     {
-        $fibo = $fiboRepository->find($id);
-        if (empty($fibo)) {
+        $fibu = $fibuRepository->find($id);
+        if (empty($fibu)) {
             $this->notFoundFlash($id);
-        } elseif ($this->isCsrfTokenValid('delete'.$fibo->getId(), $request->request->get('_token'))) {
+        } elseif ($this->isCsrfTokenValid('delete'.$fibu->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($fibo);
+            $entityManager->remove($fibu);
             $entityManager->flush();
         } else {
             $this->addFlash
@@ -130,22 +130,22 @@ class FiboController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('fibo_index');
+        return $this->redirectToRoute('fibu_index');
     }
 
     private function notFoundFlash($id)
     {
-        $this->addFlash('error', 'Fibo Kürzel mit der Id:'.$id.' konnte nicht gefunden werden.');
+        $this->addFlash('error', 'Fibu Kürzel mit der Id:'.$id.' konnte nicht gefunden werden.');
     }
 
     /**
      * @param FormInterface $form
-     * @param Fibo[] $fibos
+     * @param Fibu[] $fibus
      * @param ObjectManager $entityManager
      */
     private function readCsv(
         FormInterface $form,
-        array $fibos,
+        array $fibus,
         ObjectManager $entityManager
     ): void
     {
@@ -166,15 +166,15 @@ class FiboController extends AbstractController
                 continue;
 
             $isNew = true;
-            foreach ($fibos as $fibo)
-                if ($isNew = $fibo->getCode() == $code)
+            foreach ($fibus as $fibu)
+                if ($isNew = $fibu->getCode() == $code)
                     break;
 
             if (!$isNew)
                 continue;
-            $fibo = new Fibo();
-            $fibo->setCode($code);
-            $entityManager->persist($fibo);
+            $fibu = new Fibu();
+            $fibu->setCode($code);
+            $entityManager->persist($fibu);
         }
         $entityManager->flush();
     }
