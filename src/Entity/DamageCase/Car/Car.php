@@ -152,6 +152,7 @@ class Car
         $this->theftProtection = new ArrayCollection();
         $this->whoseCars = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->damageEvent = null;
     }
 
     public function getId(): ?int
