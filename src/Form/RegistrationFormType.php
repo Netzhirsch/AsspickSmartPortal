@@ -36,8 +36,13 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('fiboCode', TextType::class, [
-                'label' => 'Fibo Kürzel',
+            ->add('code', TextType::class, [
+                'label' => 'Finanzbuchhaltung Kürzel',
+                'mapped' => false,
+                'required' => false
+            ])
+            ->add('intermediaryName', TextType::class, [
+                'label' => 'Vermittlername',
                 'mapped' => false,
                 'required' => false
             ])

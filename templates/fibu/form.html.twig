@@ -17,6 +17,11 @@
                     {{ form_widget(form.code) }}
                     {{ form_errors(form.code) }}
                 </div>
+                <div class="line col-8">
+                    {{ form_label(form.intermediaryName) }}
+                    {{ form_widget(form.intermediaryName) }}
+                    {{ form_errors(form.intermediaryName) }}
+                </div>
             </div>
             <div class="content">
                 <button class="btn">{{ button_label|default('Speichern') }}</button>

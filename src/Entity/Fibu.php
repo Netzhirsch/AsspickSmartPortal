@@ -24,6 +24,11 @@ class Fibu
      */
     private ?string $code;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $intermediaryName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +42,18 @@ class Fibu
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getIntermediaryName(): ?string
+    {
+        return $this->intermediaryName;
+    }
+
+    public function setIntermediaryName(string $intermediaryName): self
+    {
+        $this->intermediaryName = $intermediaryName;
 
         return $this;
     }

@@ -26,6 +26,28 @@
                 <div class="table-wrapper">
                     <table>
                         <thead>
+<<<<<<< HEAD
+=======
+                        <tr>
+                            <th>Kürzel</th>
+                            <th>Vermittlername</th>
+                            <th class="actions">
+                                <a class="btn green" href="{{ path('fibu_new') }}">Neues FiBu. Kürzel erstellen</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for fibu in fibus %}
+                            <tr>
+                                <td>{{ fibu.code }}</td>
+                                <td>{{ fibu.intermediaryName }}</td>
+                                <td class="actions">
+                                    {{ include('fibu/_delete_form.html.twig') }}
+                                    <a class="btn" href="{{ path('fibu_edit', {'id': fibu.id}) }}">bearbeiten</a>
+                                </td>
+                            </tr>
+                        {% else %}
+>>>>>>> a679eabe4740d9a60010af87a6d4944ae3ac2125
                             <tr>
                                 <th>Kürzel</th>
                                 <th class="actions">

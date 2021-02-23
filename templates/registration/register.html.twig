@@ -14,21 +14,27 @@
 
     {{ form_start(registrationForm) }}
         <div class="content">
-            <div class="line col-16">
+            <div class="line col-24">
                 {{ form_label(registrationForm.email) }}
                 {{ form_widget(registrationForm.email) }}
                 {{ form_errors(registrationForm.email) }}
             </div>
             <div class="newline"></div>
-            <div class="line col-16">
+            <div class="line col-24">
                 {{ form_label(registrationForm.plainPassword) }}
                 {{ form_widget(registrationForm.plainPassword)}}
                 {{ form_errors(registrationForm.plainPassword)}}
             </div>
-            <div class="line col-16">
-                {{ form_label(registrationForm.fiboCode) }}
-                {{ form_widget(registrationForm.fiboCode) }}
-                {{ form_errors(registrationForm.fiboCode) }}
+            <div class="liner"></div>
+            <div class="line col-24">
+                {{ form_label(registrationForm.intermediaryName) }}
+                {{ form_widget(registrationForm.intermediaryName) }}
+                {{ form_errors(registrationForm.intermediaryName) }}
+            </div>
+            <div class="line col-24">
+                {{ form_label(registrationForm.code) }}
+                {{ form_widget(registrationForm.code) }}
+                {{ form_errors(registrationForm.code ) }}
             </div>
             <div class="newline"></div>
             <button type="submit" class="btn">Register</button>
