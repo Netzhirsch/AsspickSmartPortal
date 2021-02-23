@@ -13,5 +13,7 @@
 
 import './../less/global.less';
 import './../less/messages.less';
+
+import './tabs.js';
 // import 'libraries/jquery-ui-1.12.1/jquery-ui.min.css';
 // import 'libraries/jquery-ui-1.12.1/jquery-ui.min.js';

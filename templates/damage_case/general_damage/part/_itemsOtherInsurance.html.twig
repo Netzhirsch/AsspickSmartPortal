@@ -1,22 +1,15 @@
-<div class="content">
-    <header>
-        <h2>
-            {{ form_label(itemsOtherInsurance) }}
-        </h2>
-    </header>
-    <div class="line col-8">
-        {{ form_label(itemsOtherInsurance.hasOtherInsurance) }}
-        {{ form_widget(itemsOtherInsurance.hasOtherInsurance) }}
-        {{ form_errors(itemsOtherInsurance.hasOtherInsurance) }}
-    </div>
-    <div class="line col-8">
-        {{ form_label(itemsOtherInsurance.insured) }}
-        {{ form_widget(itemsOtherInsurance.insured) }}
-        {{ form_errors(itemsOtherInsurance.insured) }}
-    </div>
-    <div class="line col-8">
-        {{ form_label(itemsOtherInsurance.insuranceNumber) }}
-        {{ form_widget(itemsOtherInsurance.insuranceNumber) }}
-        {{ form_errors(itemsOtherInsurance.insuranceNumber) }}
-    </div>
+<div class="line col-8">
+    {{ form_label(itemsOtherInsurance.hasOtherInsurance) }}
+    {{ form_widget(itemsOtherInsurance.hasOtherInsurance) }}
+    {{ form_errors(itemsOtherInsurance.hasOtherInsurance) }}
+</div>
+<div class="line col-8">
+    {{ form_label(itemsOtherInsurance.insured) }}
+    {{ form_widget(itemsOtherInsurance.insured) }}
+    {{ form_errors(itemsOtherInsurance.insured) }}
+</div>
+<div class="line col-8">
+    {{ form_label(itemsOtherInsurance.insuranceNumber) }}
+    {{ form_widget(itemsOtherInsurance.insuranceNumber) }}
+    {{ form_errors(itemsOtherInsurance.insuranceNumber) }}
 </div>

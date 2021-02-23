@@ -13,22 +13,39 @@
 {% endblock %}
 
 {% block content %}
+    {{ form_start(form) }}
     <div class="container container--dashboard">
         <div class="inner">
+
             <header>
-                <h2>
-                    SACH - Schadenanzeige {{ action }}
-                </h2>
-            </header>
-            <div class="content">
-                <div class="line col-24">
-                    {{ form_label(form.typs) }}
-                    {{ form_widget(form.typs) }}
-                    {{ form_errors(form.typs) }}
+                <h2>SACH - Schadenanzeige {{ action }}</h2>
+                <div class="actions">
+                    <button type="submit" class="btn">speichern</button>
                 </div>
-            </div>
-            <div class="content">
-                {{ form_start(form) }}
+            </header>
+
+            <header class="tabs">
+                <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
+                <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
+                <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
+                <div class="tab" data-tab="buildingDamage"><h3>{{ form_label(form.buildingDamage) }}</h3></div>
+                <div class="tab" data-tab="itemsOtherInsurance"><h3>{{ form_label(form.itemsOtherInsurance) }}</h3>
+                </div>
+                <div class="tab" data-tab="traceOfBreakIn"><h3>{{ form_label(form.traceOfBreakIn) }}</h3></div>
+                <div class="tab" data-tab="damageCause"><h3>{{ form_label(form.damageCause) }}</h3></div>
+                <div class="tab" data-tab="repairCompany"><h3>{{ form_label(form.repairCompany) }}</h3></div>
+                <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
+                <div class="tab" data-tab="payment"><h3>{{ form_label(form.payment) }}</h3></div>
+                <div class="tab" data-tab="images"><h3>Bilder</h3></div>
+            </header>
+
+            <div class="content tab active" data-tab="general">
+
+                {{ form_label(form.typs) }}
+                {{ form_widget(form.typs) }}
+                {{ form_errors(form.typs) }}
+
+                <div class="liner"></div>
                 <div class="line col-8">
                     {{ form_label(form.insured.insured) }}
                     {{ form_widget(form.insured.insured) }}
@@ -45,12 +62,8 @@
                     {{ form_errors(form.insured.dangerNumber) }}
                 </div>
             </div>
-            <div class="content">
-                <header>
-                    <h2>
-                        {{ form_label(form.policyholder) }}
-                    </h2>
-                </header>
+
+            <div class="content tab" data-tab="policyholder">
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.policyholder} %}
                 <div class="line col-8">
                     {{ form_label(form.policyholder.email) }}
@@ -59,19 +72,23 @@
                 </div>
             </div>
 
-            {% include 'damage_case/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
+            <div class="content tab" data-tab="damageEvent">
+                {% include 'damage_case/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
+            </div>
 
-            {% include 'damage_case/general_damage/part/_buildingDamage.html.twig' with {'buildingDamage':form.buildingDamage} %}
+            <div class="content tab" data-tab="buildingDamage">
+                {% include 'damage_case/general_damage/part/_buildingDamage.html.twig' with {'buildingDamage':form.buildingDamage} %}
+            </div>
 
-            {% include 'damage_case/general_damage/part/_itemsOtherInsurance.html.twig'
-                with {'itemsOtherInsurance':form.itemsOtherInsurance} %}
-            {% include 'damage_case/general_damage/part/_traceOfBreakIn.html.twig' with {'traceOfBreakIn':form.traceOfBreakIn} %}
-            <div class="content">
-                <header>
-                    <h2>
-                        {{ form_label(form.damageCause) }}
-                    </h2>
-                </header>
+            <div class="content tab" data-tab="itemsOtherInsurance">
+                {% include 'damage_case/general_damage/part/_itemsOtherInsurance.html.twig' with {'itemsOtherInsurance':form.itemsOtherInsurance} %}
+            </div>
+
+            <div class="content tab" data-tab="traceOfBreakIn">
+                {% include 'damage_case/general_damage/part/_traceOfBreakIn.html.twig' with {'traceOfBreakIn':form.traceOfBreakIn} %}
+            </div>
+
+            <div class="content tab" data-tab="damageCause">
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.damageCause} %}
                 <div class="line col-8">
                     {{ form_label(form.damageCause.dateOfBirth) }}
@@ -79,35 +96,34 @@
                     {{ form_errors(form.damageCause.dateOfBirth) }}
                 </div>
             </div>
-            {% include 'damage_case/general_damage/part/_repairCompany.html.twig' with {'repairCompany':form.repairCompany} %}
-            {% include 'damage_case/part/_policeRecording.html.twig' with {'policeRecording':form.policeRecording} %}
-            <div class="content">
-                <div class="line">
-                    <span>
-                        Der Polizeibehörde ist unverzüglich eine vollständige und geleichlautende Aufstellung der abhandengekommenen Sachen einzurei-
-chen. Eine Verletzung dieser Obliegenheit kann zum Verlust des Versicherungsschutzes führen, genauso wie falsche Angeben, auch
-ohne dass hierdurch der Versicherer einen Nachteil erleidet.
-                    </span>
-                </div>
+
+            <div class="content tab" data-tab="repairCompany">
+                {% include 'damage_case/general_damage/part/_repairCompany.html.twig' with {'repairCompany':form.repairCompany} %}
             </div>
-            {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment,'showTaxDeduction':true}%}
-            {% include '_widgets/image.html.twig'
-                with {
-                'files':generalDamage.files,
-                'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::FORM_ROUTES')|join(','),
-                'maxFiles' : null,
-                'acceptedFiles' : 'images/*'
-                }
-            %}
-            <div class="content">
-                <div class="line">
-                    <button type="submit" class="btn">speichern</button>
-                </div>
+
+            <div class="content tab" data-tab="policeRecording">
+                {% include 'damage_case/part/_policeRecording.html.twig' with {'policeRecording':form.policeRecording} %}
             </div>
-            {{ form_row(form._token) }}
-            {{ form_end(form,{'render_rest':false}) }}
-            <div class="liner"></div>
-            {% include 'damage_case/part/_disclaimer.html.twig' %}
+
+            <div class="content tab" data-tab="payment">
+                {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment,'showTaxDeduction':true} %}
+            </div>
+
+            <div class="content tab" data-tab="images">
+                {% include '_widgets/image.html.twig'
+                    with {
+                    'files':generalDamage.files,
+                    'backTo':constant('App\\Entity\\DamageCase\\GeneralDamage\\GeneralDamage::FORM_ROUTES')|join(','),
+                    'maxFiles' : null,
+                    'acceptedFiles' : 'images/*'
+                } %}
+            </div>
+
+            <footer>
+                {% include 'damage_case/part/_disclaimer.html.twig' %}
+            </footer>
         </div>
     </div>
+    {{ form_row(form._token) }}
+    {{ form_end(form,{'render_rest':false}) }}
 {% endblock %}
