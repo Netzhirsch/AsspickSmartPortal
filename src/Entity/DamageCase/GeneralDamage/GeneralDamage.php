@@ -111,6 +111,7 @@ class GeneralDamage
         $this->createdAt = (new DateTime());
         $this->typs = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->damageEvent = null;
     }
 
     public function getId(): ?int
