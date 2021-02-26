@@ -23,6 +23,11 @@ class NewsType extends AbstractType
                 'label' => 'Überschrift',
                 'required' => false
             ])
+            ->add('teaser',CKEditorType::class,[
+                'label' => 'Teaser-Text',
+                'required' => false,
+                'config_name' => 'default'
+            ])
             ->add('text',CKEditorType::class,[
                 'label' => 'Text',
                 'required' => false,

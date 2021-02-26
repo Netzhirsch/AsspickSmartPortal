@@ -39,6 +39,17 @@
                 <div class="line col-24">
                     <header>
                         <h3>
+                            {{ form_label(form.teaser) }}
+                        </h3>
+                    </header>
+                    <div class="line col-24">
+                        {{ form_widget(form.teaser) }}
+                        {{ form_errors(form.teaser) }}
+                    </div>
+                </div>
+                <div class="line col-24">
+                    <header>
+                        <h3>
                             {{ form_label(form.text) }}
                         </h3>
                     </header>

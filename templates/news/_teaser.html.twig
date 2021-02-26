@@ -1,0 +1,20 @@
+<div class="line news col-6">
+    {% set isFirst = true %}
+    {% for file in news.files %}
+        {% if isFirst  %}
+            <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
+            {% set isFirst = false %}
+        {% endif %}
+    {% endfor %}
+    <h2><strong>{{ news.titel }}</strong>{{ news.subtitel|raw|default('') }}</h2>
+    <p>
+        {% if news.teaser is not empty %}
+            {{ news.teaser|raw }}
+        {% else %}
+            {% set text = news.text|raw %}
+            {% set text = text|length > 50 ? text|slice(0, 250) ~ '...' : text %}
+            {{ text|raw  }}
+        {% endif %}
+    </p>
+    <a class="btn" href="{{ path('news_show',{'id':news.id}) }}">Weiterlesen…</a>
+</div>

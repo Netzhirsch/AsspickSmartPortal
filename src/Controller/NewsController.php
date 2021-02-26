@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Form\NewsType;
 use App\Repository\NewsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,17 +17,47 @@ use Symfony\Component\Routing\Annotation\Route;
 class NewsController extends AbstractController
 {
     use ControllerTrait;
+
     /**
      * @Route("/", name="news_index", methods={"GET"})
+     * @Route("/archiv", name="news_archiv", methods={"GET"})
+     * @param Request $request
      * @param NewsRepository $newsRepository
      * @return Response
      */
-    public function indexAction(NewsRepository $newsRepository): Response
+    public function indexAction(Request $request,PaginatorInterface $paginator,NewsRepository $newsRepository): Response
     {
+        $route = $request->get('_route');
+        $newsroom = $newsRepository->findBy([],['createdAt' => 'DESC']);
 
-        return $this->render('news/index.html.twig', [
-            'news' => $newsRepository->findBy([],['createdAt' => 'DESC'])
-        ]);
+        if ($route == 'news_index') {
+            return $this->render('news/index.html.twig', [
+                'newsroom' => $newsroom
+            ]);
+        } else {
+
+            foreach ($newsroom as $news) {
+                foreach ($news->getFiles() as $file) {
+                    $path = $news::UPLOAD_FOLDER
+                        .DIRECTORY_SEPARATOR
+                        .$news->getCreatedAt()->format('Y-m-d')
+                        .DIRECTORY_SEPARATOR
+                        .$file->getName();
+                    $file->setPath($path);
+                }
+            }
+
+            $page = $this->getPageFromSession($request);
+            $newsroom = $paginator->paginate($newsroom,$page,4);
+            if (empty(count($newsroom)) && $page > 1) {
+                $this->removePageFromSession($request);
+                return $this->redirectToRoute('news_archiv', ['page' => 1]);
+            }
+
+            return $this->render('news/archiv.html.twig', [
+                'newsroom' => $newsroom
+            ]);
+        }
     }
 
     /**
@@ -77,6 +108,35 @@ class NewsController extends AbstractController
             'action'    => $action,
             'news'      => $news,
             'form'      => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/show", name="news_show", methods={"GET","POST"})
+     * @param NewsRepository $newsRepository
+     * @param Request $request
+     * @param int|null $id
+     * @return Response
+     */
+    public function showAction(NewsRepository $newsRepository,int $id = null): Response
+    {
+        $news = $newsRepository->find($id);
+        if (empty($news)) {
+            $this->addFlashNotFound($id);
+            return $this->redirectToRoute('news_index');
+        }
+
+        foreach ($news->getFiles() as $file) {
+            $path = $news::UPLOAD_FOLDER
+                .DIRECTORY_SEPARATOR
+                .$news->getCreatedAt()->format('Y-m-d')
+                .DIRECTORY_SEPARATOR
+                .$file->getName();
+            $file->setPath($path);
+        }
+
+        return $this->render('news/show.html.twig', [
+            'news'      => $news,
         ]);
     }
 

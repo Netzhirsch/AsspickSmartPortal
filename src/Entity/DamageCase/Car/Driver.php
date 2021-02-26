@@ -68,7 +68,7 @@ class Driver
      */
     private ?string $exhibitionLocation;
 
-    public function __toString()
+    public function __toString(): string
     {
         $name = '';
         $firstname = $this->getFirstname();
