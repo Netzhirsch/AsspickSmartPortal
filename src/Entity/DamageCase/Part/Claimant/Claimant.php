@@ -63,7 +63,7 @@ class Claimant
      */
     private ?bool $isInDomesticCommunityWithMe;
 
-    public function __toString()
+    public function __toString(): string
     {
         $name = '';
         $firstname = $this->getFirstname();

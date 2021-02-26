@@ -23,7 +23,7 @@ class DashboardController
 		$parameters = [];
         $em = $this->getDoctrine()->getManager();
         $repoNews = $em->getRepository(News::class);
-        $newsroom = $repoNews->findBy([],['createdAt' => 'DESC']);
+        $newsroom = $repoNews->findBy([],['createdAt' => 'DESC'],4);
         foreach ($newsroom as $news) {
             foreach ($news->getFiles() as $file) {
                 $path = $news::UPLOAD_FOLDER
@@ -31,9 +31,7 @@ class DashboardController
                     .$news->getCreatedAt()->format('Y-m-d')
                     .DIRECTORY_SEPARATOR
                     .$file->getName();
-    //            if (file_exists($path)) {
                 $file->setPath($path);
-    //            }
             }
         }
         $parameters['newsroom'] = $newsroom;

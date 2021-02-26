@@ -48,7 +48,7 @@ class DamageEvent
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $damageAmount;
+    private ?float $damageAmount;
 
     /**
      * @ORM\Column(type="integer", nullable=true)

@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
@@ -49,8 +50,14 @@ class News
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="news" , cascade={"persist","remove"})
+     * @var ArrayCollection|PersistentCollection $files
      */
     private $files;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $teaser;
 
 
     public function __construct()
@@ -138,6 +145,18 @@ class News
                 $file->setNews(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTeaser(): ?string
+    {
+        return $this->teaser;
+    }
+
+    public function setTeaser(?string $teaser): self
+    {
+        $this->teaser = $teaser;
 
         return $this;
     }

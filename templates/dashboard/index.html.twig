@@ -68,16 +68,12 @@
                     clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </div>
             <div class="content">
+                <header>
+                    <h2><a class="btn right" href="{{ path('news_archiv') }}">Archiv</a></h2>
+                </header>
+                <div class="newline"></div>
                 {% for news in newsroom %}
-                <div class="line news col-6">
-                    {% for file in news.files %}
-                        <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
-                    {% endfor %}
-                    <h2><strong>{{ news.titel }}</strong>{{ news.subtitel|raw|default('') }}</h2>
-                    <p>
-                        {{ news.text|raw }}
-                    </p>
-                </div>
+                    {% include 'news/_teaser.html.twig' %}
                 {% endfor %}
             </div>
             <div class="content">

@@ -1,0 +1,40 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}{{ news.titel }}{% endblock %}
+
+{% block content %}
+
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-paper-plane"></i>
+                    {{ news.titel }}
+                </h2>
+            </header>
+            <div class="content">
+                {% for file in news.files %}
+                    <div class="line news col-8">
+                        {% set isFirst = true %}
+                        {% for file in news.files %}
+                            {% if isFirst  %}
+                                <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
+                                {% set isFirst = false %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="line news col-24">
+                    <h3>
+                        <strong>{{ news.subtitel }}</strong>
+                    </h3>
+                </div>
+                <div class="line news col-24">
+                    <p>
+                        {{ news.text|raw  }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

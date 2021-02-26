@@ -1,0 +1,24 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Archiv{% endblock %}
+
+{% block content %}
+
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-paper-plane"></i>
+                    Archiv
+                </h2>
+            </header>
+            {% for news in newsroom %}
+                {% include 'news/_teaser.html.twig' %}
+            {% endfor %}
+            <div class="liner"></div>
+            <div class="line col-auto">
+                {{ knp_pagination_render(newsroom) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

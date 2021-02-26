@@ -54,7 +54,7 @@ class DamageCause
      */
     private ?string $location;
 
-    public function __toString()
+    public function __toString(): string
     {
         $name = '';
         $firstname = $this->getFirstname();
