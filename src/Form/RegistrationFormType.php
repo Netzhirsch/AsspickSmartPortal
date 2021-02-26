@@ -37,7 +37,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('code', TextType::class, [
-                'label' => 'Finanzbuchhaltung Kürzel',
+                'label' => 'Fibu-Kürzel',
                 'mapped' => false,
                 'required' => false
             ])
