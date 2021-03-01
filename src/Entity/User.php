@@ -41,6 +41,11 @@ class User implements UserInterface
      */
     private bool $isVerified = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ActivationCode::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $activationCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +150,28 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getActivationCode(): ?ActivationCode
+    {
+        return $this->activationCode;
+    }
+
+    public function setActivationCode(?ActivationCode $activationCode): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($activationCode === null && $this->activationCode !== null) {
+            $this->activationCode->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($activationCode !== null && $activationCode->getUser() !== $this) {
+            $activationCode->setUser($this);
+        }
+
+        $this->activationCode = $activationCode;
 
         return $this;
     }

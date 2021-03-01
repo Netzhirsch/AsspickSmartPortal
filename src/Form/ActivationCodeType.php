@@ -2,22 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Fibu;
+use App\Entity\ActivationCode;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FibuType extends AbstractType
+class ActivationCodeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('code',TextType::class,[
-                'label' => 'Kürzel'
+                'label' => 'Code'
             ])
-            ->add('intermediaryName',TextType::class,[
-                'label' => 'Vermittlernummer'
+            ->add('email',EmailType::class,[
+                'label' => 'E-Mail Adresse'
             ])
         ;
     }
@@ -25,7 +26,7 @@ class FibuType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Fibu::class,
+            'data_class' => ActivationCode::class,
         ]);
     }
 }

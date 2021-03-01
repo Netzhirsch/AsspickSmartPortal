@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FibuFileType extends AbstractType
+class ActivationCodeFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -45,7 +45,7 @@ class UserType extends AbstractType
                 'required' => false
             ])
             ->add('email',EmailType::class,[
-                'label' => 'E-Mail'
+                'label' => 'E-Mail Adresse'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'speichern'

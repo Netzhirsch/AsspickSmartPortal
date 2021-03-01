@@ -1,13 +1,13 @@
 {% extends '_general/base.html.twig' %}
 
-{% block title %}Finanzbuchhaltungs-Kürzel {{ action }}{% endblock %}
+{% block title %}Aktivierungscode {{ action }}{% endblock %}
 
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
                 <h2>
-                    Finanzbuchhaltungs-Kürzel {{ action }}
+                    Aktivierungscode {{ action }}
                 </h2>
             </header>
             {{ form_start(form) }}
@@ -16,11 +16,6 @@
                     {{ form_label(form.code) }}
                     {{ form_widget(form.code) }}
                     {{ form_errors(form.code) }}
-                </div>
-                <div class="line col-8">
-                    {{ form_label(form.intermediaryName) }}
-                    {{ form_widget(form.intermediaryName) }}
-                    {{ form_errors(form.intermediaryName) }}
                 </div>
             </div>
             <div class="content">

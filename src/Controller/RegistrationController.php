@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Fibu;
+use App\Entity\ActivationCode;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +14,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+    use ControllerTrait;
+
     private UserPasswordEncoderInterface $passwordEncoder;
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    private Swift_Mailer $mailer;
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder,Swift_Mailer $mailer)
     {
         $this->passwordEncoder = $passwordEncoder;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -36,7 +41,7 @@ class RegistrationController extends AbstractController
 
             $this->encodePlainPassword($user, $form);
 
-            $this->verifierByFiboCode($request, $user);
+            $this->verifierByActivationCodeCode($request, $user);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -48,7 +53,7 @@ class RegistrationController extends AbstractController
                 $this->addFlash
                 (
                     'error'
-                    , 'Die Daten Ihrer Finanzbuchhalten sind nicht im System.'.'
+                    , 'Der Aktivierungscode ist nicht im System.'.'
                      Ein Admin muss Ihren Account aktivieren');
             }
             return $this->redirectToRoute('login');
@@ -68,24 +73,35 @@ class RegistrationController extends AbstractController
         );
     }
 
-    private function verifierByFiboCode(
+    private function verifierByActivationCodeCode(
         Request $request,
         User $user
     ): void
     {
         $entityManager = $this->getDoctrine()->getManager();
         $requestData = $request->request->get('registration_form');
-        if (empty($requestData) || !isset($requestData['code']) || !isset($requestData['intermediaryName']))
+        if (empty($requestData) || !isset($requestData['code']))
             return;
 
-        $fiboCode = $requestData['code'];
-        $intermediaryName = $requestData['intermediaryName'];
+        $code = $requestData['code'];
 
-        $repo = $entityManager->getRepository(Fibu::class);
-        $fibu = $repo->findBy(['code' => $fiboCode,'intermediaryName' => $intermediaryName]);
+        $repo = $entityManager->getRepository(ActivationCode::class);
+        $activationCode = $repo->findOneBy(['code' => $code,'user' => null]);
 
-        if (!empty($fibu))
+        if (empty($activationCode)) {
+            $mailTo = 'luhmann@netzhirsch.de';
+            $email = '';
+            if (isset($requestData['email']))
+                $email = $requestData['email'];
+
+            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' un dem Code:'.$code.' anzumelden.';
+            $message .= PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
+            $subject = 'Neue Registrierung';
+            $this->sendMail($this->mailer, $mailTo, $subject, $message);
+        } else {
             $user->setIsVerified(true);
+            $user->setActivationCode($activationCode);
+        }
 
     }
 }

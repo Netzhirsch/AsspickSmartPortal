@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use ReflectionClass;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -255,7 +257,28 @@ trait ControllerTrait
             ;
     }
 
+    private function sendMail(
+        Swift_Mailer $mailer,
+        string $mailTo,
+        string $subject,
+        string $message,
+        string $from = 'asspick.de'
+    )
+    {
+        $parameter = array(
+            'message' => $message,
+        );
 
+        $body = $this->renderView(
+            'mail/index.html.twig', $parameter
+        );
 
+        $message = (new Swift_Message($subject))
+            ->setFrom($from)
+            ->setBody($body);
 
+        $message->addTo($mailTo);
+
+        $mailer->send($message);
+    }
 }

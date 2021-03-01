@@ -11,7 +11,6 @@
                 Registrieren
             </h2>
         </header>
-
     {{ form_start(registrationForm) }}
         <div class="content">
             <div class="line col-24">
@@ -27,14 +26,14 @@
             </div>
             <div class="liner"></div>
             <div class="line col-24">
-                {{ form_label(registrationForm.intermediaryName) }}
-                {{ form_widget(registrationForm.intermediaryName) }}
-                {{ form_errors(registrationForm.intermediaryName) }}
-            </div>
-            <div class="line col-24">
                 {{ form_label(registrationForm.code) }}
                 {{ form_widget(registrationForm.code) }}
                 {{ form_errors(registrationForm.code ) }}
+            </div>
+            <div class="line col-24 wrap-checkboxes col-auto">
+                {{ form_widget(registrationForm.termsOfUse) }}
+                {{ form_label(registrationForm.termsOfUse) }}
+                {{ form_errors(registrationForm.termsOfUse ) }}
             </div>
             <div class="newline"></div>
             <button type="submit" class="btn">Register</button>

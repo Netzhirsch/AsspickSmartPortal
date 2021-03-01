@@ -1,15 +1,17 @@
 {% extends '_general/base.html.twig' %}
 
-{% block title %}Finanzbuchhaltungs-Kürzel{% endblock %}
+{% block title %}Aktivierungscode{% endblock %}
 
 {% block content %}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
-                <h2>Finanzbuchhaltungs-Kürzel</h2>
+                <h2>
+                    <i class="fa fa-file-csv"></i>
+                    Aktivierungscode
+                </h2>
             </header>
             <div class="content">
-                <i class="fa fa-pdf"></i>
                 {{ form_start(form) }}
                 <div class="line col-8">
                     {{ form_label(form.file) }}
@@ -27,26 +29,36 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Kürzel</th>
-                                <th>Vermittlername</th>
+                                <th>E-Mail Adresse</th>
+                                <th>Code</th>
                                 <th class="actions">
-                                    <a class="btn green" href="{{ path('fibu_new') }}">Neues Fibu-Kürzel erstellen</a>
+                                    <a
+                                            class="btn green"
+                                            href="{{ path('activation_code_new') }}"
+                                    >
+                                        Neuen Aktivierungscode erstellen
+                                    </a>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for fibu in fibus %}
+                            {% for activation_code in activation_codes %}
                                 <tr>
-                                    <td>{{ fibu.code }}</td>
-                                    <td>{{ fibu.intermediaryName }}</td>
+                                    <td>{{ activation_code.email }}</td>
+                                    <td>{{ activation_code.code }}</td>
                                     <td class="actions">
-                                        {{ include('fibu/_delete_form.html.twig') }}
-                                        <a class="btn" href="{{ path('fibu_edit', {'id': fibu.id}) }}">bearbeiten</a>
+                                        {{ include('activation_code/_delete_form.html.twig') }}
+                                        <a
+                                                class="btn"
+                                                href="{{ path('activation_code_edit', {'id': activation_code.id}) }}"
+                                        >
+                                            bearbeiten
+                                        </a>
                                     </td>
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="2">Keine Fibu-Kürzel im System.</td>
+                                    <td colspan="2">Keine Aktivierungscodes im System gefunden.</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

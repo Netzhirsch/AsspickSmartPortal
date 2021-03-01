@@ -96,22 +96,27 @@
 						</a>
 					</div>
 				</div>
-				<div class="submenu-wrapper">
-					<h2{{ app.request.get('_route') in userRoutes ? ' class="active"' }}>
-						<i class="fad fa-user-alt"></i>
-						Benutzerverwaltung
-					</h2>
-					<div class="submenu">
-						<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="submenu-wrapper">
+						<h2{{ app.request.get('_route') in userRoutes ? ' class="active"' }}>
 							<i class="fad fa-user-alt"></i>
-							Benutzer
-						</a>
-						<a href="{{ path('fibu_index') }}"{% if app.request.get('_route') == 'fibu_index' %} class="active"{% endif %}>
-							<i class="fad fa-barcode"></i>
-							Fibu-Kürzel
-						</a>
+							Benutzerverwaltung
+						</h2>
+						<div class="submenu">
+							<a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
+								<i class="fad fa-user-alt"></i>
+								Benutzer
+							</a>
+							<a
+									href="{{ path('activation_code_index') }}"
+									{% if app.request.get('_route') == 'activation_code_index' %} class="active"{% endif %}
+							>
+								<i class="fad fa-barcode"></i>
+								Aktivierungscode
+							</a>
+						</div>
 					</div>
-				</div>
+				{% endif %}
 			</nav>
 		</div>
 	{% endif %}
