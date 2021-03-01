@@ -1,24 +1,20 @@
+<header><h3>Bilder</h3></header>
 <div class="content">
-    <header>
-        <h3>
-            Bilder
-        </h3>
-    </header>
-    <div
-            id="myAwesomeDropzone"
-            class="line col-24 dropzone inline-dropzone"
-            data-src="{{ path('file_drop') }}"
-            data-acceptedFiles="{{ acceptedFiles }}"
-            data-maxFiles="{{ maxFiles }}"
-    >
+    <div class="line">
+        <div id="myAwesomeDropzone"
+             class="dropzone inline-dropzone"
+             data-src="{{ path('file_drop') }}"
+             data-acceptedFiles="{{ acceptedFiles }}"
+             data-maxFiles="{{ maxFiles }}"
+        ></div>
     </div>
 </div>
 
 {{ form_widget(form.tmpFolder) }}
-
+<div class="liner"></div>
 <div class="content images">
     {% for file in files %}
-        <div class="line col-12">
+        <div class="line col-8">
             {% if file.path is not empty %}
                 <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
             {% endif %}

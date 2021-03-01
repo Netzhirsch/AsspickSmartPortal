@@ -6,7 +6,10 @@
             {% set isFirst = false %}
         {% endif %}
     {% endfor %}
-    <h2><strong>{{ news.titel }}</strong>{{ news.subtitel|raw|default('') }}</h2>
+    <h2>
+        <strong>{{ news.titel }}</strong>
+        {{ news.subtitel|raw|default('') }}
+    </h2>
     <p>
         {% if news.teaser is not empty %}
             {{ news.teaser|raw }}
