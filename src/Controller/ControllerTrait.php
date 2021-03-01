@@ -263,7 +263,7 @@ trait ControllerTrait
         string $subject,
         string $message,
         string $from = 'asspick@asspick.de'
-    )
+    ): int
     {
         $parameter = array(
             'message' => $message,

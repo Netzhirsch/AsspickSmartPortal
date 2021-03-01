@@ -98,7 +98,10 @@ class RegistrationController extends AbstractController
             $message .= PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
             $subject = 'Neue Registrierung';
             if ($this->sendMail($this->mailer, $mailTo, $subject, $message) < 1) {
-                die('error');
+                $this->addFlash
+                (
+                    'error'
+                    , 'Es konnte leider keine E-Mail versandt werden, bitte melden Sie sich direkt bei asspick@asspick.de');
             }
         } else {
             $user->setIsVerified(true);
