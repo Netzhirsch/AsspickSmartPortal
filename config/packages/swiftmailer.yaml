@@ -1,3 +1,8 @@
 swiftmailer:
     url: '%env(MAILER_URL)%'
+    transport: 'smtp'
     spool: { type: 'memory' }
+    antiflood: {
+        threshold: 10
+            sleep: 60
+    }
