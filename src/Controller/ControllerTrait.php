@@ -262,7 +262,7 @@ trait ControllerTrait
         string $mailTo,
         string $subject,
         string $message,
-        string $from = 'asspick.de'
+        string $from = 'asspick@asspick.de'
     )
     {
         $parameter = array(
