@@ -35,10 +35,28 @@
 					<i class="fad fa-cloud"></i>
 					Download-Center
 				</a>
-				<a href="/"{% if app.request.get('_route') == 'crash_calculator' %} class="active"{% endif %}>
-					<i class="fad fa-car-crash"></i>
-					Angebotsrechner
-				</a>
+				<div class="submenu-wrapper">
+					<h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
+						<i class="fad fa-fragile"></i>
+						Angebotsrechner
+					</h2>
+					<div class="submenu">
+						<a
+								href="https://rechner.asspick.netzhirsch.de/aci"
+								target="_blank"
+						>
+							<i class="fad fa-house-damage"></i>
+							Immobilien Cover
+						</a>
+						<a
+								href="{{ path('crash_calculator') }}"
+								{% if app.request.get('_route') == 'crash_calculator' %} class="active"{% endif %}
+						>
+							<i class="fad fa-car-crash"></i>
+							Unfall Cover
+						</a>
+					</div>
+				</div>
 				<a href="{{ path('news_index') }}"{% if app.request.get('_route') == 'news_index' %} class="active"{% endif %}>
 					<i class="fad fa-paper-plane"></i>
 					Newsroom
