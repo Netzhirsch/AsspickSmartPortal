@@ -279,6 +279,6 @@ trait ControllerTrait
 
         $message->addTo($mailTo);
 
-        $mailer->send($message);
+        return $mailer->send($message);
     }
 }

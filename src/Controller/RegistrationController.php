@@ -94,10 +94,12 @@ class RegistrationController extends AbstractController
             if (isset($requestData['email']))
                 $email = $requestData['email'];
 
-            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' un dem Code:'.$code.' anzumelden.';
+            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' und dem Code:'.$code.' anzumelden.';
             $message .= PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
             $subject = 'Neue Registrierung';
-            $this->sendMail($this->mailer, $mailTo, $subject, $message);
+            if ($this->sendMail($this->mailer, $mailTo, $subject, $message) < 1) {
+                die('error');
+            }
         } else {
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
