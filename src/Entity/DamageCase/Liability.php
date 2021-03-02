@@ -119,6 +119,7 @@ class Liability
         $this->setCreatedAt((new DateTime()));
         $this->files = new ArrayCollection();
         $this->damageEvent = null;
+        $this->setIsLocked(false);
     }
 
     public function getId(): ?int
