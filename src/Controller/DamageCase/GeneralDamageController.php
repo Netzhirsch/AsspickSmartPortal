@@ -61,7 +61,7 @@ class GeneralDamageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $error = $this->saveUploadedPhotos($request,$generalDamage,$em);
+            $error = $this->handlePhotos($request,$generalDamage,$em);
             if (!empty($error)) {
                 $this->addFlash('error', $error);
             } else {
@@ -72,14 +72,7 @@ class GeneralDamageController extends AbstractController
             return $this->redirectToRoute('damageCase_generalDamage_index');
         }
 
-        foreach ($generalDamage->getFiles() as $file) {
-            $path = $generalDamage::UPLOAD_FOLDER
-                .DIRECTORY_SEPARATOR
-                .$generalDamage->getCreatedAt()->format('Y-m-d')
-                .DIRECTORY_SEPARATOR
-                .$file->getName();
-            $file->setPath($path);
-        }
+        $this->setFileThumbnailData($generalDamage->getFiles(), $generalDamage);
 
         $parameters = [
             'form'       => $form->createView(),

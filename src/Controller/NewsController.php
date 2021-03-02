@@ -86,7 +86,7 @@ class NewsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $error = $this->saveUploadedPhotos($request,$news,$entityManager);
+            $error = $this->handlePhotos($request,$news,$entityManager);
             if (!empty($error)) {
                 $this->addFlash('error', $error);
             } else {

@@ -53,6 +53,8 @@ class File
 
     private string $path = '';
 
+    private int $size = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,4 +147,21 @@ class File
     {
         $this->path = $path;
     }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param int $size
+     */
+    public function setSize(int $size): void
+    {
+        $this->size = $size;
+    }
+
 }

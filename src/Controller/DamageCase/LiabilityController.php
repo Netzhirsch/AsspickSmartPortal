@@ -61,7 +61,7 @@ class LiabilityController extends DamageCaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $error = $this->saveUploadedPhotos($request,$liability,$em);
+            $error = $this->handlePhotos($request,$liability,$em);
             if (!empty($error)) {
                 $this->addFlash('error', $error);
             } else {
@@ -72,14 +72,7 @@ class LiabilityController extends DamageCaseController
             return $this->redirectToRoute('damageCase_liability_index');
         }
 
-        foreach ($liability->getFiles() as $file) {
-            $path = $liability::UPLOAD_FOLDER
-                .DIRECTORY_SEPARATOR
-                .$liability->getCreatedAt()->format('Y-m-d')
-                .DIRECTORY_SEPARATOR
-                .$file->getName();
-            $file->setPath($path);
-        }
+        $this->setFileThumbnailData($liability->getFiles(), $liability);
 
         $parameters = [
             'form'       => $form->createView(),
@@ -157,4 +150,5 @@ class LiabilityController extends DamageCaseController
         $liability = $liabilityRepository->find($id);
         return $this->lock($liability,$id);
     }
+
 }

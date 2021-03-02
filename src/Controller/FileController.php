@@ -156,7 +156,7 @@ class FileController extends AbstractController
             return '';
 
         $filePath =
-            $this->getUploadedIDr($entity->getCreatedAt(), $entity::UPLOAD_FOLDER)
+            $this->getUploadedDir($entity->getCreatedAt(), $entity::UPLOAD_FOLDER)
             .DIRECTORY_SEPARATOR
             .$file->getName()
         ;

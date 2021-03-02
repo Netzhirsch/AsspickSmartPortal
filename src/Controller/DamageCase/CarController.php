@@ -62,7 +62,7 @@ class CarController extends DamageCaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $error = $this->saveUploadedPhotos($request,$car,$em);
+            $error = $this->handlePhotos($request,$car,$em);
             if (!empty($error)) {
                 $this->addFlash('error', $error);
             } else {
@@ -73,14 +73,7 @@ class CarController extends DamageCaseController
             return $this->redirectToRoute('damageCase_car_index');
         }
 
-        foreach ($car->getFiles() as $file) {
-            $path = $car::UPLOAD_FOLDER
-                .DIRECTORY_SEPARATOR
-                .$car->getCreatedAt()->format('Y-m-d')
-                .DIRECTORY_SEPARATOR
-                .$file->getName();
-            $file->setPath($path);
-        }
+        $this->setFileThumbnailData($car->getFiles(), $car);
 
         $parameters = [
             'form'       => $form->createView(),

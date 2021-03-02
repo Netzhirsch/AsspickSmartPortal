@@ -16,22 +16,33 @@
 
 {{ form_widget(form.tmpFolder) }}
 
-<div class="content images">
+<div class="content images hidden">
+    <ul id="dropzone-files">
     {% for file in files %}
-        <div class="line col-12">
-            {% if file.path is not empty %}
-                <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
-            {% endif %}
-            <br>
-            <a class="btn red" href="{{ path(
-                'file_delete',{
-                    'id':file.id
-                    ,'backTo':backTo
-                    ,'entityId':form.vars.value.id
-                }
-            ) }}">
-                Löschen
-            </a>
-        </div>
+        {% if file.path is not empty %}
+            <li
+                    data-file-id="{{ file.id }}" data-name="{{ file.name }}" data-size="{{ file.size }}"
+                    data-thumbnail="{{ asset(file.path) | imagine_filter('cover_355x355') }}"
+            >
+                <input type="hidden" name="removed-file[]" class="removed-file">
+            </li>
+        {% endif %}
+{#        <div class="line col-12">#}
+{#            {% if file.path is not empty %}#}
+
+{#                <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>#}
+{#            {% endif %}#}
+{#            <br>#}
+{#            <a class="btn red" href="{{ path(#}
+{#                'file_delete',{#}
+{#                    'id':file.id#}
+{#                    ,'backTo':backTo#}
+{#                    ,'entityId':form.vars.value.id#}
+{#                }#}
+{#            ) }}">#}
+{#                Löschen#}
+{#            </a>#}
+{#        </div>#}
     {% endfor %}
+    </ul>
 </div>
