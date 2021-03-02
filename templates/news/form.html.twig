@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+    {{ form_start(form) }}
     <div class="container container--dashboard">
         <div class="inner">
             <header>
@@ -20,58 +21,40 @@
                     News {{ action }}
                 </h2>
             </header>
-            {{ form_start(form) }}
             <div class="content">
-                <div class="line col-8">
+                <div class="line col-12">
                     {{ form_label(form.titel) }}
                     {{ form_widget(form.titel) }}
                     {{ form_errors(form.titel) }}
                 </div>
-                <div class="line col-24">
-                    <header>
-                        <h3>
-                            {{ form_label(form.subtitel) }}
-                        </h3>
-                    </header>
+                <div class="line col-12">
+                    {{ form_label(form.subtitel) }}
                     {{ form_widget(form.subtitel) }}
                     {{ form_errors(form.subtitel) }}
                 </div>
                 <div class="line col-24">
-                    <header>
-                        <h3>
-                            {{ form_label(form.teaser) }}
-                        </h3>
-                    </header>
-                    <div class="line col-24">
-                        {{ form_widget(form.teaser) }}
-                        {{ form_errors(form.teaser) }}
-                    </div>
+                    {{ form_label(form.teaser) }}
+                    {{ form_widget(form.teaser) }}
+                    {{ form_errors(form.teaser) }}
                 </div>
                 <div class="line col-24">
-                    <header>
-                        <h3>
-                            {{ form_label(form.text) }}
-                        </h3>
-                    </header>
-                    <div class="line col-24">
-                        {{ form_widget(form.text) }}
-                        {{ form_errors(form.text) }}
-                    </div>
+                    {{ form_label(form.text) }}
+                    {{ form_widget(form.text) }}
+                    {{ form_errors(form.text) }}
                 </div>
             </div>
             {% include '_widgets/image.html.twig'
                 with {
-                    'files':news.files,
-                    'backTo':constant('App\\Entity\\News::FORM_ROUTES')|join(','),
-                    'maxFiles' : 1,
-                    'acceptedFiles' : 'images/*'
-                }
-            %}
+                'files':news.files,
+                'backTo':constant('App\\Entity\\News::FORM_ROUTES')|join(','),
+                'maxFiles' : 1,
+                'acceptedFiles' : 'images/*'
+            } %}
             <div class="content">
                 <button class="btn">{{ button_label|default('Speichern') }}</button>
             </div>
         </div>
-        {{ form_row(form._token) }}
-        {{ form_end(form,{'render_rest':false}) }}
     </div>
+    {{ form_row(form._token) }}
+    {{ form_end(form,{'render_rest':false}) }}
 {% endblock %}

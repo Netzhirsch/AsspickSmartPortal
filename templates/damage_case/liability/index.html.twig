@@ -3,72 +3,72 @@
 {% block title %}Haftpflicht{% endblock %}
 
 {% block content %}
-    <div class="container container--dashboard">
+    <div class="container">
         <div class="inner">
             <header>
                 <h2>Haftpflicht</h2>
+                <div class="actions">
+                    <a class="btn"
+                       href="{{ path('damageCase_liability_download') }}"
+                       title="PDF"
+                       target="_blank"
+                    >
+                        <i class="fad fa-file-pdf"></i>
+                        PDF ausfüllen
+                    </a>
+                </div>
             </header>
-            <div class="content">
-                <i class="fa fa-pdf"></i>
-                <a
-                        href="{{ path('damageCase_liability_download') }}"
-                        title="PDF"
-                        target="_blank"
-                >
-                    Schadenanzeige Haftpflicht
-                </a>
-            </div>
             <div class="content">
                 <div class="table-wrapper">
                     <table>
                         <thead>
-                        <tr>
-                            <th>erstellt am</th>
-                            <th>Versicherer</th>
-                            <th>Versicherungsnehmer</th>
-                            <th>Versicherungs-Nr/Schaden-Nr</th>
-                            <th>Schadentag</th>
-                            <th class="actions">
-                                <a href="{{ path('damageCase_liability_new') }}" class="btn green">
-                                    Neues Formular ausfüllen
-                                </a>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th>erstellt am</th>
+                                <th>Versicherer</th>
+                                <th>Versicherungsnehmer</th>
+                                <th>Versicherungs-Nr/Schaden-Nr</th>
+                                <th>Schadentag</th>
+                                <th class="actions">
+                                    <a href="{{ path('damageCase_liability_new') }}" class="btn green">
+                                        Neues Formular ausfüllen
+                                    </a>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {% for entry in liabilities %}
-                            <tr>
-                                <td>{{ entry.createdAt|date('d.m.Y') }}</td>
-                                <td>{{ entry.insured.insured|default('') }}</td>
-                                <td>{{ entry.policyholder }}</td>
-                                {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
-                                <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
-                                <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
-                                <td class="actions">
-                                    {% if entry.isLocked %}
-                                        <button class="btn" type="button">gesendet</button>
-                                    {% else %}
-                                        {% include 'damage_case/liability/_delete.html.twig' %}
-                                        <a
-                                                href="{{ path('damageCase_liability_edit',{'id':entry.id})}}"
-                                                class="btn edit"
-                                        >
-                                            bearbeiten
-                                        </a>
-                                        <a
-                                                href="{{ path('damageCase_liability_lock',{'id':entry.id}) }}"
-                                                class="btn edit"
-                                        >
-                                            einreichen
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="4">Keine Einträge im System</td>
-                            </tr>
-                        {% endfor %}
+                            {% for entry in liabilities %}
+                                <tr>
+                                    <td>{{ entry.createdAt|date('d.m.Y') }}</td>
+                                    <td>{{ entry.insured.insured|default('') }}</td>
+                                    <td>{{ entry.policyholder }}</td>
+                                    {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
+                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
+                                    <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
+                                    <td class="actions">
+                                        {% if entry.isLocked %}
+                                            <button class="btn" type="button">gesendet</button>
+                                        {% else %}
+                                            {% include 'damage_case/liability/_delete.html.twig' %}
+                                            <a
+                                                    href="{{ path('damageCase_liability_edit',{'id':entry.id}) }}"
+                                                    class="btn edit"
+                                            >
+                                                bearbeiten
+                                            </a>
+                                            <a
+                                                    href="{{ path('damageCase_liability_lock',{'id':entry.id}) }}"
+                                                    class="btn edit"
+                                            >
+                                                einreichen
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">Keine Einträge im System</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

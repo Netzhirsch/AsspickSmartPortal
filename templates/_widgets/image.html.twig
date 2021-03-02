@@ -1,16 +1,12 @@
+<header><h3>Bilder</h3></header>
 <div class="content">
-    <header>
-        <h3>
-            Bilder
-        </h3>
-    </header>
-    <div
-            id="myAwesomeDropzone"
-            class="line col-24 dropzone inline-dropzone"
-            data-src="{{ path('file_drop') }}"
-            data-acceptedFiles="{{ acceptedFiles }}"
-            data-maxFiles="{{ maxFiles }}"
-    >
+    <div class="line">
+        <div id="myAwesomeDropzone"
+             class="dropzone inline-dropzone"
+             data-src="{{ path('file_drop') }}"
+             data-acceptedFiles="{{ acceptedFiles }}"
+             data-maxFiles="{{ maxFiles }}"
+        ></div>
     </div>
 </div>
 
@@ -18,31 +14,15 @@
 
 <div class="content images hidden">
     <ul id="dropzone-files">
-    {% for file in files %}
-        {% if file.path is not empty %}
-            <li
-                    data-file-id="{{ file.id }}" data-name="{{ file.name }}" data-size="{{ file.size }}"
-                    data-thumbnail="{{ asset(file.path) | imagine_filter('cover_355x355') }}"
-            >
-                <input type="hidden" name="removed-file[]" class="removed-file">
-            </li>
-        {% endif %}
-{#        <div class="line col-12">#}
-{#            {% if file.path is not empty %}#}
-
-{#                <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>#}
-{#            {% endif %}#}
-{#            <br>#}
-{#            <a class="btn red" href="{{ path(#}
-{#                'file_delete',{#}
-{#                    'id':file.id#}
-{#                    ,'backTo':backTo#}
-{#                    ,'entityId':form.vars.value.id#}
-{#                }#}
-{#            ) }}">#}
-{#                Löschen#}
-{#            </a>#}
-{#        </div>#}
-    {% endfor %}
+        {% for file in files %}
+            {% if file.path is not empty %}
+                <li
+                        data-file-id="{{ file.id }}" data-name="{{ file.name }}" data-size="{{ file.size }}"
+                        data-thumbnail="{{ asset(file.path) | imagine_filter('cover_355x355') }}"
+                >
+                    <input type="hidden" name="removed-file[]" class="removed-file">
+                </li>
+            {% endif %}
+        {% endfor %}
     </ul>
 </div>
