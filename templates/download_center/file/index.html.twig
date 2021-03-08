@@ -24,7 +24,7 @@
                         </thead>
                         <tbody>
                         {% for file in files %}
-                            <tr>
+                            <tr class="{{ file.isVisible?'':'inactive' }}">
                                 <td>{{ file.updatedAt|date('d.m.Y') }}</td>
                                 <td>{{ file.name }}</td>
                                 <td class="actions">
