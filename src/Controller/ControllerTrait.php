@@ -366,6 +366,31 @@ trait ControllerTrait
     }
 
     /**
+     * @param string $dir
+     * @param string $name
+     * @return array|string
+     */
+    protected static function getUniqName(
+        string $dir,
+        string $name
+    )
+    {
+
+        $filesInDir = scandir($dir);
+        $nameIndex = 0;
+        foreach ($filesInDir as $fileInDir) {
+            if ($fileInDir != "." && $fileInDir != "..") {
+                $nameIndex++;
+            }
+        }
+        if (!empty($nameIndex)) {
+            $name = $nameIndex.'-'.$name;
+        }
+
+        return $name;
+    }
+
+    /**
      * @param Liability|Car|GeneralDamage $entity
      * @param File $file
      * @return string
@@ -390,4 +415,6 @@ trait ControllerTrait
         .DIRECTORY_SEPARATOR
         .$file->getName();
     }
+
+
 }

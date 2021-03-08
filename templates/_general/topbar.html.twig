@@ -31,10 +31,35 @@
 					<i class="fad fa-cloud"></i>
 					Ihre Verträge
 				</a>
-				<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
-					<i class="fad fa-cloud"></i>
-					Download-Center
-				</a>
+
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="submenu-wrapper">
+						<h2{{ app.request.get('_route') in downloadCenterRoutes ? ' class="active"' }}>
+							<i class="fad fa-cloud"></i>
+							Download-Center
+						</h2>
+						<div class="submenu">
+							<a
+									href="https://rechner.asspick.netzhirsch.de/aci"
+							>
+								<i class="fad fa-user-alt"></i>
+								Benutzer-Ansicht
+							</a>
+							<a
+									href="{{ path('download_center_folder_index') }}"
+							>
+								<i class="fad fa-cloud"></i>
+								Administration
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
+						<i class="fad fa-cloud"></i>
+						Download-Center
+					</a>
+				{% endif %}
+
 				<div class="submenu-wrapper">
 					<h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
 						<i class="fad fa-fragile"></i>

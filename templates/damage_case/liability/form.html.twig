@@ -148,7 +148,7 @@
             </div>
             {% include 'damage_case/part/_payment.html.twig' with {'payment':form.payment} %}
 
-            {% include '_widgets/image.html.twig'
+            {% include '_widgets/images.html.twig'
                 with {
                 'files':liability.files,
                 'backTo':constant('App\\Entity\\DamageCase\\Liability::FORM_ROUTES')|join(','),

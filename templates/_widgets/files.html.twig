@@ -1,0 +1,27 @@
+<header><h3>Datei</h3></header>
+<div class="content">
+    <div class="line">
+        <div id="myAwesomeDropzone"
+             class="dropzone inline-dropzone"
+             data-src="{{ path('download_center_file_drop') }}"
+             data-acceptedFiles="{{ acceptedFiles }}"
+             data-maxFiles="{{ maxFiles }}"
+             data-dict-default-message="Datei hier reinziehen oder hier klicken"
+        ></div>
+    </div>
+</div>
+
+{{ form_widget(form.tmpFolder) }}
+
+<div class="content images hidden">
+    <ul id="dropzone-files">
+        {% if file.path is not empty %}
+            <li
+                    data-file-id="{{ file.id }}" data-name="{{ file.name }}" data-size="{{ file.size }}"
+                    data-thumbnail="{{ asset(file.path) | imagine_filter('cover_355x355') }}"
+            >
+                <input type="hidden" name="removed-file[]" class="removed-file">
+            </li>
+        {% endif %}
+    </ul>
+</div>

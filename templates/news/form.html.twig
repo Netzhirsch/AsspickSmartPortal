@@ -43,7 +43,7 @@
                     {{ form_errors(form.text) }}
                 </div>
             </div>
-            {% include '_widgets/image.html.twig'
+            {% include '_widgets/images.html.twig'
                 with {
                 'files':news.files,
                 'backTo':constant('App\\Entity\\News::FORM_ROUTES')|join(','),

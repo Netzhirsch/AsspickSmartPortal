@@ -307,6 +307,16 @@
 
 		tr {
 
+			.loop(@i) when (@i <= 10) {
+				.loop(@i + 1);
+
+				&.level-@{i} td:first-child {
+					padding-left:@i * 30px;
+				}
+
+			}
+			.loop(1);
+
 			&.even {
 				background:fade(@innuendo, 40);
 			}

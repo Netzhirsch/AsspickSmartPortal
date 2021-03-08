@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('download_center_file_delete', {'id': file.id,'folderId':folderId}) }}" onsubmit="return confirm('Wollen Sie die Datei {{ file.name }} wirklich löschen?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ file.id) }}">
+    <button class="btn red ">löschen</button>
+</form>

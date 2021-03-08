@@ -1,0 +1,51 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Datei {{ action }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('folder-form') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('folder-form') }}
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    Datei {{ action }}
+                </h2>
+            </header>
+            <div class="content">
+                <div class="line col-8">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                    {{ form_errors(form.name) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.isVisible) }}
+                    {{ form_widget(form.isVisible) }}
+                    {{ form_errors(form.isVisible) }}
+                </div>
+
+            </div>
+            {% include '_widgets/files.html.twig'
+                with {
+                'file':file,
+                'backTo':constant('App\\Entity\\DownloadCenter\\FILE::FORM_ROUTES')|join(','),
+                'maxFiles' : 1,
+                'acceptedFiles' : 'images/*,application/pdf'
+            } %}
+            <div class="content">
+                <button class="btn">{{ button_label|default('Speichern') }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+    {{ form_end(form,{'render_rest':false}) }}
+{% endblock %}

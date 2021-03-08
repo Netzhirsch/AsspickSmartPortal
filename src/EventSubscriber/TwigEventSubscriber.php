@@ -30,6 +30,14 @@ class TwigEventSubscriber implements EventSubscriberInterface
             ]
         );
 
+        $this->twig->addGlobal(
+            'downloadCenterRoutes',[
+                'download_center_folder_index',
+                'download_center_folder_new',
+                'download_center_folder_edit',
+                'download_center_user_view',
+            ]
+        );
     }
 
     public static function getSubscribedEvents(): array

@@ -1,0 +1,48 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Download-Center Administration{% endblock %}
+
+{% block content %}
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>Download-Center Administration</h2>
+            </header>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="actions">
+                                <a title="News erstellen" class="btn green" href="{{ path('download_center_folder_new') }}">
+                                    Neue Ordner erstellen
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set levelClass = 'level-' %}
+                        {% for folder in folders %}
+                            {% include 'download_center/folder/_child.html.twig' with {'folder':folder,'levelClass':''}%}
+                            {% set children = folder.children %}
+                            {% for level in 1..maxLevel %}
+                                {% for child in children %}
+                                    {% set levelClass = 'level-' %}
+                                    {% set levelClass = levelClass ~ level %}
+                                    {% include 'download_center/folder/_child.html.twig' with {'folder':child,'levelClass':levelClass} %}
+                                    {% set children = child.children %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3">Keine Ordner im System</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

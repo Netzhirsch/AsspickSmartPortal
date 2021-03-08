@@ -123,31 +123,6 @@ class FileController extends AbstractController
             .DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.$uid;
     }
 
-    /**
-     * @param string $dir
-     * @param string $name
-     * @return array|string
-     */
-    public static function getUniqName(
-        string $dir,
-        string $name
-    )
-    {
-
-        $filesInDir = scandir($dir);
-        $nameIndex = 0;
-        foreach ($filesInDir as $fileInDir) {
-            if ($fileInDir != "." && $fileInDir != "..") {
-                $nameIndex++;
-            }
-        }
-        if (!empty($nameIndex)) {
-            $name = $nameIndex.'-'.$name;
-        }
-
-        return $name;
-    }
-
     public function getFilePath(File $file): string
     {
 

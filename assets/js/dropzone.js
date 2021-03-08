@@ -8,6 +8,8 @@ $(document).ready(function () {
     let url = dropzone.data('src');
     let acceptedFiles = dropzone.data('acceptedFiles');
     let maxFiles = dropzone.data('maxFiles');
+    let dictDefaultMessage = dropzone.data('dict-default-message');
+    console.log(dropzone);
     let newUid = false;
     let dropzoneFiles = $('#dropzone-files li');
     dropzone.dropzone({
@@ -15,7 +17,7 @@ $(document).ready(function () {
         maxFiles:maxFiles,
         acceptedFiles:acceptedFiles,
         addRemoveLinks:true,
-        dictDefaultMessage: 'Bilder hier reinziehen oder hier klicken',
+        dictDefaultMessage: dictDefaultMessage,
         dictRemoveFile: '<span class="btn red löschen">Löschen</span>',
         init: function () {
             this.on("success", function (response, uid) {
@@ -41,7 +43,6 @@ $(document).ready(function () {
     if ($('#myAwesomeDropzone').length > 0) {
         let myAwesomeDropzone = Dropzone.forElement("#myAwesomeDropzone");
         dropzoneFiles.each(function (){
-            console.log("test");
             let existingFiles =
                 {
                     name: $(this).data('name'),
