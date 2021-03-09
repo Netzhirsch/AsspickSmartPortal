@@ -33,7 +33,7 @@ class UserViewController extends AbstractController
     public function userViewAction(FolderRepository $folderRepository,FileRepository $fileRepository,int $id = null)
     {
         if (empty($id))
-            $folders = $folderRepository->findParents();
+            $folders = $folderRepository->findParentsVisible();
         else
             $folders = [$folderRepository->find($id)];
 

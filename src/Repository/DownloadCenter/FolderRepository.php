@@ -42,4 +42,14 @@ class FolderRepository extends ServiceEntityRepository
     private function addOrder(QueryBuilder $qb){
         $qb->orderBy('f.name');
     }
+
+    public function findParentsVisible()
+    {
+        $qb = $this->createQueryBuilder('f');
+        $this->addOrder($qb);
+        $qb->where('f.parent IS NULL');
+        $qb->andWhere('f.isVisible = 1');
+
+        return $qb->getQuery()->getResult();
+    }
 }
