@@ -36,7 +36,7 @@ class Folder
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Folder::class, mappedBy="parent")
+     * @ORM\OneToMany(targetEntity=Folder::class, mappedBy="parent", cascade={"remove"})
      */
     private $children;
 

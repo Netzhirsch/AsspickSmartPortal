@@ -1,4 +1,8 @@
-<form method="post" action="{{ path('download_center_folder_delete', {'id': folder.id}) }}" onsubmit="return confirm('Wollen Sie den Ordner {{ folder.name }} wirklich löschen?');">
+{% set message = 'Wollen Sie den Ordner ' ~ folder.name ~ ' wirklich löschen?' %}
+{% if folder.children is not empty %}
+    {% set message = message ~ ' Seine Unterordner werden auch gelöscht.' %}
+{% endif %}
+<form method="post" action="{{ path('download_center_folder_delete', {'id': folder.id}) }}" onsubmit="return confirm('{{ message }}');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ folder.id) }}">
     <button class="btn red">löschen</button>

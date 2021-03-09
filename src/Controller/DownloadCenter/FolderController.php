@@ -104,6 +104,7 @@ class FolderController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$folder->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $this->removeDirs($folder);
             $entityManager->remove($folder);
             $entityManager->flush();
         } else {
@@ -129,5 +130,38 @@ class FolderController extends AbstractController
         $newDir = FileController::getDir($newFolder);
         if ($oldDir !== $newDir && file_exists($oldDir))
             rename($oldDir,$newDir);
+    }
+
+    private function removeDirs(?Folder $folder)
+    {
+        if (empty($folder))
+            return;
+
+        $dir = FileController::getDir($folder);
+
+        foreach ($folder->getFiles() as $file) {
+            $filePath = $dir.DIRECTORY_SEPARATOR.$file->getFileName();
+            if (file_exists($filePath))
+                unlink($filePath);
+        }
+
+        if (!file_exists($dir))
+            return;
+
+        if ($this->IsDirEmpty($dir)) {
+            rmdir($dir);
+        } else {
+            foreach ($folder->getChildren() as $child) {
+                $this->removeDirs($child);
+            }
+        }
+
+        $this->removeDirs($folder->getParent());
+    }
+
+    private function IsDirEmpty($dir): ?bool
+    {
+        if (!is_readable($dir)) return NULL;
+        return (count(scandir($dir)) == 2);
     }
 }
