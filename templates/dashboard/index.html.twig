@@ -2,6 +2,11 @@
 
 {% block title %}Herzlich willkommen{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+{% endblock %}
+
 {% block content %}
 
     <div class="container container--dashboard">
@@ -9,9 +14,47 @@
             <header>
                 <h2>
                     <i class="fad fa-door-open"></i>
-                    Herzlich willkommen
+                    Moin und herzlich Willkommen in unserem Vermittlerportal!
                 </h2>
             </header>
+            <div class="content">
+                <p>Über das neue Vermittlerportal erhalten Sie direkten Zugang zu Ihren Verträgen, unseren Konzeptrechnern und den dazugehörigen Unterlagen. Somit gewährleisten wir, dass unsere Konzepte Ihren Arbeitsalltag und Ihre Prozesse soweit wie möglich entlasten und vermeiden auch im Schadenfall, wann immer möglich, Diskussionen mit Ihren Kunden.</p>
+                <p>Viel Spaß – wir freuen uns über Ihr Feedback!</p>
+            </div>
+            <div class="content">
+                <h3>Online-Rechner</h3>
+                <p>
+                    Mit unseren beiden Onlinerechnern kommen Sie schnell und mit wenigen Klicks zum passenden Angebot. Vergleichen Sie die beiden Deckungskonzepte AIC und AUC.<br>
+                    Wenn Sie sich für ein Asspick Produkt entscheiden, können Sie Ihren persönlichen Versicherungsvertrag direkt online beantragen.
+                </p>
+
+                <h3>Newsroom</h3>
+                <p>
+                    Hier bekommen Sie laufend aktuelle News aus der Versicherungswirtschaft, der MARTENS & PRAHL Gruppe und natürlich von ASSPICK.
+                    Wichtige Updates und Entscheidungsgrundlagen für die Praxis, Hintergrundinformationen für die Planung Ihrer Absicherungsstrategien
+                    und Einladungen zu den aktuellen Online-Veranstaltungen von uns.
+                </p>
+
+
+                <h3>Schadenmeldung</h3>
+                <p>
+                   Für Ihre Schadenmeldung nutzen Sie gern die hier hinterlegten Online-Formulare.
+                    Natürlich können Sie uns auch jederzeit anrufen oder eine E-Mail schreiben.
+                </p>
+
+                <h3>Ihre Verträge</h3>
+                <p>
+                    Direkter Zugriff auf Ihre Verträge und Dokumente. Dieser Bereich befindet sich im Aufbau und kann nur über eine separate Anmeldung genutzt werden.
+                    Sollten Sie keine LogIn-Daten haben, kontaktieren Sie uns bitte.
+                </p>
+
+                <h3>Download-Center</h3>
+                <p>
+                    Die Alternative zu komplizierten Vertragswerken und komplexen Konstrukten mit mehreren Partnern:
+                    Unsere Konzepte, die wir mit leistungsstarken Versicherern für Sie als Komplettpakete geschnürt haben.<br>
+                    Hier finden Sie alle Rahmenvereinbarungen und Konzeptunterlagen von Asspick.
+                </p>
+            </div>
             <div class="content">
                 <div class="line col-6">
                     <a class="cta" href="{{ path('files') }}">

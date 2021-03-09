@@ -21,6 +21,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('dashboard', './assets/js/dashboard.js')
+    .addEntry('login', './assets/js/login.js')
+    .addEntry('files', './assets/js/files.js')
     .addEntry('news-form', './assets/js/news-form.js')
     .addEntry('folder-form', './assets/js/downloadCenter/folder-form.js')
     .addEntry('liability-form', './assets/js/damageCase/liability-form.js')

@@ -2,6 +2,11 @@
 
 {% block title %}Einloggen{% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+
 {% block content %}
 	<div class="container container--login">
 		<div class="inner">
