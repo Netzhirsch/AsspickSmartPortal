@@ -29,10 +29,10 @@
                                     class="file" title="{{ folder.parent.name }}"
                             >
                                 <div class="wrap-icon">
-                                    <i class="fas fa-folder-open folder-color"></i>
+                                    <i class="fad fa-folder-open folder-color"></i>
                                 </div>
                                 <div class="information">
-                                    <div class="type">{{ folder.parent.name }}</div>
+                                    <div class="type">..</div>
                                 </div>
                             </a>
                         </div>
@@ -43,10 +43,10 @@
                                         class="file" title="Download-Center"
                                 >
                                     <div class="wrap-icon">
-                                        <i class="fad fa-cloud"></i>
+                                        <i class="fad fa-folder-open folder-color"></i>
                                     </div>
                                     <div class="information">
-                                        <div class="type">Download-Center</div>
+                                        <div class="type">..</div>
                                     </div>
                                 </a>
                             </div>
@@ -67,7 +67,7 @@
                         </div>
                     {% endfor %}
                     {% for file in folder.files %}
-                        {% include 'download_center/user_view/_file.html.twig' %}
+                        {% include 'download_center/user_view/_file.html.twig' with {'file':file} %}
                     {% endfor %}
                 </div>
             {% endfor %}

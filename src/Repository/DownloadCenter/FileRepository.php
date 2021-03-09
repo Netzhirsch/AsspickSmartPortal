@@ -53,7 +53,7 @@ class FileRepository extends ServiceEntityRepository
     public function findNew(): array
     {
         return $this->createQueryBuilder('f')
-            ->orderBy('f.updatedAt', 'ASC')
+            ->orderBy('f.updatedAt', 'DESC')
             ->addOrderBy('f.name', 'ASC')
             ->setMaxResults(4)
             ->getQuery()
