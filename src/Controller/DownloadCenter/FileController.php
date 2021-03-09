@@ -96,16 +96,17 @@ class FileController extends AbstractController
                 $this->addFlash('error', 'Ein Ordner mit der Id:'.$folderId.' konnte nicht gefunden werden.');
                 return $this->redirectToRoute('download_center_folder_index',['folderId' => $folderId]);
             }
-            $error = $this->handleFiles($request, $folder, $entityManager,$file);
-            if (!empty($error)) {
-                $this->addFlash('error', $error);
-            }
-            $file->setFolder($folder);
-            $file->setUpdatedAt((new DateTime()));
-            $entityManager->persist($file);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('download_center_file_index',['folderId' => $folderId]);
+            $error = $this->handleFiles($request, $folder, $entityManager,$file);
+            if (empty($error)) {
+                $file->setFolder($folder);
+                $file->setUpdatedAt((new DateTime()));
+                $entityManager->persist($file);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('download_center_file_index',['folderId' => $folderId]);
+            }
+            $this->addFlash('error', $error);
         }
 
 
@@ -226,6 +227,12 @@ class FileController extends AbstractController
         if (!empty($error))
             return $error;
 
+        $em->persist($file);
+        $em->flush();
+
+        if (!file_exists($this->getDir($folder).DIRECTORY_SEPARATOR.$file->getFileName()))
+            return 'Bitte laden Sie eine Datei hoch.';
+
         return $error;
     }
 
@@ -302,13 +309,13 @@ class FileController extends AbstractController
                     continue;
                 }
                 $file = $repo->find($removedFile);
-                $filePath = $dir.DIRECTORY_SEPARATOR.$file->getName();
+                $filePath = $dir.DIRECTORY_SEPARATOR.$file->getFileName();
                 if (file_exists($filePath)) {
                     if (!unlink($filePath)) {
                         return 'Datei konnte nicht gelöscht werden. '.$dir;
                     }
+                    $file->setFileName('');
                 }
-                $folder->removeFile($file);
             }
         }
         if ($folder->getFiles()->count() == 0) {
