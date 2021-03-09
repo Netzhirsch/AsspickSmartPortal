@@ -1,14 +1,20 @@
-<tr class="{{ levelClass }} {{ folder.isVisible ? '' : 'inactive' }}">
-    <td>{{ folder.name }}</td>
+<tr class="level-{{ level }} {{ folder.isVisible ? '' : 'inactive' }}">
+    <td colspan="2"><i class="fas fa-folder-open folder-color"></i> {{ folder.name }}</td>
     <td class="actions">
         {{ include('download_center/folder/_delete_form.html.twig') }}
         <a
                 class="btn"
                 href="{{ path('download_center_folder_edit', {'id': folder.id}) }}"
-                title="News bearbeiten"
+                title="Ordner bearbeiten"
         >
             bearbeiten
         </a>
         <a class="btn" href="{{ path('download_center_file_index',{'folderId':folder.id}) }}">Dateien - {{ folder.files|length }}</a>
     </td>
 </tr>
+{% for child in folder.children %}
+    {% include 'download_center/folder/_child.html.twig' with {'folder':child,'level':level+1} %}
+{% endfor %}
+{% for file in folder.files %}
+    {% include 'download_center/file/_child.html.twig' with {'file':file,'level':level+1} %}
+{% endfor %}

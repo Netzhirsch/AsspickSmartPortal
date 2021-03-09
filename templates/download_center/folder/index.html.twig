@@ -10,13 +10,14 @@
             </header>
             <div class="content">
                 <div class="table-wrapper">
-                    <table>
+                    <table class="entity-list">
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Letzte Änderung</th>
                             <th class="actions">
-                                <a title="News erstellen" class="btn green" href="{{ path('download_center_folder_new') }}">
-                                    Neue Ordner erstellen
+                                <a title="Ordner erstellen" class="btn green" href="{{ path('download_center_folder_new') }}">
+                                    Neuer Ordner
                                 </a>
                             </th>
                         </tr>
@@ -24,16 +25,7 @@
                         <tbody>
                         {% set levelClass = 'level-' %}
                         {% for folder in folders %}
-                            {% include 'download_center/folder/_child.html.twig' with {'folder':folder,'levelClass':''}%}
-                            {% set children = folder.children %}
-                            {% for level in 1..maxLevel %}
-                                {% for child in children %}
-                                    {% set levelClass = 'level-' %}
-                                    {% set levelClass = levelClass ~ level %}
-                                    {% include 'download_center/folder/_child.html.twig' with {'folder':child,'levelClass':levelClass} %}
-                                    {% set children = child.children %}
-                                {% endfor %}
-                            {% endfor %}
+                            {% include 'download_center/folder/_child.html.twig' with {'folder':folder,'level':0}%}
                         {% else %}
                             <tr>
                                 <td colspan="3">Keine Ordner im System</td>

@@ -24,16 +24,17 @@ class FolderController extends AbstractController
     {
         $folders = $folderRepository->findParents();
         $maxLevel = 0;
+
         foreach ($folders as $folder) {
             $children = $folder->getChildren();
             while ($children->count() > 0) {
                 foreach ($children as $child) {
                     $maxLevel++;
                     $children = $child->getChildren();
-                    continue;
                 }
             }
         }
+
         return $this->render('download_center/folder/index.html.twig', [
             'folders' => $folders,
             'maxLevel' => $maxLevel

@@ -8,21 +8,8 @@
 
 	{% if app.user %}
 		<div class="navigation-wrapper">
-			{#
-				<div class="submenu-wrapper">
-					<h2{{ app.request.get('_route') in ['test'] ? ' class="active"' }}>
-						<i class="fad fa-chart-line"></i> Menu
-					</h2>
-					<div class="submenu">
-						<a href="{{ path('sub1') }}"{% if app.request.get('_route') == 'sub1' %} class="active"{% endif %}>
-							<i class="fad fa-chart-pie"></i>
-							Sub1
-						</a>
-					</div>
-				</div>
-			#}
 			<nav>
-				<span><i class="fas fa-user"></i> {{ app.user.username }}</span>
+				<span><i class="fad fa-user"></i> {{ app.user.username }}</span>
 				<a href="{{ path('logout') }}"><i class="fad fa-sign-out-alt"></i></a>
 			</nav>
 
@@ -35,12 +22,12 @@
 				{% if is_granted('ROLE_ADMIN') %}
 					<div class="submenu-wrapper">
 						<h2{{ app.request.get('_route') in downloadCenterRoutes ? ' class="active"' }}>
-							<i class="fad fa-cloud"></i>
+							<i class="fas fa-cloud-download"></i>
 							Download-Center
 						</h2>
 						<div class="submenu">
 							<a
-									href="https://rechner.asspick.netzhirsch.de/aci"
+									href="{{ path('download_center_folder_index') }}"
 							>
 								<i class="fad fa-user-alt"></i>
 								Benutzer-Ansicht
@@ -48,20 +35,20 @@
 							<a
 									href="{{ path('download_center_folder_index') }}"
 							>
-								<i class="fad fa-cloud"></i>
+								<i class="fad fa-tools"></i>
 								Administration
 							</a>
 						</div>
 					</div>
 				{% else %}
 					<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
-						<i class="fad fa-cloud"></i>
+						<i class="fas fa-cloud-download"></i>
 						Download-Center
 					</a>
 				{% endif %}
 
 				<div class="submenu-wrapper">
-					<h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
+					<h2>
 						<i class="fad fa-fragile"></i>
 						Angebotsrechner
 					</h2>
@@ -74,8 +61,8 @@
 							Immobilien Cover
 						</a>
 						<a
-								href="{{ path('crash_calculator') }}"
-								{% if app.request.get('_route') == 'crash_calculator' %} class="active"{% endif %}
+								href="https://rechner.asspick.netzhirsch.de/unfall"
+								target="_blank"
 						>
 							<i class="fad fa-car-crash"></i>
 							Unfall Cover
