@@ -3,6 +3,7 @@
 namespace App\Entity\DownloadCenter;
 
 use App\Repository\DownloadCenter\FileRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
@@ -60,6 +61,7 @@ class File
     public function __construct()
     {
         $this->setIsVisible(true);
+        $this->setUpdatedAt((new DateTime()));
     }
 
     public function getId(): ?int
