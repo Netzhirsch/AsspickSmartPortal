@@ -11,11 +11,14 @@ use App\Repository\DownloadCenter\FolderRepository;
 use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -167,6 +170,39 @@ class FileController extends AbstractController
         return $this->redirectToRoute('download_center_file_index',['folderId' => $folderId]);
     }
 
+    /**
+     * @Route("/{id}/download", name="download_center_file_download")
+     * @param FileRepository $fileRepository
+     * @param int $id
+     * @return BinaryFileResponse|RedirectResponse
+     */
+    public function downloadAction(
+        FileRepository $fileRepository,
+        int $id
+    )
+    {
+        $file = $fileRepository->find($id);
+        if (empty($file)) {
+            $this->addFlash('error', 'Keine Datei mit der ID:'.$id.' gefunden.');
+            return $this->redirectToRoute('download_center_user_view');
+        }
+
+        $dir = $this->getDir($file->getFolder());
+        $filePath = $dir.DIRECTORY_SEPARATOR.$file->getFileName();
+        if (!file_exists($filePath)) {
+            $this->addFlash('error', 'Keine Datei im Pfad :'.$filePath.' gefunden.');
+            return $this->redirectToRoute('download_center_user_view');
+        }
+
+        $binaryFileResponse = new BinaryFileResponse($filePath);
+        $binaryFileResponse->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $file->getFileName()
+        );
+
+        return $binaryFileResponse;
+    }
+
     private function addFlashNotFound($id){
         $this->addFlash('error', 'Eine Datei mit der Id: '.$id.' konnte nicht gefunden werden.');
     }
@@ -294,7 +330,7 @@ class FileController extends AbstractController
      * @param Folder|null $folder
      * @return string
      */
-    private function getDir(?Folder $folder): string
+    public static function getDir(?Folder $folder): string
     {
         $dir = dirname(__DIR__, 3)
             .DIRECTORY_SEPARATOR
@@ -304,10 +340,13 @@ class FileController extends AbstractController
             .DIRECTORY_SEPARATOR
             .'download_center';
 
+        $parents = [];
         while (!empty($folder)) {
-            $dir .= DIRECTORY_SEPARATOR.$folder->getName();
+            $parents[] = $folder->getName();
             $folder = $folder->getParent();
         }
+        krsort($parents);
+        $dir .= DIRECTORY_SEPARATOR.implode(DIRECTORY_SEPARATOR, $parents);
 
         return $dir;
     }

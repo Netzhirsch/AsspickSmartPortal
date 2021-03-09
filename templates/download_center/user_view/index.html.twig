@@ -1,0 +1,36 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Ihre Dateien{% endblock %}
+
+{% block content %}
+
+    <div class="container container--files">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-cloud"></i>
+                    Ihre Dateien
+                </h2>
+            </header>
+
+            <header><h3 class="purple"><i class="fad fa-sparkles"></i> Neue</h3></header>
+            <div class="content">
+                {% for newFile in newFiles %}
+                    {% include 'download_center/user_view/_file.html.twig' with {'file':newFile} %}
+                {% endfor %}
+            </div>
+            {% for folder in folders %}
+                <header><h3><i class="fad fa-file-contract"></i> {{ folder.name }}</h3></header>
+                <div class="content">
+                    {% for file in folder.files %}
+                        {% include 'download_center/user_view/_file.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <header><h3><i class="fad fa-archive"></i> Archiv</h3></header>
+            <div class="content">
+                <div class="line"><a href="">126 archivierte Dateien</a></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

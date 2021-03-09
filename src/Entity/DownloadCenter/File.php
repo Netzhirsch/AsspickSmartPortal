@@ -55,6 +55,11 @@ class File
      */
     private $fileName;
 
+    public function __construct()
+    {
+        $this->setIsVisible(true);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

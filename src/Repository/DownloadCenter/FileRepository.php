@@ -47,4 +47,17 @@ class FileRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * @return File[]
+     */
+    public function findNew(): array
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.updatedAt', 'ASC')
+            ->addOrderBy('f.name', 'ASC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

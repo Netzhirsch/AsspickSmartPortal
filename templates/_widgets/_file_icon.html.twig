@@ -1,0 +1,22 @@
+{% set fileEnding = file.fileName|split('.')|last|lower %}
+{% if fileEnding in ['pdf'] %}
+    <i class="fas fa-file-pdf"></i>
+{% elseif fileEnding in ['xlsx','xls'] %}
+    <i class="fas fa-file-excel"></i>
+{% elseif fileEnding in ['docx','doc'] %}
+    <i class="fas fa-file-word"></i>
+{% elseif fileEnding in ['pptx','ppt'] %}
+    <i class="fas fa-file-powerpoint"></i>
+{% elseif fileEnding in ['jpg','jpeg','png','tiff','webp','bmp','gif'] %}
+    <i class="fas fa-file-image"></i>
+{% elseif fileEnding in ['mp4','mpeg','avi','webm','mov','mpg'] %}
+    <i class="fas fa-file-video"></i>
+{% elseif fileEnding in ['xml'] %}
+    <i class="fas fa-file-code"></i>
+{% elseif fileEnding in ['csv'] %}
+    <i class="fas fa-file-csv"></i>
+{% elseif fileEnding in ['txt'] %}
+    <i class="fas fa-file-alt"></i>
+{% else %}
+    <i class="fas fa-file"></i>
+{% endif %}
