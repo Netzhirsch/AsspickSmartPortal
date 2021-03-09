@@ -27,7 +27,7 @@
 						</h2>
 						<div class="submenu">
 							<a
-									href="{{ path('download_center_folder_index') }}"
+									href="{{ path('download_center_folder_user_view') }}"
 							>
 								<i class="fad fa-user-alt"></i>
 								Benutzer-Ansicht
@@ -41,7 +41,10 @@
 						</div>
 					</div>
 				{% else %}
-					<a href="{{ path('files') }}"{% if app.request.get('_route') == 'files' %} class="active"{% endif %}>
+					<a
+							href="{{ path('download_center_folder_user_view') }}"
+							{% if app.request.get('_route') == 'download_center_folder_user_view' %} class="active"{% endif %}
+					>
 						<i class="fas fa-cloud-download"></i>
 						Download-Center
 					</a>

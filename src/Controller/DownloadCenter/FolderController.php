@@ -114,7 +114,7 @@ class FolderController extends AbstractController
     }
 
     /**
-     * @Route("/user/view/dummy", name="download_center_user_view_dummy", methods={"GET"})
+     * @Route("/user/view/dummy", name="download_center_folder_user_view_dummy", methods={"GET"})
      * @return Response
      */
     public function userViewDummyAction()
@@ -123,7 +123,7 @@ class FolderController extends AbstractController
     }
 
     /**
-     * @Route("/user/view", name="download_center_user_view", methods={"GET"})
+     * @Route("/user/view", name="download_center_folder_user_view", methods={"GET"})
      * @return Response
      */
     public function userViewAction(FolderRepository $folderRepository,FileRepository $fileRepository)
