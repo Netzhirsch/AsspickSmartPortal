@@ -103,7 +103,8 @@ class NewsController extends AbstractController
                 .DIRECTORY_SEPARATOR
                 .$file->getName();
                 $file->setPath($path);
-            $file->setSize(filesize($path));
+			if (file_exists($path))
+            	$file->setSize(filesize($path));
         }
         return $this->render('news/form.html.twig', [
             'action'    => $action,

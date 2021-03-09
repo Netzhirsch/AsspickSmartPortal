@@ -47,6 +47,6 @@ class DashboardController
 
 		$parameters = [];
 
-		return $this->render('files/index.html.twig', $parameters);
+		return $this->render('files/index2.html.twig', $parameters);
 	}
 }

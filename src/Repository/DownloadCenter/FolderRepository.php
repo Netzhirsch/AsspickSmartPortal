@@ -27,7 +27,7 @@ class FolderRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('f');
         $this->addOrder($qb);
-        $qb->where('f.parent IS NULL');
+	    $qb->where('f.parent IS NULL');
 
         return $qb->getQuery()->getResult();
     }
