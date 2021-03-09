@@ -4,7 +4,6 @@ namespace App\Controller\DownloadCenter;
 
 use App\Entity\DownloadCenter\Folder;
 use App\Form\DownloadCenter\FolderType;
-use App\Repository\DownloadCenter\FileRepository;
 use App\Repository\DownloadCenter\FolderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,32 +111,6 @@ class FolderController extends AbstractController
 
         return $this->redirectToRoute('download_center_folder_index');
     }
-
-    /**
-     * @Route("/user/view/dummy", name="download_center_folder_user_view_dummy", methods={"GET"})
-     * @return Response
-     */
-    public function userViewDummyAction()
-    {
-        return $this->render('files/index.html.twig');
-    }
-
-    /**
-     * @Route("/user/view", name="download_center_folder_user_view", methods={"GET"})
-     * @return Response
-     */
-    public function userViewAction(FolderRepository $folderRepository,FileRepository $fileRepository)
-    {
-        $folders = $folderRepository->findParents();
-        $newFiles = $fileRepository->findNew();
-
-        return $this->render('download_center/user_view/index.html.twig',[
-            'newFiles' => $newFiles,
-            'folders' => $folders
-        ]);
-    }
-
-
 
     private function addFlashNotFound($id){
         $this->addFlash('error', 'Ein Ordner mit der Id:'.$id.' konnte nicht gefunden werden.');

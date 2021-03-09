@@ -8,6 +8,9 @@
         </div>
         <div class="information">
             <div class="type">{{ file.name }}</div>
+            {% if file.isNew %}
+                <div class="indicator">Neu</div>
+            {% endif %}
             <div class="filename">{{ file.fileName }}</div>
             <div class="date">{{ file.updatedAt|date('d.m.Y H:i') }}</div>
         </div>

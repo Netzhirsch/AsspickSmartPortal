@@ -55,6 +55,8 @@ class File
      */
     private $fileName;
 
+    private bool $isNew = false;
+
     public function __construct()
     {
         $this->setIsVisible(true);
@@ -155,6 +157,22 @@ class File
         $this->fileName = $fileName;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->isNew;
+    }
+
+    /**
+     * @param bool $isNew
+     */
+    public function setIsNew(bool $isNew): void
+    {
+        $this->isNew = $isNew;
     }
 
 }
