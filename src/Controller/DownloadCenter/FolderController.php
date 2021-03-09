@@ -51,6 +51,7 @@ class FolderController extends AbstractController
      */
     public function formAction(FolderRepository $folderRepository,Request $request,int $id = null): Response
     {
+        $oldFolder = null;
         if (empty($id)) {
             $action = 'erstellen';
             $folder = new Folder();
@@ -61,9 +62,9 @@ class FolderController extends AbstractController
                 $this->addFlashNotFound($id);
                 return $this->redirectToRoute('download_center_folder_index');
             }
+            $oldFolder = clone $folder;
         }
 
-        $oldFolder = clone $folder;
 
         $form = $this->createForm(FolderType::class, $folder);
         $form->handleRequest($request);
@@ -117,13 +118,16 @@ class FolderController extends AbstractController
     }
 
     private function renameUploadDir(
-        Folder $oldFolder,
+        ?Folder $oldFolder,
         Folder $newFolder
     )
     {
+        if (empty($oldFolder))
+            return;
+
         $oldDir = FileController::getDir($oldFolder);
         $newDir = FileController::getDir($newFolder);
-        if (file_exists($oldDir))
+        if ($oldDir !== $newDir && file_exists($oldDir))
             rename($oldDir,$newDir);
     }
 }

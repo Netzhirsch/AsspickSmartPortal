@@ -66,6 +66,7 @@ class FileController extends AbstractController
         int $id = null
     ): Response
     {
+        $folder = $folderRepository->find($folderId);
         if (empty($id)) {
             $action = 'erstellen';
             $file = new File();
@@ -86,12 +87,12 @@ class FileController extends AbstractController
                 $file->setSize(filesize($path));
             }
         }
+        $file->setFolder($folder);
         $form = $this->createForm(FileType::class, $file);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $folder = $folderRepository->find($folderId);
             if (empty($folder)) {
                 $this->addFlash('error', 'Ein Ordner mit der Id:'.$folderId.' konnte nicht gefunden werden.');
                 return $this->redirectToRoute('download_center_folder_index',['folderId' => $folderId]);
@@ -99,7 +100,6 @@ class FileController extends AbstractController
 
             $error = $this->handleFiles($request, $folder, $entityManager,$file);
             if (empty($error)) {
-                $file->setFolder($folder);
                 $file->setUpdatedAt((new DateTime()));
                 $entityManager->persist($file);
                 $entityManager->flush();
