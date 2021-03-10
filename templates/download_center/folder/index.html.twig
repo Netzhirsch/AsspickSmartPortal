@@ -2,11 +2,27 @@
 
 {% block title %}Download-Center Administration{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('folder-index') }}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="inner">
             <header>
-                <h2>Download-Center Administration</h2>
+                <h2>
+                    <i class="fad fa-tools"></i>
+                    Download-Center Administration
+                </h2>
+                <div class="actions">
+                    <a id="expand-all" class="btn">
+                        <i class="fas fa-folder-plus"></i> expand all
+                    </a>
+                    <a id="collapse-all" class="btn">
+                        <i class="fas fa-folder-minus"></i> collapse all
+                    </a>
+                </div>
             </header>
             <div class="content">
                 <div class="table-wrapper">
@@ -16,7 +32,8 @@
                             <th>Name</th>
                             <th>Letzte Änderung</th>
                             <th class="actions">
-                                <a title="Ordner erstellen" class="btn green" href="{{ path('download_center_folder_new') }}">
+                                <a title="Ordner erstellen" class="btn green"
+                                   href="{{ path('download_center_folder_new') }}">
                                     Neuer Ordner
                                 </a>
                             </th>
@@ -25,7 +42,9 @@
                         <tbody>
                         {% set levelClass = 'level-' %}
                         {% for folder in folders %}
-                            {% include 'download_center/folder/_child.html.twig' with {'folder':folder,'level':0}%}
+                            {% include 'download_center/folder/_child.html.twig'
+                                with {'folder':folder,'level':0,'parentId':folder.id}
+                            %}
                         {% else %}
                             <tr>
                                 <td colspan="3">Keine Ordner im System</td>
