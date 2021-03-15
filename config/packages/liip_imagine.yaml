@@ -19,7 +19,11 @@ liip_imagine:
         cover_355x355: # Dropzone in Vorgängen
             quality: 75
             filters:
-                thumbnail: { size: [355, 355], mode : outbound, allow_upscale: true } # liefert genau 355x355 und schneidet überreste ab
+                thumbnail: { size: [ 355, 355 ], mode: outbound, allow_upscale: true } # liefert genau 355x355 und schneidet überreste ab
+        cover_275x121: # News Teaser
+            quality: 75
+            filters:
+                thumbnail: { size: [ 275, 121 ], mode: outbound, allow_upscale: true } # liefert genau 355x355 und schneidet überreste ab
         contain_600x600: # Vorgang-Ansicht
             quality: 75
             filters:

@@ -1,5 +1,5 @@
-@import "variables";
-@import "colors";
+@import 'variables';
+@import 'colors';
 
 .newline {
 	clear:both;
@@ -185,7 +185,7 @@
 				margin-right:.25em;
 				font-size:2em;
 				line-height:1;
-				content:"\f204";
+				content:'\f204';
 				vertical-align:middle;
 			}
 		}
@@ -196,7 +196,7 @@
 
 			&:checked + label:before {
 				color:@asspick_blue;
-				content:"\f205";
+				content:'\f205';
 			}
 		}
 
@@ -217,8 +217,9 @@
 
 		&.four-per-line > div label { .w25; .truncate; }
 	}
+
 	&.next-to-checkbox {
-		padding: 0;
+		padding:0;
 	}
 
 	&.actions {
@@ -267,8 +268,9 @@
 			}
 		}
 	}
+
 	&.contact {
-		letter-spacing: .2em;
+		letter-spacing:.2em;
 	}
 }
 
@@ -294,6 +296,7 @@ a.btn,
 	cursor:pointer;
 	-webkit-appearance:none;
 	.truncate;
+	text-align:center;
 
 	&.right {
 		.right;

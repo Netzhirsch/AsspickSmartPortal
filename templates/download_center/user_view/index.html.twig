@@ -18,44 +18,49 @@
                 </h2>
             </header>
 
-            <header><h3 class="purple"><i class="fad fa-sparkles"></i> Neue</h3></header>
-            <div class="content">
-                {% for newFile in newFiles %}
-                    {% include 'download_center/user_view/_file.html.twig' with {'file':newFile} %}
-                {% endfor %}
-            </div>
-            {% for folder in folders %}
-                <header><h3><i class="fad fa-file-contract"></i> {{ folder.name }}</h3></header>
+            {% if showNewFiles %}
+                <header><h3 class="purple"><i class="fad fa-sparkles"></i> Neue</h3></header>
                 <div class="content">
-                    {% if folder.parent is not empty %}
-                        <div class="line col-6">
-                            <a
-                                    href="{{ path('download_center_user_view',{'id':folder.parent.id}) }}"
-                                    class="file" title="{{ folder.parent.name }}"
+                    {% for newFile in newFiles %}
+                        {% include 'download_center/user_view/_file.html.twig' with {'file':newFile} %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% for folder in folders %}
+                <header>
+                    {% if showBreadcrumbs %}
+                        {% if folder.parent is not empty %}
+                            <a href="{{ path('download_center_user_view',{'id':folder.parent.id}) }}"
+                               class="btn" title="{{ folder.parent.name }}"
                             >
-                                <div class="wrap-icon">
-                                    <i class="fad fa-folder-open folder-color"></i>
-                                </div>
-                                <div class="information">
-                                    <div class="type">..</div>
-                                </div>
+                                <i class="fas fa-angle-left"></i>
                             </a>
-                        </div>
                         {% elseif isChild %}
-                            <div class="line col-6">
-                                <a
-                                        href="{{ path('download_center_user_view') }}"
-                                        class="file" title="Download-Center"
+                            <a href="{{ path('download_center_user_view') }}"
+                               class="btn" title="Download-Center"
+                            >
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        {% endif %}
+                        <div class="breadcrumbs">
+                            {% for folder in breadcrumbs %}
+
+                                <a class="breadcrumb btn {{ loop.last ? 'active' }}"
+                                   href="{{ folder.parent is null ? path('download_center_user_view') : path('download_center_user_view',{'id':folder.id}) }}"
                                 >
-                                    <div class="wrap-icon">
-                                        <i class="fad fa-folder-open folder-color"></i>
-                                    </div>
-                                    <div class="information">
-                                        <div class="type">..</div>
-                                    </div>
+                                    {{ folder.name }}
                                 </a>
-                            </div>
+                                {% if not loop.last %}
+                                    <div class="separator"><i class="fas fa-caret-right"></i></div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h2><i class="fad fa-file-contract"></i> {{ folder.name }}</h2>
                     {% endif %}
+                </header>
+                <div class="content">
                     {% for child in folder.children %}
                         <div class="line col-6">
                             <a
@@ -76,10 +81,6 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <header><h3><i class="fad fa-archive"></i> Archiv</h3></header>
-            <div class="content">
-                <div class="line"><a href="">126 archivierte Dateien</a></div>
-            </div>
         </div>
     </div>
 {% endblock %}

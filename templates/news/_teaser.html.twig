@@ -1,8 +1,8 @@
 <div class="line news col-6">
     {% set isFirst = true %}
     {% for file in news.files %}
-        {% if isFirst  %}
-            <img src="{{ asset(file.path) | imagine_filter('cover_355x355') }}" alt=""/>
+        {% if isFirst and file.path|split('.')|last|lower in ['jpg','jpeg','png','tiff','webp','bmp','gif'] %}
+            <img src="{{ asset(file.path) | imagine_filter('cover_275x121') }}" alt=""/>
             {% set isFirst = false %}
         {% endif %}
     {% endfor %}
