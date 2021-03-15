@@ -26,6 +26,7 @@ Encore
     .addEntry('files', './assets/js/files.js')
     .addEntry('news-form', './assets/js/news-form.js')
     .addEntry('folder-form', './assets/js/downloadCenter/folder-form.js')
+    .addEntry('folder-index', './assets/js/downloadCenter/folder-index.js')
     .addEntry('liability-form', './assets/js/damageCase/liability-form.js')
     .addEntry('generalDamage-form', './assets/js/damageCase/generalDamage-form.js')
     .addEntry('car-form', './assets/js/damageCase/car-form.js')

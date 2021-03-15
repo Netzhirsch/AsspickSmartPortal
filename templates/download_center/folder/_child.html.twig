@@ -1,4 +1,5 @@
-<tr class="level-{{ level }} {{ folder.isVisible ? '' : 'inactive' }}">
+{% set parentId = (parentId != folder.id)? parentId : '' %}
+<tr class="level-{{ level }}{{ folder.isVisible ? '' : ' inactive' }}" data-parent="{{ parentId }}" data-level="{{ level }}" data-id="{{ folder.id }}">
     <td colspan="2"><i class="fas fa-folder-open folder-color"></i> {{ folder.name }}</td>
     <td class="actions">
         {{ include('download_center/folder/_delete_form.html.twig') }}
@@ -13,8 +14,8 @@
     </td>
 </tr>
 {% for child in folder.children %}
-    {% include 'download_center/folder/_child.html.twig' with {'folder':child,'level':level+1} %}
+    {% include 'download_center/folder/_child.html.twig' with {'folder':child,'level':level+1,'parentId':folder.id} %}
 {% endfor %}
 {% for file in folder.files %}
-    {% include 'download_center/file/_child.html.twig' with {'file':file,'level':level+1} %}
+    {% include 'download_center/file/_child.html.twig' with {'file':file,'level':level+1,'dataLevel':level} %}
 {% endfor %}

@@ -1,4 +1,4 @@
-<tr class="file level-{{ level }} {{ file.isVisible ? '' : 'inactive' }}">
+<tr class="file level-{{ level }}{{ file.isVisible ? '' : ' inactive' }}" data-parent="{{ folder.id }}">
     <td>
        {% include '_widgets/_file_icon.html.twig' %}
         {{ file.name }}</td>
