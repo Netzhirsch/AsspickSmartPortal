@@ -6,10 +6,9 @@ Dropzone.options.myAwesomeDropzone = false;
 $(document).ready(function () {
     let dropzone = $('.dropzone');
     let url = dropzone.data('src');
-    let acceptedFiles = dropzone.data('acceptedFiles');
+    let acceptedFiles = dropzone.data('accepted-files');
     let maxFiles = dropzone.data('maxFiles');
     let dictDefaultMessage = dropzone.data('dict-default-message');
-    console.log(dropzone);
     let newUid = false;
     let dropzoneFiles = $('#dropzone-files li');
     dropzone.dropzone({
