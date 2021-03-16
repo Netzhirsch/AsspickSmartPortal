@@ -46,7 +46,10 @@ class Folder
      */
     private $files;
 
-    private int $level;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -156,20 +159,27 @@ class Folder
         return $this;
     }
 
-    /**
-     * @return int
-     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     public function getLevel(): int
     {
-        return $this->level;
-    }
+        $level = 0;
+        $folder = $this;
+        while(!empty($folder->getParent())) {
+            $level++;
+            $folder = $folder->getParent();
+        }
 
-    /**
-     * @param int $level
-     */
-    public function setLevel(int $level): void
-    {
-        $this->level = $level;
+        return $level;
     }
-
 }

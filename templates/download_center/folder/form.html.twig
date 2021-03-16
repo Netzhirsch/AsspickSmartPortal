@@ -38,6 +38,12 @@
                     {{ form_widget(form.isVisible) }}
                     {{ form_errors(form.isVisible) }}
                 </div>
+                <div class="liner"></div>
+                <div class="line col-24">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
             </div>
             <div class="content">
                 <button class="btn">{{ button_label|default('Speichern') }}</button>
