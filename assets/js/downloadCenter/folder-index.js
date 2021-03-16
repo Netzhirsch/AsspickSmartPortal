@@ -15,15 +15,15 @@ $(document).ready(function () {
 function expandAllOnClick() {
     $('#expand-all').click(function () {
         $('table tbody tr').removeClass('hidden closed');
-        $('table tbody tr i').addClass('fa-folder-open').removeClass('fa-folder');
+        $('table tbody tr:not(.file) i').addClass('fa-folder-open').removeClass('fa-folder');
     });
 }
 
 function collapseAllOnClick() {
     $('#collapse-all').click(function () {
-        $('tbody tr').addClass('closed');
+        $('tbody tr:not(.file)').addClass('closed');
         $('tbody tr:not(.level-0)').addClass('hidden');
-        $('tbody tr i').addClass('fa-folder').removeClass('fa-folder-open');
+        $('tbody tr:not(.file) i').addClass('fa-folder').removeClass('fa-folder-open');
     });
 }
 
@@ -38,5 +38,4 @@ function updateChildren(id,isVisible) {
         if (!$(this).hasClass('file'))
             updateChildren(id,nextVisibility);
     })
-
 }
