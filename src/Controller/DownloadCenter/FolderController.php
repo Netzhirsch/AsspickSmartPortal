@@ -64,8 +64,27 @@ class FolderController extends AbstractController
             }
             $oldFolder = clone $folder;
         }
+        return $this->handleForm($request, $folder, $oldFolder, $action);
 
+    }
 
+    /**
+     * @Route("/{id}/subFolder/new", name="download_center_subFolder_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param FolderRepository $folderRepository
+     * @param int $id
+     * @return Response
+     */
+    public function newSubFolder(Request $request,FolderRepository $folderRepository, int $id): Response
+    {
+        $parent = $folderRepository->find($id);
+        $folder = new Folder();
+        $folder->setParent($parent);
+
+        return $this->handleForm($request, $folder, null, 'erstellen');
+    }
+
+    private function handleForm(Request $request,Folder $folder,?Folder $oldFolder,string $action){
         $form = $this->createForm(FolderType::class, $folder);
         $form->handleRequest($request);
 

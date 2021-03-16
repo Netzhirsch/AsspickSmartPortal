@@ -11,6 +11,7 @@
             bearbeiten
         </a>
         <a class="btn" href="{{ path('download_center_file_index',{'folderId':folder.id}) }}">Dateien - {{ folder.files|length }}</a>
+        <a class="btn" href="{{ path('download_center_subFolder_new',{'id':folder.id}) }}">Unterordner erstellen</a>
     </td>
 </tr>
 {% for child in folder.children %}
