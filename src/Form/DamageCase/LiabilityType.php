@@ -30,7 +30,7 @@ class LiabilityType extends AbstractType
     {
         $builder
             ->add(
-                'insured',
+                'insurer',
                 InsurerType::class,
                 [
                     'label' => false,
