@@ -39,10 +39,10 @@
                             {% for entry in car %}
                                 <tr>
                                     <td>{{ entry.createdAt|date('d.m.Y') }}</td>
-                                    <td>{{ entry.insured.insured|default('') }}</td>
+                                    <td>{{ entry.insurer.name|default('') }}</td>
                                     <td>{{ entry.policyholder }}</td>
-                                    {% set insuranceNumber = entry.insured.insuranceNumber|default('') %}
-                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insured.dangerNumber|default('')) }}</td>
+                                    {% set insuranceNumber = entry.insurer.insuranceNumber|default('') %}
+                                    <td>{{ (insuranceNumber?insuranceNumber:entry.insurer.dangerNumber|default('')) }}</td>
                                     <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
                                     <td class="actions">
                                         {% include 'damage_case/car/part/_delete.html.twig' %}
