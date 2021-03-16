@@ -30,6 +30,7 @@ Encore
     .addEntry('liability-form', './assets/js/damageCase/liability-form.js')
     .addEntry('generalDamage-form', './assets/js/damageCase/generalDamage-form.js')
     .addEntry('car-form', './assets/js/damageCase/car-form.js')
+    .addEntry('user-view', './assets/js/user-view.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     // .enableStimulusBridge('./assets/controllers.json')

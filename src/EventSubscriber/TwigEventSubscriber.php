@@ -38,6 +38,15 @@ class TwigEventSubscriber implements EventSubscriberInterface
                 'download_center_user_view',
             ]
         );
+
+        $this->twig->addGlobal(
+            'newsroomRoutes',[
+                'news_index',
+                'news_new',
+                'news_edit',
+                'news_archiv',
+            ]
+        );
     }
 
     public static function getSubscribedEvents(): array

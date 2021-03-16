@@ -93,10 +93,30 @@
 						</a>
 					</div>
 				</div>
-				<a href="{{ path('news_index') }}"{% if app.request.get('_route') == 'news_index' %} class="active"{% endif %}>
-					<i class="fad fa-paper-plane"></i>
-					Newsroom
-				</a>
+
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="submenu-wrapper">
+						<h2{{ app.request.get('_route') in newsroomRoutes ? ' class="active"' }}>
+							<i class="fad fa-paper-plane"></i>
+							Newsroom
+						</h2>
+						<div class="submenu">
+							<a href="{{ path('news_index') }}"{% if app.request.get('_route') == 'news_index' %} class="active"{% endif %}>
+								<i class="fad fa-tools"></i>
+								Administration
+							</a>
+							<a href="{{ path('news_archiv') }}"{% if app.request.get('_route') == 'news_archiv' %} class="active"{% endif %}>
+								<i class="fad fa-user-alt"></i>
+								Benutzer-Ansicht
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<a href="{{ path('news_archiv') }}"{% if app.request.get('_route') == 'news_archiv' %} class="active"{% endif %}>
+						<i class="fad fa-paper-plane"></i>
+						Newsroom
+					</a>
+				{% endif %}
 				<div class="submenu-wrapper">
 					<h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
 						<i class="fad fa-fragile"></i>
