@@ -54,7 +54,7 @@ class CarType extends AbstractType
                 'label' => 'Amtliches Kennzeichen:',
                 'required' => false
             ])
-            ->add('insured',InsurerType::class,[
+            ->add('insurer',InsurerType::class,[
                 'label' => false,
                 'required' => false
             ])
