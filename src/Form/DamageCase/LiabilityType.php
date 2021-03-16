@@ -33,8 +33,7 @@ class LiabilityType extends AbstractType
                 'insurer',
                 InsurerType::class,
                 [
-                    'label' => false,
-                    'required' => false,
+                    'label' => false
                 ]
             )
             ->add(

@@ -22,10 +22,6 @@ class TheftProtectionTyp
      */
     private ?string $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Car::class, inversedBy="theftProtecion")
-     */
-    private ?Car $car;
 
     public function getId(): ?int
     {
@@ -44,15 +40,4 @@ class TheftProtectionTyp
         return $this;
     }
 
-    public function getCar(): ?Car
-    {
-        return $this->car;
-    }
-
-    public function setCar(?Car $car): self
-    {
-        $this->car = $car;
-
-        return $this;
-    }
 }

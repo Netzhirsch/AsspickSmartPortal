@@ -89,14 +89,14 @@ class CarType extends AbstractType
                 'required' => false
             ])
             ->add('opponentCar',OpponentCarType::class,[
-                'label' => 'Gegnerisches Fahrzeug bei Haftpflicht- oder eigenes Fahrzeug bei einem Kaskoschaden',
+                'label' => 'Fahrzeug',
                 'required' => false
             ])
             ->add('typeOfInjury', TextType::class, [
                 'label' => 'Art der Verletzung',
                 'required' => false
             ])
-            ->add('theftProtection', EntityType::class, [
+            ->add('theftProtectionTyp', EntityType::class, [
                 'label' => 'Bei Diebstahlschäden',
                 'class'  => TheftProtectionTyp::class,
                 'choice_label' => 'name',

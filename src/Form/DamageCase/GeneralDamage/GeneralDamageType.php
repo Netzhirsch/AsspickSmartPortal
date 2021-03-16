@@ -55,7 +55,7 @@ class GeneralDamageType extends AbstractType
                 'required' => false
             ])
             ->add('repairCompany',RepairCompanyType::class,[
-                'label' => 'Schadenereignis',
+                'label' => 'Reparatur Firma',
                 'required' => false
             ])
             ->add('policeRecording', PoliceRecordingType::class, [

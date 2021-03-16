@@ -47,7 +47,7 @@ class Car
     private ?TypOfTrip $typOfTrip;
 
     /**
-     * @ORM\OneToOne(targetEntity=Insurer::class, inversedBy="car", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Insurer::class, cascade={"persist", "remove"})
      */
     private ?Insurer $insurer;
 
@@ -97,11 +97,6 @@ class Car
     private DateTimeInterface $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=TheftProtectionTyp::class)
-     */
-    private Collection $theftProtection;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $viewedOn;
@@ -146,14 +141,19 @@ class Car
      */
     private ?Witness $witnessTwo;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=TheftProtectionTyp::class)
+     */
+    private $theftProtectionTyp;
+
     public function __construct()
     {
         $this->createdAt = (new DateTime());
-        $this->theftProtection = new ArrayCollection();
         $this->whoseCars = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->damageEvent = null;
         $this->setIsLocked(false);
+        $this->theftProtectionTyp = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -305,30 +305,6 @@ class Car
         return $this;
     }
 
-    /**
-     * @return Collection|TheftProtectionTyp[]
-     */
-    public function getTheftProtection(): Collection
-    {
-        return $this->theftProtection;
-    }
-
-    public function addTheftProtection(TheftProtectionTyp $theftProtection): self
-    {
-        if (!$this->theftProtection->contains($theftProtection)) {
-            $this->theftProtection[] = $theftProtection;
-        }
-
-        return $this;
-    }
-
-    public function removeTheftProtection(TheftProtectionTyp $theftProtection): self
-    {
-        $this->theftProtection->removeElement($theftProtection);
-
-        return $this;
-    }
-
     public function getViewedOn(): ?string
     {
         return $this->viewedOn;
@@ -463,6 +439,30 @@ class Car
     public function setWitnessTwo(?Witness $witnessTwo): self
     {
         $this->witnessTwo = $witnessTwo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TheftProtectionTyp[]
+     */
+    public function getTheftProtectionTyp(): Collection
+    {
+        return $this->theftProtectionTyp;
+    }
+
+    public function addTheftProtectionTyp(TheftProtectionTyp $theftProtectionTyp): self
+    {
+        if (!$this->theftProtectionTyp->contains($theftProtectionTyp)) {
+            $this->theftProtectionTyp[] = $theftProtectionTyp;
+        }
+
+        return $this;
+    }
+
+    public function removeTheftProtectionTyp(TheftProtectionTyp $theftProtectionTyp): self
+    {
+        $this->theftProtectionTyp->removeElement($theftProtectionTyp);
 
         return $this;
     }

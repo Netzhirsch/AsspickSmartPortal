@@ -2,7 +2,6 @@
 
 namespace App\Entity\DamageCase\Part;
 
-use App\Entity\DamageCase\Car\Car;
 use App\Repository\DamageCase\Part\InsurerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,11 +31,6 @@ class Insurer
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $dangerNumber;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Car::class, mappedBy="insured", cascade={"persist", "remove"})
-     */
-    private ?Car $car;
 
     public function getId(): ?int
     {
@@ -75,23 +69,6 @@ class Insurer
     public function setDangerNumber(?string $dangerNumber): self
     {
         $this->dangerNumber = $dangerNumber;
-
-        return $this;
-    }
-
-    public function getCar(): ?Car
-    {
-        return $this->car;
-    }
-
-    public function setCar(Car $car): self
-    {
-        // set the owning side of the relation if necessary
-        if ($car->getInsurer() !== $this) {
-            $car->setInsurer($this);
-        }
-
-        $this->car = $car;
 
         return $this;
     }
