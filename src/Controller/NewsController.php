@@ -22,6 +22,7 @@ class NewsController extends AbstractController
      * @Route("/", name="news_index", methods={"GET"})
      * @Route("/archiv", name="news_archiv", methods={"GET"})
      * @param Request $request
+     * @param PaginatorInterface $paginator
      * @param NewsRepository $newsRepository
      * @return Response
      */
@@ -121,7 +122,6 @@ class NewsController extends AbstractController
     /**
      * @Route("/{id}/show", name="news_show", methods={"GET","POST"})
      * @param NewsRepository $newsRepository
-     * @param Request $request
      * @param int|null $id
      * @return Response
      */

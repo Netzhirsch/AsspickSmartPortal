@@ -28,7 +28,7 @@ class ItemsOtherInsuranceType extends AbstractType
                 'required' => false,
                 'placeholder' => false
             ])
-            ->add('insured',TextType::class,[
+            ->add('insurer',TextType::class,[
                 'label' => 'Versicherer',
                 'required' => false
             ])

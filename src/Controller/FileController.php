@@ -50,7 +50,7 @@ class FileController extends AbstractController
             return $this->redirect($backTo);
         }
 
-        $filePath = $this->getFilePath($file);
+        $filePath = $this->getPath($file);
         if (empty($filePath))
             return $this->redirect($backTo);
 
@@ -82,7 +82,7 @@ class FileController extends AbstractController
         $file = $fileRepository->find($id);
         $backTo = $this->getBackToUrl($backTo,$entityId);
 
-        $filePath = $this->getFilePath($file);
+        $filePath = $this->getPath($file);
         if (empty($filePath))
             return $this->redirect($backTo);
 
@@ -123,7 +123,7 @@ class FileController extends AbstractController
             .DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.$uid;
     }
 
-    public function getFilePath(File $file): string
+    private function getPath(File $file): string
     {
 
         $entity = $this->getPathInfos($file);

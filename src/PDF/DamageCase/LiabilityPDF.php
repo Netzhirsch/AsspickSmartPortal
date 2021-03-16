@@ -19,9 +19,9 @@ class LiabilityPDF extends PDF
         $this->AddPage();
         $this->printTitel('HAFTPFLICHT – SCHADENANZEIGE');
         $this->printDivider();
-        $insured = $liability->getInsured();
+        $insured = $liability->getInsurer();
         if (!empty($insured)) {
-            $this->printInsured($insured);
+            $this->printInsurer($insured);
             $this->printDivider();
         }
         $policyholder = $liability->getPolicyholder();

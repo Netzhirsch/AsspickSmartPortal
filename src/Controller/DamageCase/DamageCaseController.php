@@ -34,19 +34,19 @@ class DamageCaseController extends AbstractController
             $this->addFlashNotFound($id);
             return $this->redirectToRoute($entity::FORM_ROUTES['index']);
         }
-        $insured = $entity->getInsured();
-        if (empty($insured)) {
+        $insurer = $entity->getInsurer();
+        if (empty($insurer)) {
             $this->addFlashNoInsured();
             return $this->redirectToRoute($entity::FORM_ROUTES['index']);
         }
-        $insuredName = $insured->getInsured();
-        if (empty($insured)) {
+        $insuredName = $insurer->getName();
+        if (empty($insurer)) {
             $this->addFlashNoInsured();
             return $this->redirectToRoute($entity::FORM_ROUTES['index']);
         }
-        $number = $insured->getInsuranceNumber();
+        $number = $insurer->getInsuranceNumber();
         if (empty($number))
-            $number = $insured->getDangerNumber();
+            $number = $insurer->getDangerNumber();
         if (empty($number)) {
             $this->addFlash
             (

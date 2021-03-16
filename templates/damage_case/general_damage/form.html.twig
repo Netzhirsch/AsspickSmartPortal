@@ -46,21 +46,7 @@
                 {{ form_errors(form.typs) }}
 
                 <div class="liner"></div>
-                <div class="line col-8">
-                    {{ form_label(form.insured.insured) }}
-                    {{ form_widget(form.insured.insured) }}
-                    {{ form_errors(form.insured.insured) }}
-                </div>
-                <div class="line col-8">
-                    {{ form_label(form.insured.insuranceNumber) }}
-                    {{ form_widget(form.insured.insuranceNumber) }}
-                    {{ form_errors(form.insured.insuranceNumber) }}
-                </div>
-                <div class="line col-8">
-                    {{ form_label(form.insured.dangerNumber) }}
-                    {{ form_widget(form.insured.dangerNumber) }}
-                    {{ form_errors(form.insured.dangerNumber) }}
-                </div>
+                {% include 'damage_case/part/_insurer.html.twig' %}
             </div>
 
             <div class="content tab" data-tab="policyholder">

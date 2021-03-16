@@ -26,8 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FileController extends AbstractController
 {
-    use ControllerTrait;
-
     /**
      * @Route("/{folderId}", name="download_center_file_index", methods={"GET"})
      * @param FolderRepository $folderRepository
@@ -137,7 +135,7 @@ class FileController extends AbstractController
 
         foreach ($files as $file) {
             $name = $file->getClientOriginalName();
-            $uniqName = $this->getUniqName($tmpDir, $name);
+            $uniqName = ControllerTrait::getUniqName($tmpDir, $name);
             rename($file->getPathname(), $tmpDir.DIRECTORY_SEPARATOR.$uniqName);
         }
 

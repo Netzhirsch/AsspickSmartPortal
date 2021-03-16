@@ -8,7 +8,7 @@ use App\Entity\DamageCase\Car\TypOfInsurance;
 use App\Entity\DamageCase\Car\TypOfTrip;
 use App\Entity\DamageCase\Car\WhoseCar;
 use App\Form\DamageCase\Part\DamageEventType;
-use App\Form\DamageCase\Part\InsuredType;
+use App\Form\DamageCase\Part\InsurerType;
 use App\Form\DamageCase\Part\PaymentType;
 use App\Form\DamageCase\Part\PoliceRecordingType;
 use App\Form\DamageCase\Part\PolicyholderType;
@@ -54,7 +54,7 @@ class CarType extends AbstractType
                 'label' => 'Amtliches Kennzeichen:',
                 'required' => false
             ])
-            ->add('insured',InsuredType::class,[
+            ->add('insured',InsurerType::class,[
                 'label' => false,
                 'required' => false
             ])

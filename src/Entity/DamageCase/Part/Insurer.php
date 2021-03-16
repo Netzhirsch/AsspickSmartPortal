@@ -3,13 +3,13 @@
 namespace App\Entity\DamageCase\Part;
 
 use App\Entity\DamageCase\Car\Car;
-use App\Repository\DamageCase\Part\InsuredRepository;
+use App\Repository\DamageCase\Part\InsurerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=InsuredRepository::class)
+ * @ORM\Entity(repositoryClass=InsurerRepository::class)
  */
-class Insured
+class Insurer
 {
     /**
      * @ORM\Id
@@ -21,7 +21,7 @@ class Insured
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $insured;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -43,14 +43,14 @@ class Insured
         return $this->id;
     }
 
-    public function getInsured(): ?string
+    public function getName(): ?string
     {
-        return $this->insured;
+        return $this->name;
     }
 
-    public function setInsured(string $insured): self
+    public function setName(string $name): self
     {
-        $this->insured = $insured;
+        $this->name = $name;
 
         return $this;
     }
@@ -87,8 +87,8 @@ class Insured
     public function setCar(Car $car): self
     {
         // set the owning side of the relation if necessary
-        if ($car->getInsured() !== $this) {
-            $car->setInsured($this);
+        if ($car->getInsurer() !== $this) {
+            $car->setInsurer($this);
         }
 
         $this->car = $car;

@@ -35,11 +35,8 @@
                     {{ form_widget(form.licensePlate) }}
                     {{ form_errors(form.licensePlate) }}
                 </div>
-{#                <div class="newline"></div>#}
-{#                <div class="line col-6 wrap-checkboxes">#}
-{#                </div>#}
                 <div class="liner"></div>
-                {% include 'damage_case/car/part/_insured.html.twig' %}
+                {% include 'damage_case/part/_insurer.html.twig' %}
             </div>
             {% include 'damage_case/part/_policyholder.html.twig' %}
             {% include 'damage_case/car/part/_damageEvent.html.twig'

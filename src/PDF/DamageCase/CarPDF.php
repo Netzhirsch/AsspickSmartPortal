@@ -40,8 +40,8 @@ class CarPDF extends PDF
         $this->printLicensePlate($licensePlate);
         $this->printDivider();
 
-        $insured = $car->getInsured();
-        $this->printInsured($insured);
+        $insurer = $car->getInsurer();
+        $this->printInsurer($insurer);
         $this->printDivider();
 
         $policyholder = $car->getPolicyholder();

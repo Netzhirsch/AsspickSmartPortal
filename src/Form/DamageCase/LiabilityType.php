@@ -7,7 +7,7 @@ use App\Entity\DamageCase\TypeOfOwnership;
 use App\Form\DamageCase\Part\ClaimantType;
 use App\Form\DamageCase\Part\DamageCauseType;
 use App\Form\DamageCase\Part\DamageEventType;
-use App\Form\DamageCase\Part\InsuredType;
+use App\Form\DamageCase\Part\InsurerType;
 use App\Form\DamageCase\Part\PaymentType;
 use App\Form\DamageCase\Part\PersonalInjuryType;
 use App\Form\DamageCase\Part\PoliceRecordingType;
@@ -31,7 +31,7 @@ class LiabilityType extends AbstractType
         $builder
             ->add(
                 'insured',
-                InsuredType::class,
+                InsurerType::class,
                 [
                     'label' => false,
                     'required' => false,

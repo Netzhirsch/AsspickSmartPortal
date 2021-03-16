@@ -2,25 +2,25 @@
 
 namespace App\Repository\DamageCase\Part;
 
-use App\Entity\DamageCase\Part\Insured;
+use App\Entity\DamageCase\Part\Insurer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Insured|null find($id, $lockMode = null, $lockVersion = null)
- * @method Insured|null findOneBy(array $criteria, array $orderBy = null)
- * @method Insured[]    findAll()
- * @method Insured[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Insurer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Insurer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Insurer[]    findAll()
+ * @method Insurer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InsuredRepository extends ServiceEntityRepository
+class InsurerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Insured::class);
+        parent::__construct($registry, Insurer::class);
     }
 
     // /**
-    //  * @return Insured[] Returns an array of Insured objects
+    //  * @return Insurer[] Returns an array of Insured objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class InsuredRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Insured
+    public function findOneBySomeField($value): ?Insurer
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')

@@ -25,7 +25,7 @@ class ItemsOtherInsurance
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $insured;
+    private ?string $insurer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -49,14 +49,14 @@ class ItemsOtherInsurance
         return $this;
     }
 
-    public function getInsured(): ?string
+    public function getInsurer(): ?string
     {
-        return $this->insured;
+        return $this->insurer;
     }
 
-    public function setInsured(?string $insured): self
+    public function setInsurer(?string $insurer): self
     {
-        $this->insured = $insured;
+        $this->insurer = $insurer;
 
         return $this;
     }

@@ -6,7 +6,7 @@ use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\GeneralDamage\GeneralDamageTyp;
 use App\Form\DamageCase\Part\DamageCauseType;
 use App\Form\DamageCase\Part\DamageEventType;
-use App\Form\DamageCase\Part\InsuredType;
+use App\Form\DamageCase\Part\InsurerType;
 use App\Form\DamageCase\Part\PaymentType;
 use App\Form\DamageCase\Part\PoliceRecordingType;
 use App\Form\DamageCase\Part\PolicyholderType;
@@ -34,7 +34,7 @@ class GeneralDamageType extends AbstractType
                 'required' => false,
                 'placeholder' => false
             ])
-            ->add('insured',InsuredType::class,[
+            ->add('insurer',InsurerType::class,[
                 'label' => false,
                 'required' => false
             ])

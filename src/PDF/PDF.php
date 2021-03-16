@@ -9,7 +9,7 @@ use App\Entity\DamageCase\Car\Driver;
 use App\Entity\DamageCase\Part\Claimant\Claimant;
 use App\Entity\DamageCase\Part\Damage\DamageCause;
 use App\Entity\DamageCase\Part\Damage\DamageEvent;
-use App\Entity\DamageCase\Part\Insured;
+use App\Entity\DamageCase\Part\Insurer;
 use App\Entity\DamageCase\Part\Payment;
 use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
@@ -77,21 +77,21 @@ class PDF extends TCPDF
         $this->Write(0,$titel,'',0,'R',1);
     }
 
-    protected function printInsured(Insured $insured){
+    protected function printInsurer(Insurer $insurer){
         $oneFourth = $this->getMaxContentWidth() / 4;
         $this->SetFont(self::FONT_FAMILY_BOLD,'',PDF::FONT_SIZE);
         $minWidthLabel = $this->getMinWidthLabel();
         $this->Cell($minWidthLabel, 0, 'Versicherer: ',self::DEBUG);
         $this->SetFont(self::FONT_FAMILY,'',PDF::FONT_SIZE);
-        $this->Cell($oneFourth, 0, $insured->getInsured(),self::DEBUG);
+        $this->Cell($oneFourth, 0, $insurer->getName(),self::DEBUG);
         $this->SetFont(self::FONT_FAMILY_BOLD,'',PDF::FONT_SIZE);
         $minWidthLabel = $oneFourth + 14;
         $this->Cell($minWidthLabel, 0, 'Versicherungsschein-',self::DEBUG,2);
         $this->Cell($minWidthLabel, 0, ' oder Schaden-Nummer:',self::DEBUG);
         $this->SetFont(self::FONT_FAMILY,'',PDF::FONT_SIZE);
-        $number = $insured->getInsuranceNumber();
+        $number = $insurer->getInsuranceNumber();
         if (empty($number))
-            $number = $insured->getDangerNumber();
+            $number = $insurer->getDangerNumber();
         $this->Cell($oneFourth, 0, $number,self::DEBUG,1,'R');
     }
 

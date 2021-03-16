@@ -5,7 +5,7 @@ namespace App\Entity\DamageCase\GeneralDamage;
 use App\Entity\DamageCase\GeneralDamage\BuildingDamage\BuildingDamage;
 use App\Entity\DamageCase\Part\Damage\DamageCause;
 use App\Entity\DamageCase\Part\Damage\DamageEvent;
-use App\Entity\DamageCase\Part\Insured;
+use App\Entity\DamageCase\Part\Insurer;
 use App\Entity\DamageCase\Part\Payment;
 use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
@@ -40,9 +40,9 @@ class GeneralDamage
     private Collection $typs;
 
     /**
-     * @ORM\OneToOne(targetEntity=Insured::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Insurer::class, cascade={"persist", "remove"})
      */
-    private ?Insured $insured;
+    private ?Insurer $insurer;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
@@ -143,14 +143,14 @@ class GeneralDamage
         return $this;
     }
 
-    public function getInsured(): ?Insured
+    public function getInsurer(): ?Insurer
     {
-        return $this->insured;
+        return $this->insurer;
     }
 
-    public function setInsured(?Insured $insured): self
+    public function setInsurer(?Insurer $insurer): self
     {
-        $this->insured = $insured;
+        $this->insurer = $insurer;
 
         return $this;
     }

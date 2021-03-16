@@ -29,7 +29,6 @@ class FileType extends AbstractType
             ->add('tmpFolder', HiddenType::class, [
                 'mapped' => false,
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -3,7 +3,7 @@
 namespace App\Entity\DamageCase\Car;
 
 use App\Entity\DamageCase\Part\Damage\DamageEvent;
-use App\Entity\DamageCase\Part\Insured;
+use App\Entity\DamageCase\Part\Insurer;
 use App\Entity\DamageCase\Part\Payment;
 use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
@@ -47,9 +47,9 @@ class Car
     private ?TypOfTrip $typOfTrip;
 
     /**
-     * @ORM\OneToOne(targetEntity=Insured::class, inversedBy="car", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Insurer::class, inversedBy="car", cascade={"persist", "remove"})
      */
-    private ?Insured $insured;
+    private ?Insurer $insurer;
 
     /**
      * @ORM\OneToOne(targetEntity=Policyholder::class, cascade={"persist", "remove"})
@@ -221,14 +221,14 @@ class Car
         return $this;
     }
 
-    public function getInsured(): ?Insured
+    public function getInsurer(): ?Insurer
     {
-        return $this->insured;
+        return $this->insurer;
     }
 
-    public function setInsured(?Insured $insured): self
+    public function setInsurer(?Insurer $insurer): self
     {
-        $this->insured = $insured;
+        $this->insurer = $insurer;
 
         return $this;
     }
