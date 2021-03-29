@@ -89,24 +89,32 @@ class RegistrationController extends AbstractController
         $repo = $entityManager->getRepository(ActivationCode::class);
         $activationCode = $repo->findOneBy(['email' => $email,'code' => $code,'user' => null]);
 
-        if (empty($activationCode)) {
-            $mailTo = 'luhmann@netzhirsch.de';
-            $email = '';
-            if (isset($requestData['email']))
-                $email = $requestData['email'];
+        $mailTo[] = 'luhmann@netzhirsch.de';
+        $subject = 'Neue Registrierung';
+        $email = '';
+        if (isset($requestData['email'])) {
+            $email = $requestData['email'];
+            $mailTo[] = $email;
+        }
 
-            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' und dem Code: '.$code.' anzumelden.';
+        if (empty($activationCode)) {
+            $subject .= ' fehlgeschlagen';
+            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' und dem Code:'.$code.' anzumelden.';
             $message .= PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
-            $subject = 'Neue Registrierung';
-            if ($this->sendMail($this->mailer, $mailTo, $subject, $message) < 1) {
-                $this->addFlash
-                (
-                    'error'
-                    , 'Es konnte leider keine E-Mail versandt werden, bitte melden Sie sich direkt bei asspick@asspick.de');
-            }
         } else {
+            $subject .= ' erfolgt';
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
+            $message = 'Jemand hat sich mit der E-Mail Adresse: '.$email.' und dem Code:'.$code.' angemeldet.';
+        }
+
+
+        if ($this->sendMail($this->mailer, $mailTo, $subject, $message) < 1) {
+            $this->addFlash
+            (
+                'error'
+                ,'Es konnte leider keine E-Mail versandt werden, 
+                bitte melden Sie sich direkt bei asspick@asspick.de');
         }
 
     }
