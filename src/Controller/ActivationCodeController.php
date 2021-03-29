@@ -36,7 +36,7 @@ class ActivationCodeController extends AbstractController
         $file->setUploadAt((new DateTime()));
         $form = $this->createForm(ActivationCodeFileType::class, $file);
         $form->handleRequest($request);
-        $activationCodes = $activationCodeRepository->findAll();
+        $activationCodes = $activationCodeRepository->findBy([], ['email' => 'ASC']);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             if (isset($form['file'])) {

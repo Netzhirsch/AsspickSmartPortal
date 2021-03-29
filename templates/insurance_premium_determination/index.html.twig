@@ -1,0 +1,343 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Prämienberechnung{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+
+    <div class="container col-8">
+        <div class="inner">
+            <header>
+                <h2>Prämienberechnung</h2>
+            </header>
+            <div class="content">
+                <div class="line col-auto">
+                    {{ form_label(form.salutation) }}
+                    {{ form_widget(form.salutation) }}
+                    {{ form_errors(form.salutation) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-12">
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="line col-12">
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+                <div class="liner"></div>
+                <div class="line col-auto">
+                    {{ form_label(form.mode) }}
+                    {{ form_widget(form.mode) }}
+                    {{ form_errors(form.mode) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-8">
+                    {{ form_label(form.sumInsured) }}
+                    {{ form_widget(form.sumInsured) }}
+                    {{ form_errors(form.sumInsured) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.currentValue) }}
+                    {{ form_widget(form.currentValue) }}
+                    {{ form_errors(form.currentValue) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.total) }}
+                    {{ form_widget(form.total) }}
+                    {{ form_errors(form.total) }}
+                </div>
+                <div class="liner"></div>
+                <div class="line col-8">
+                    {{ form_label(form.numberOfResidentialUnits) }}
+                    {{ form_widget(form.numberOfResidentialUnits) }}
+                    {{ form_errors(form.numberOfResidentialUnits) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.numberOfCommerciallyUsedUnits) }}
+                    {{ form_widget(form.numberOfCommerciallyUsedUnits) }}
+                    {{ form_errors(form.numberOfCommerciallyUsedUnits) }}
+                </div>
+                <div class="line col-8">
+                    {{ form_label(form.oilTankSize) }}
+                    {{ form_widget(form.oilTankSize) }}
+                    {{ form_errors(form.oilTankSize) }}
+                </div>
+                <div class="liner"></div>
+                <div class="line actions">
+                    {{ form_widget(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_row(form._token) }}
+    {{ form_end(form,{'render_rest':false}) }}
+
+    <div class="container col-16">
+        <div class="inner">
+            <header>
+                <h2>Ergebnis</h2>
+            </header>
+            <div class="content">
+                <div class="table-wrapper">
+                    <table class="entity-list">
+
+                        <thead>
+                            <tr>
+                                <th>Gebäudedeckung</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mindestbeitrag 120 €</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">ohne Glas</td>
+                                <td>0,80</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td>inklusiv Graffiti (SB 200 €)</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas allg.</td>
+                                <td>0,85</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td>inklusive Verzicht auf grobe Fahrlässigkeit bis 50 €</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas ges.</td>
+                                <td>0,90</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Gebäudedeckung mit innerer Unruhe</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>inklusive mut-/böswilliger Beschädigungen (SB 500 €)</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">ohne Glas</td>
+                                <td>0,94</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas allg.</td>
+                                <td>0,99</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas ges.</td>
+                                <td>1,04</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Gebäudedeckung mit Elementar</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Zürs Zone 1 und 2 (SB 500€)</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">ohne Glas</td>
+                                <td>1,00</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas allg.</td>
+                                <td>1,05</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas ges.</td>
+                                <td>1,10</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Gebäudedeckung komplett</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>inklusive innerer Unruhe und Elementarschäden</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">ohne Glas</td>
+                                <td>1,14</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas allg.</td>
+                                <td>1,19</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas ges.</td>
+                                <td>1,24</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td>inklusive unben. Gefahren (SB 500)</td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">ohne Glas</td>
+                                <td>1,28</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas allg.</td>
+                                <td>1,33</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">mit Glas ges.</td>
+                                <td>1,38</td>
+                                <td class="text-right">139,61 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Bauleistungsversicherung</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MB 250 € (SB 250 €)</td>
+                                <td class="text-right">250,00 €</td>
+                                <td class="text-right">ohne Feuer</td>
+                                <td>0,90</td>
+                                <td class="text-right">297,50 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="text-right">250,00 €</td>
+                                <td class="text-right">mit Feuer</td>
+                                <td>1,05</td>
+                                <td class="text-right">297,50 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Bauherrenhaftpflicht für EFH</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> MB 50 €, bei MFH beitragsfrei in HuG-HV</td>
+                                <td class="text-right">50,00 €</td>
+                                <td class="text-right">12,5 Mio</td>
+                                <td>0,40</td>
+                                <td class="text-right">59,50 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Haus- und Grundbesitzerhaftpflicht</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>WE 4 € / GE 8 € / MB 50 € inklusive Bauherren-HV</td>
+                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">5 Mio</td>
+                                <td></td>
+                                <td class="text-right">0,00 €</td>
+                            </tr>
+                            <tr>
+                                <td>WE 5 € / GE 10 € / MB 59 € inklusive Bauherren-HV</td>
+                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">10 Mio</td>
+                                <td></td>
+                                <td class="text-right">0,00 €</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th>Gewässerschadenhaftpflicht</th>
+                                <th class="text-right">Nettobeitrag</th>
+                                <th colspan="2">
+                                <th class="text-right">Bruttobeitrag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ober- und unterirdische Tankanlagen</td>
+                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">5 Mio</td>
+                                <td></td>
+                                <td class="text-right">0,00 €</td>
+                            </tr>
+                            <tr>
+                                <td> bis 10t, bis 30t, bis 50t, bis 100t</td>
+                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">10 Mio</td>
+                                <td></td>
+                                <td class="text-right">0,00 €</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
