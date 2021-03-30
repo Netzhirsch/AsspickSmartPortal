@@ -316,9 +316,7 @@ trait ControllerTrait
             ->setFrom($from)
             ->setBody($body);
 
-        foreach ($mailTo as $to) {
-            $message->addTo($to);
-        }
+        $message->setTo($mailTo);
 
         return $mailer->send($message);
     }

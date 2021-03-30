@@ -99,13 +99,18 @@ class RegistrationController extends AbstractController
 
         if (empty($activationCode)) {
             $subject .= ' fehlgeschlagen';
-            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email.' und dem Code:'.$code.' anzumelden.';
-            $message .= PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
+            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email;
+            if (!empty($code))
+                $message .= ' und dem Code:'.$code;
+            $message .= ' zu registrieren.'.PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
         } else {
             $subject .= ' erfolgt';
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
-            $message = 'Jemand hat sich mit der E-Mail Adresse: '.$email.' und dem Code:'.$code.' angemeldet.';
+            $message = 'Jemand hat sich mit der E-Mail Adresse: '.$email;
+            if (!empty($code))
+                $message .= ' und dem Code:'.$code;
+            $message .= ' registriert.';
         }
 
 
