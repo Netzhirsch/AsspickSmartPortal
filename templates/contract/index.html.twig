@@ -1,0 +1,56 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Ihre Verträge{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('files') }}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="inner">
+			<header>
+				<h2>Ihre Verträge</h2>
+			</header>
+			<div class="content">
+				<div class="table-wrapper">
+					<table class="entity-list">
+						<thead>
+							<tr>
+								<th>Antrag</th>
+								<th>Typ</th>
+								<th>Vu</th>
+								<th>Sparte</th>
+								<th>Bearbeiter</th>
+								<th>Vertragsbeginn</th>
+								<th>Zahlweise</th>
+								<th>Prämie gemäß Zahlweise</th>
+								<th>Jahresprämie</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for contract in contracts %}
+								<tr>
+									<td>{{ contract.ComputedStatus }}</td>
+									<td>{{ contract.Typ }}</td>
+									<td>{{ contract.Sparte }}</td>
+									<td>{{ contract.Vu }}</td>
+									<td>{{ contract.Bearbeiter }}</td>
+									<td>{{ contract.Vertragsbeginn|date("d.m.Y") }}</td>
+									<td>{{ contract.Zahlweise }}</td>
+									<td>{{ contract.BruttopraemieGemaessZahlweise|number_format(2, ",", ".") }} €</td>
+									<td>{{ contract.Jahrespraemie|number_format(2, ",", ".") }} €</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3">Keine Verträge vorhanden.</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

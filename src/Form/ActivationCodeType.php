@@ -14,11 +14,11 @@ class ActivationCodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+			->add('email',EmailType::class,[
+				'label' => 'E-Mail Adresse'
+			])
             ->add('code',TextType::class,[
                 'label' => 'Code'
-            ])
-            ->add('email',EmailType::class,[
-                'label' => 'E-Mail Adresse'
             ])
         ;
     }

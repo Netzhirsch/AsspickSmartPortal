@@ -60,6 +60,15 @@
                         <h2><i class="fad fa-file-contract"></i> {{ folder.name }}</h2>
                     {% endif %}
                 </header>
+
+                {% if folder.description is not empty %}
+                    <div class="content">
+                        <div class="line">
+                            {{ folder.description|raw }}
+                        </div>
+                    </div>
+                {% endif %}
+
                 <div class="content">
                     {% for child in folder.children %}
                         <div class="line col-6">
@@ -71,10 +80,10 @@
                                     <i class="fas fa-folder-open folder-color"></i>
                                 </div>
                                 <div class="information">
-                                    <div class="type">{{ child.name }}</div>
-                                </div>
-                                <div class="description">
-                                    {{ child.description|raw }}
+                                    <div class="filename">{{ child.name }}</div>
+                                    <div class="type">
+                                        {{ child.description|striptags }}
+                                    </div>
                                 </div>
                             </a>
                         </div>

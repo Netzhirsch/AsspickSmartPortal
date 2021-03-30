@@ -81,7 +81,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('E-Mail Adresse konnte nicht gefunden werden.');
+            throw new CustomUserMessageAuthenticationException('Die eingegebene E-Mail Adresse konnte nicht gefunden werden.');
         }
 
         return $user;
@@ -90,10 +90,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function checkCredentials($credentials, UserInterface $user): bool
     {
         /** @var User $customUser */
-        $customUser
-            = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+        $customUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
         if (!$customUser->isVerified()) {
-            $this->flashBag->set('error',"Dieser Account muss von einem Admin aktiviert werden.");
+            $this->flashBag->set('error',"Ihr Account konnte nicht verifiziert werden und muss von einem Administrator aktiviert werden.");
             return false;
         }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);

@@ -36,7 +36,7 @@ class FileController extends AbstractController
     {
         $folder = $folderRepository->find($folderId);
         if (empty($folder)) {
-            $this->addFlash('error', 'Ein Ordner mit der Id:'.$folderId.' konnte nicht gefunden werden.');
+            $this->addFlash('error', 'Ein Ordner mit der ID '.$folderId.' konnte nicht gefunden werden.');
             return $this->redirectToRoute('download_center_folder_index');
         }
         $files = $folder->getFiles();
@@ -316,7 +316,7 @@ class FileController extends AbstractController
                 }
             }
         }
-        if ($folder->getFiles()->count() == 0) {
+        if ($folder->getFiles()->count() == 0 && is_dir($dir)) {
             $files = scandir($dir);
             $isEmpty = true;
             foreach ($files as $folder) {

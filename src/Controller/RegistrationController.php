@@ -83,10 +83,11 @@ class RegistrationController extends AbstractController
         if (empty($requestData) || !isset($requestData['code']))
             return;
 
-        $code = $requestData['code'];
+		$code = $requestData['code'];
+		$email = $requestData['email'];
 
         $repo = $entityManager->getRepository(ActivationCode::class);
-        $activationCode = $repo->findOneBy(['code' => $code,'user' => null]);
+        $activationCode = $repo->findOneBy(['email' => $email,'code' => $code,'user' => null]);
 
         $mailTo[] = 'luhmann@netzhirsch.de';
         $subject = 'Neue Registrierung';

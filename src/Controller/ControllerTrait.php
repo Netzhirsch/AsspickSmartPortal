@@ -370,7 +370,7 @@ trait ControllerTrait
      * @param string $name
      * @return array|string
      */
-    protected static function getUniqName(
+    public static function getUniqName(
         string $dir,
         string $name
     )
