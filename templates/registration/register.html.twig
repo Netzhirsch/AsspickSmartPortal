@@ -38,7 +38,8 @@
             <div class="newline"></div>
             <button type="submit" class="btn">Register</button>
         </div>
-    {{ form_end(registrationForm) }}
+        {{ form_row(registrationForm._token) }}
+        {{ form_end(registrationForm,{'render_rest':false}) }}
     </div>
 </div>
 {% endblock %}

@@ -78,49 +78,72 @@ class RegistrationController extends AbstractController
         User $user
     ): void
     {
-        $entityManager = $this->getDoctrine()->getManager();
         $requestData = $request->request->get('registration_form');
-        if (empty($requestData) || !isset($requestData['code']))
+        if (empty($requestData) || !isset($requestData['email']))
             return;
 
-		$code = $requestData['code'];
 		$email = $requestData['email'];
 
+        $code = (isset($requestData['code'])?$requestData['code']:'');
+
+        $entityManager = $this->getDoctrine()->getManager();
         $repo = $entityManager->getRepository(ActivationCode::class);
         $activationCode = $repo->findOneBy(['email' => $email,'code' => $code,'user' => null]);
 
-        $mailTo[] = 'luhmann@netzhirsch.de';
+        $emailAddressAdmin = 'luhmann@netzhirsch.de';
         $subject = 'Neue Registrierung';
-        $email = '';
+        $emailAddressUser = '';
         if (isset($requestData['email'])) {
-            $email = $requestData['email'];
-            $mailTo[] = $email;
+            $emailAddressUser = $requestData['email'];
         }
 
-        if (empty($activationCode)) {
-            $subject .= ' fehlgeschlagen';
-            $message = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$email;
-            if (!empty($code))
-                $message .= ' und dem Code:'.$code;
-            $message .= ' zu registrieren.'.PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
-        } else {
+        $messageUser = 'Danke für ihre Registrierung.';
+
+        $subject .= ' fehlgeschlagen';
+
+        $messageAdmin = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$emailAddressUser;
+        if (!empty($code))
+            $messageAdmin .= ' und dem Code:'.$code;
+        $messageAdmin .= ' zu registrieren.'.PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
+
+        $messageUser .= 'Sie können sich nun einloggen.';
+
+        if (!empty($activationCode)) {
+
             $subject .= ' erfolgt';
+
+            $messageAdmin = 'Jemand hat sich mit der E-Mail Adresse: '.$emailAddressUser;
+            if (!empty($code))
+                $messageAdmin .= ' und dem Code:'.$code;
+            $messageAdmin .= ' registriert.';
+
+            $messageUser .= PHP_EOL.'Ihr Account muss noch von einem Admin freigeschaltet werden.';
+
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
-            $message = 'Jemand hat sich mit der E-Mail Adresse: '.$email;
-            if (!empty($code))
-                $message .= ' und dem Code:'.$code;
-            $message .= ' registriert.';
         }
 
 
-        if ($this->sendMail($this->mailer, $mailTo, $subject, $message) < 1) {
-            $this->addFlash
-            (
-                'error'
-                ,'Es konnte leider keine E-Mail versandt werden, 
-                bitte melden Sie sich direkt bei asspick@asspick.de');
-        }
+        if
+        (
+            !$this->isMailSendToReceiver($emailAddressAdmin,$subject,$messageAdmin)
+            &&
+            !$this->isMailSendToReceiver($emailAddressUser,'Danke für ihre Registrierung',$messageUser)
+        )
+            {
+                $this->addFlash
+                (
+                    'error'
+                    ,'Es konnte leider keine E-Mail versandt werden, 
+                    bitte melden Sie sich direkt bei asspick@asspick.de');
+            }
 
     }
+
+    private function isMailSendToReceiver(string $emailAddressAdmin,string $subject,string $messageAdmin): bool
+    {
+        return $this->sendMail($this->mailer, $emailAddressAdmin, $subject, $messageAdmin) > 0;
+    }
+
+
 }

@@ -298,7 +298,7 @@ trait ControllerTrait
 
     private function sendMail(
         Swift_Mailer $mailer,
-        array $mailTo,
+        string $mailTo,
         string $subject,
         string $message,
         string $from = 'asspick@asspick.de'
@@ -316,7 +316,7 @@ trait ControllerTrait
             ->setFrom($from)
             ->setBody($body);
 
-        $message->setTo($mailTo);
+        $message->setTo([$mailTo]);
 
         return $mailer->send($message);
     }
