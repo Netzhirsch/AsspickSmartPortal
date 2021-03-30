@@ -82,20 +82,16 @@ class RegistrationController extends AbstractController
         if (empty($requestData) || !isset($requestData['email']))
             return;
 
-		$email = $requestData['email'];
+		$emailAddressUser = $requestData['email'];
 
         $code = (isset($requestData['code'])?$requestData['code']:'');
 
         $entityManager = $this->getDoctrine()->getManager();
         $repo = $entityManager->getRepository(ActivationCode::class);
-        $activationCode = $repo->findOneBy(['email' => $email,'code' => $code,'user' => null]);
+        $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
 
         $emailAddressAdmin = 'luhmann@netzhirsch.de';
         $subject = 'Neue Registrierung';
-        $emailAddressUser = '';
-        if (isset($requestData['email'])) {
-            $emailAddressUser = $requestData['email'];
-        }
 
         $messageUser = 'Danke für ihre Registrierung.';
 
@@ -123,12 +119,13 @@ class RegistrationController extends AbstractController
             $user->setActivationCode($activationCode);
         }
 
+        $countReceiver = $this->sendMail($this->mailer, $emailAddressAdmin, $subject, $messageAdmin);
+        $countReceiver
+            += $this->sendMail($this->mailer, $emailAddressUser,'Danke für ihre Registrierung', $messageUser);
 
         if
         (
-            !$this->isMailSendToReceiver($emailAddressAdmin,$subject,$messageAdmin)
-            &&
-            !$this->isMailSendToReceiver($emailAddressUser,'Danke für ihre Registrierung',$messageUser)
+            $countReceiver < 2
         )
             {
                 $this->addFlash
@@ -139,11 +136,4 @@ class RegistrationController extends AbstractController
             }
 
     }
-
-    private function isMailSendToReceiver(string $emailAddressAdmin,string $subject,string $messageAdmin): bool
-    {
-        return $this->sendMail($this->mailer, $emailAddressAdmin, $subject, $messageAdmin) > 0;
-    }
-
-
 }
