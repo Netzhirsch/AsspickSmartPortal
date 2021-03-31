@@ -102,8 +102,6 @@ class RegistrationController extends AbstractController
             $messageAdmin .= ' und dem Code:'.$code;
         $messageAdmin .= ' zu registrieren.'.PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
 
-        $messageUser .= 'Sie können sich nun einloggen.';
-
         if (!empty($activationCode)) {
 
             $subject .= ' erfolgt';
@@ -117,6 +115,10 @@ class RegistrationController extends AbstractController
 
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
+        } else {
+
+            $messageUser .= 'Sie können sich nun einloggen.';
+
         }
 
         $countReceiver = $this->sendMail($this->mailer, $emailAddressAdmin, $subject, $messageAdmin);
