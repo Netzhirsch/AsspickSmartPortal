@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ActivationCode;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Struct\Email;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -121,21 +122,33 @@ class RegistrationController extends AbstractController
 
         }
 
-        $countReceiver = $this->sendMail($this->mailer, $emailAddressAdmin, $subject, $messageAdmin);
+        $emailAdmin = new Email();
+        $emailAdmin->setTo($emailAddressAdmin);
+        $emailAdmin->setSubject($subject);
+        $emailAdmin->setMessage($messageAdmin);
+
+        $countReceiver = $this->sendMail($this->mailer, $emailAdmin);
+
+        $emailUser = new Email();
+        $emailUser->setTo($emailAddressUser);
+        $emailUser->setSubject('Danke für ihre Registrierung');
+        $emailUser->setMessage($messageUser);
+
         $countReceiver
-            += $this->sendMail($this->mailer, $emailAddressUser,'Danke für ihre Registrierung', $messageUser);
+            += $this->sendMail($this->mailer, $emailUser);
 
         if
         (
             $countReceiver < 2
-        )
-            {
-                $this->addFlash
-                (
-                    'error'
-                    ,'Es konnte leider keine E-Mail versandt werden, 
-                    bitte melden Sie sich direkt bei asspick@asspick.de');
-            }
+        ) {
+            $this->addFlash
+            (
+                'error'
+                ,
+                'Es konnte leider keine E-Mail versandt werden, 
+                    bitte melden Sie sich direkt bei asspick@asspick.de'
+            );
+        }
 
     }
 }

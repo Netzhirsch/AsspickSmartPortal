@@ -7,6 +7,7 @@ use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
 use App\Entity\File;
 use App\Entity\News;
+use App\Struct\Email;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 use ReflectionClass;
+use Swift_Attachment;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -298,27 +300,42 @@ trait ControllerTrait
 
     private function sendMail(
         Swift_Mailer $mailer,
-        string $mailTo,
-        string $subject,
-        string $message,
-        string $from = 'asspick@asspick.de'
+        Email $email
     ): int
     {
-        $parameter = array(
-            'message' => $message,
-        );
+        $swiftMessage = $this->createMessage($email);
+
+        return $mailer->send($swiftMessage);
+    }
+
+    private function sendMailWithAttachment(
+        Swift_Mailer $mailer,
+        Email $email,
+        string $filePath
+    ){
+        $swiftMessage = $this->createMessage($email);
+
+        $swiftMessage->attach(Swift_Attachment::fromPath($filePath));
+
+        return $mailer->send($swiftMessage);
+    }
+
+    private function createMessage(
+        Email $email
+    ): Swift_Message
+    {
 
         $body = $this->renderView(
-            'mail/index.html.twig', $parameter
+            'mail/index.html.twig', ['message' => $email->getMessage()]
         );
 
-        $message = (new Swift_Message($subject))
-            ->setFrom($from)
+        $message = (new Swift_Message($email->getSubject()))
+            ->setFrom($email->getFrom())
             ->setBody($body);
 
-        $message->setTo([$mailTo]);
+        $message->setTo([$email->getTo()]);
 
-        return $mailer->send($message);
+        return $message;
     }
 
     /**
