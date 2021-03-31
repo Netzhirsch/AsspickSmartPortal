@@ -56,7 +56,9 @@ class CarPDF extends PDF
         $accidentOpponent = $car->getAccidentOpponent();
         $this->printDrivers($driver,$accidentOpponent);
         $this->printDivider();
-        $license = $driver->getHasLicense();
+        $license = null;
+        if (!empty($driver))
+            $license = $driver->getHasLicense();
         $this->printLicense($license);
 
         $opponentCar = $car->getOpponentCar();
@@ -88,8 +90,8 @@ class CarPDF extends PDF
         $this->printPersonalInjury($personalInjury);
         $this->printDivider();
 
-        $theftProtection = $car->getTheftProtection();
-        $this->printTheftProtection($theftProtection);
+        $theftProtectionTyp = $car->getTheftProtectionTyp();
+        $this->printTheftProtection($theftProtectionTyp);
         $this->printDivider();
 
         $viewedOn = $car->getViewedOn();
@@ -375,7 +377,7 @@ class CarPDF extends PDF
     {
         $half = $this->getMaxContentWidth() / 2;
         $this->Cell($half,0,'Schaden am eigenen Fahrzeug');
-        $amount = '';
+        $amount = 0;
         if (!empty($damageEvent) && !empty($damageEvent->getDamageAmount()))
             $amount = $damageEvent->getDamageAmount();
         $this->Cell
@@ -388,7 +390,7 @@ class CarPDF extends PDF
         );
 
         $this->Cell($half,0,'Schaden am fremden Fahrzeug');
-        $amount = '';
+        $amount = 0;
         if (!empty($damageEvent) && !empty($damageEvent->getDamageAmountOnOpponent()))
             $amount = $damageEvent->getDamageAmountOnOpponent();
         $this->Cell(

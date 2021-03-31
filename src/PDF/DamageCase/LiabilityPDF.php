@@ -16,9 +16,12 @@ class LiabilityPDF extends PDF
     public function create(Liability $liability)
     {
         $this->SetMargins(self::MARGIN_LEFT, self::MARGIN_TOP, self::MARGIN_RIGHT);
+
         $this->AddPage();
+
         $this->printTitel('HAFTPFLICHT – SCHADENANZEIGE');
         $this->printDivider();
+
         $insured = $liability->getInsurer();
         if (!empty($insured)) {
             $this->printInsurer($insured);
