@@ -62,7 +62,7 @@ class Policyholder
         $string = '';
         if (!empty($this->getFirstname()))
             $string .= $this->getFirstname();
-        $string .= $this->getLastname();
+        $string .= ' '.$this->getLastname();
         return $string;
     }
 

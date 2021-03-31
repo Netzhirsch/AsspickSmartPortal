@@ -96,13 +96,18 @@ class DamageCaseController extends AbstractController
         $email->setSubject('Schadensformular wurde eingereicht');
         $policyholder = $entity->getPolicyholder();
         $email->setMessage(
-            'Der Versicherer '
+            'Der Versicherer'
+            .' '
             .$insuredName
-            .' hat ein Schadensformular für den Versicherungsnehmer'
+            .' '
+            .'hat ein Schadensformular für den Versicherungsnehmer'
+            .' '
             .$policyholder->__toString()
-            .' mit der Versicherungsnummer'
+            .' '
+            .'mit der Versicherungsnummer'
             .$insurer->getInsuranceNumber()
-            .' eingereicht.'
+            .' '
+            .'eingereicht.'
         );
 
         $countReceiver = $this->sendMailWithAttachment($this->mailer, $email,$filePath);
