@@ -2,12 +2,9 @@
 
 {% block title %}Prämienberechnung{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('insurancePremiumDetermination') }}
 {% endblock %}
 
 {% block content %}
@@ -16,7 +13,7 @@
     <div class="container col-8">
         <div class="inner">
             <header>
-                <h2>Prämienberechnung</h2>
+                <h2>BVAW Gebäude</h2>
             </header>
             <div class="content">
                 <div class="line col-auto">
@@ -35,29 +32,58 @@
                     {{ form_widget(form.lastName) }}
                     {{ form_errors(form.lastName) }}
                 </div>
+
                 <div class="liner"></div>
+
                 <div class="line col-auto">
                     {{ form_label(form.mode) }}
                     {{ form_widget(form.mode) }}
                     {{ form_errors(form.mode) }}
                 </div>
+
                 <div class="newline"></div>
+
                 <div class="line col-8">
                     {{ form_label(form.sumInsured) }}
                     {{ form_widget(form.sumInsured) }}
                     {{ form_errors(form.sumInsured) }}
                 </div>
                 <div class="line col-8">
+                    {{ form_label(form.sumInsuredVs) }}
+                    {{ form_widget(form.sumInsuredVs) }}
+                    {{ form_errors(form.sumInsuredVs) }}
+                </div>
+
+                <div class="newline"></div>
+
+                <div class="line col-8">
                     {{ form_label(form.currentValue) }}
                     {{ form_widget(form.currentValue) }}
                     {{ form_errors(form.currentValue) }}
                 </div>
+
+                <div class="line col-8">
+                    {{ form_label(form.currentValueVs) }}
+                    {{ form_widget(form.currentValueVs) }}
+                    {{ form_errors(form.currentValueVs) }}
+                </div>
+
+                <div class="newline"></div>
+
                 <div class="line col-8">
                     {{ form_label(form.total) }}
                     {{ form_widget(form.total) }}
                     {{ form_errors(form.total) }}
                 </div>
+
+                <div class="line col-8">
+                    {{ form_label(form.totalVs) }}
+                    {{ form_widget(form.totalVs) }}
+                    {{ form_errors(form.totalVs) }}
+                </div>
+
                 <div class="liner"></div>
+
                 <div class="line col-8">
                     {{ form_label(form.numberOfResidentialUnits) }}
                     {{ form_widget(form.numberOfResidentialUnits) }}
@@ -96,41 +122,41 @@
                         <thead>
                             <tr>
                                 <th>Gebäudedeckung</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag in € <a href="#fn01" role="doc-noteref">[1]</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Mindestbeitrag 120 €</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mindestbeitrag_netto|default('-') }}</td>
                                 <td class="text-right">ohne Glas</td>
-                                <td>0,80</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mindestbeitrag_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mindestbeitrag_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td>inklusiv Graffiti (SB 200 €)</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_inklusive_graffiti_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas allg.</td>
-                                <td>0,85</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_inklusive_graffiti_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_inklusive_graffiti_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td>inklusive Verzicht auf grobe Fahrlässigkeit bis 50 €</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_inklusive_verzicht_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas ges.</td>
-                                <td>0,90</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_inklusive_verzicht_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_inklusive_verzicht_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
                         <thead>
                             <tr>
                                 <th>Gebäudedeckung mit innerer Unruhe</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn01" role="doc-noteref">[1]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,9 +186,9 @@
                         <thead>
                             <tr>
                                 <th>Gebäudedeckung mit Elementar</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn01" role="doc-noteref">[1]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -192,9 +218,9 @@
                         <thead>
                             <tr>
                                 <th>Gebäudedeckung komplett</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn01" role="doc-noteref">[1]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -245,9 +271,9 @@
                         <thead>
                             <tr>
                                 <th>Bauleistungsversicherung</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn02" role="doc-noteref">[2]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -270,9 +296,9 @@
                         <thead>
                             <tr>
                                 <th>Bauherrenhaftpflicht für EFH</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn02" role="doc-noteref">[2]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -288,9 +314,9 @@
                         <thead>
                             <tr>
                                 <th>Haus- und Grundbesitzerhaftpflicht</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn02" role="doc-noteref">[2]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -313,9 +339,9 @@
                         <thead>
                             <tr>
                                 <th>Gewässerschadenhaftpflicht</th>
-                                <th class="text-right">Nettobeitrag</th>
+                                <th class="text-right">Nettobeitrag in €</th>
                                 <th colspan="2">
-                                <th class="text-right">Bruttobeitrag</th>
+                                <th class="text-right">Bruttobeitrag <a href="#fn02" role="doc-noteref">[2]</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -338,6 +364,13 @@
                     </table>
                 </div>
             </div>
+
+            <footer>
+                <ol>
+                    <li id="fn01" role="doc-footnote">inkl. Vers.St. 16,34%</li>
+                    <li id="fn01" role="doc-footnote">inkl. Vers.St. 19,00%</li>
+                </ol>
+            </footer>
         </div>
     </div>
 {% endblock %}

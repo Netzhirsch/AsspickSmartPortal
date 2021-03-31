@@ -35,12 +35,11 @@ class GeneralDamageType extends AbstractType
                 'placeholder' => false
             ])
             ->add('insurer',InsurerType::class,[
-                'label' => false,
-                'required' => false
+                'label' => false
             ])
             ->add('policyholder',PolicyholderType::class,[
                 'label' => 'Versicherungsnehmer',
-                'required' => false
+                'required' => true
             ])
             ->add('damageEvent',DamageEventType::class,[
                 'label' => 'Schadenereignis',

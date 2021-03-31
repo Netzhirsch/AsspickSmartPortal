@@ -24,9 +24,15 @@ class InsurancePremiumDetermination {
 
 	private $sumInsured;
 
+	private $sumInsuredVs;
+
 	private $currentValue;
 
+	private $currentValueVs;
+
 	private $total;
+
+	private $totalVs;
 
 	private $numberOfResidentialUnits;
 
@@ -44,7 +50,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $salutation
 	 */
-	public function setSalutation($salutation):void {
+	public function setSalutation($salutation): void {
 		$this->salutation = $salutation;
 	}
 
@@ -58,7 +64,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $firstName
 	 */
-	public function setFirstName($firstName):void {
+	public function setFirstName($firstName): void {
 		$this->firstName = $firstName;
 	}
 
@@ -72,7 +78,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $lastName
 	 */
-	public function setLastName($lastName):void {
+	public function setLastName($lastName): void {
 		$this->lastName = $lastName;
 	}
 
@@ -86,7 +92,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $mode
 	 */
-	public function setMode($mode):void {
+	public function setMode($mode): void {
 		$this->mode = $mode;
 	}
 
@@ -100,8 +106,22 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $sumInsured
 	 */
-	public function setSumInsured($sumInsured):void {
+	public function setSumInsured($sumInsured): void {
 		$this->sumInsured = $sumInsured;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getSumInsuredVs() {
+		return $this->sumInsuredVs;
+	}
+
+	/**
+	 * @param mixed $sumInsuredVs
+	 */
+	public function setSumInsuredVs($sumInsuredVs): void {
+		$this->sumInsuredVs = $sumInsuredVs;
 	}
 
 	/**
@@ -114,8 +134,22 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $currentValue
 	 */
-	public function setCurrentValue($currentValue):void {
+	public function setCurrentValue($currentValue): void {
 		$this->currentValue = $currentValue;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCurrentValueVs() {
+		return $this->currentValueVs;
+	}
+
+	/**
+	 * @param mixed $currentValueVs
+	 */
+	public function setCurrentValueVs($currentValueVs): void {
+		$this->currentValueVs = $currentValueVs;
 	}
 
 	/**
@@ -128,8 +162,22 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $total
 	 */
-	public function setTotal($total):void {
+	public function setTotal($total): void {
 		$this->total = $total;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTotalVs() {
+		return $this->totalVs;
+	}
+
+	/**
+	 * @param mixed $totalVs
+	 */
+	public function setTotalVs($totalVs): void {
+		$this->totalVs = $totalVs;
 	}
 
 	/**
@@ -142,7 +190,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $numberOfResidentialUnits
 	 */
-	public function setNumberOfResidentialUnits($numberOfResidentialUnits):void {
+	public function setNumberOfResidentialUnits($numberOfResidentialUnits): void {
 		$this->numberOfResidentialUnits = $numberOfResidentialUnits;
 	}
 
@@ -156,7 +204,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $numberOfCommerciallyUsedUnits
 	 */
-	public function setNumberOfCommerciallyUsedUnits($numberOfCommerciallyUsedUnits):void {
+	public function setNumberOfCommerciallyUsedUnits($numberOfCommerciallyUsedUnits): void {
 		$this->numberOfCommerciallyUsedUnits = $numberOfCommerciallyUsedUnits;
 	}
 
@@ -170,7 +218,7 @@ class InsurancePremiumDetermination {
 	/**
 	 * @param mixed $oilTankSize
 	 */
-	public function setOilTankSize($oilTankSize):void {
+	public function setOilTankSize($oilTankSize): void {
 		$this->oilTankSize = $oilTankSize;
 	}
 

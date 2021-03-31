@@ -20,8 +20,11 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			[
 				'label'       => 'Anrede',
 				'choices'     => InsurancePremiumDetermination::getSalutationOptions(),
-				'required'    => false,
+				'required'    => true,
 				'placeholder' => '-',
+				'attr' => [
+					'tabindex' => 1
+				]
 			]
 		);
 
@@ -30,6 +33,9 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			TextType::class,
 			[
 				'label' => 'Vorname',
+				'attr' => [
+					'tabindex' => 2
+				]
 			]
 		);
 
@@ -38,6 +44,9 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			TextType::class,
 			[
 				'label' => 'Nachname',
+				'attr' => [
+					'tabindex' => 3
+				]
 			]
 		);
 
@@ -47,6 +56,9 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			[
 				'label'   => 'Modus',
 				'choices' => InsurancePremiumDetermination::getModeOptions(),
+				'attr' => [
+					'tabindex' => 20
+				]
 			]
 		);
 
@@ -54,12 +66,25 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			'sumInsured',
 			NumberType::class,
 			[
-				'label'   => 'VS 1941',
+				'label'   => 'VS 1914',
 				'html5' => true,
 				'attr' => [
 					'title' => 'Versicherungssumme Wert 1941 (in Mio €)',
 					'step' => 1,
 					'min' => 1,
+					'tabindex' => 21
+				]
+			]
+		);
+
+		$builder->add(
+			'sumInsuredVs',
+			NumberType::class,
+			[
+				'label'   => 'VS 2000',
+				'html5' => false,
+				'attr' => [
+					'readonly' => true
 				]
 			]
 		);
@@ -74,6 +99,19 @@ class InsurancePremiumDeterminationType extends AbstractType {
 					'title' => 'Wiederherstellungs- oder Baukosten heute (in €)',
 					'step' => 1,
 					'min' => 0,
+					'tabindex' => 22
+				]
+			]
+		);
+
+		$builder->add(
+			'currentValueVs',
+			NumberType::class,
+			[
+				'label'   => 'VS 2000',
+				'html5' => false,
+				'attr' => [
+					'readonly' => true
 				]
 			]
 		);
@@ -82,11 +120,24 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			'total',
 			NumberType::class,
 			[
-				'label'   => 'VS € 2000',
+				'label'   => 'VS 2000',
 				'html5' => true,
 				'attr' => [
 					'step' => 1,
 					'min' => 0,
+					'tabindex' => 23
+				]
+			]
+		);
+
+		$builder->add(
+			'totalVs',
+			NumberType::class,
+			[
+				'label'   => 'VS aktuell',
+				'html5' => false,
+				'attr' => [
+					'readonly' => true
 				]
 			]
 		);
@@ -101,6 +152,7 @@ class InsurancePremiumDeterminationType extends AbstractType {
 					'title' => 'Anzahl Wohneinheiten',
 					'step' => 1,
 					'min' => 0,
+					'tabindex' => 24
 				]
 			]
 		);
@@ -115,6 +167,7 @@ class InsurancePremiumDeterminationType extends AbstractType {
 					'title' => 'Anzahl gewerblich genutzter Einheiten',
 					'step' => 1,
 					'min' => 0,
+					'tabindex' => 25
 				]
 			]
 		);
@@ -128,6 +181,7 @@ class InsurancePremiumDeterminationType extends AbstractType {
 				'attr' => [
 					'step' => 1,
 					'min' => 0,
+					'tabindex' => 26
 				]
 			]
 		);

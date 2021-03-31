@@ -1,15 +1,15 @@
-@import 'variables';
-@import 'colors';
-@import 'topbar';
-@import 'footer';
-@import 'container';
-@import 'form';
-@import 'table';
-@import 'fancybox';
-@import 'loading-indicator';
-@import 'columns';
-@import 'tabs';
-@import 'downloadCenter/folder_hierachie';
+@import "variables";
+@import "colors";
+@import "topbar";
+@import "footer";
+@import "container";
+@import "form";
+@import "table";
+@import "fancybox";
+@import "loading-indicator";
+@import "columns";
+@import "tabs";
+@import "downloadCenter/folder_hierachie";
 
 body {
 	.block;
@@ -17,7 +17,7 @@ body {
 	.w100;
 	.bb;
 	.mp0;
-	font-family:'Open Sans', sans-serif;
+	font-family:"Open Sans", sans-serif;
 	background:white;
 	color:@blue_horizon;
 	font-size:12px;
@@ -39,4 +39,15 @@ i {
 	&.red { color:@desire; }
 	&.yellow { color:@nyc_taxi; }
 	&.green { color:@algal_fuel; }
+}
+
+body {
+	counter-reset:footnotes;
+}
+
+[role="doc-noteref"] {
+	counter-increment:footnotes;
+	text-decoration:none;
+	vertical-align:super;
+	font-size:0.75em;
 }

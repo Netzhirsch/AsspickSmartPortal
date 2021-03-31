@@ -41,7 +41,7 @@ class LiabilityType extends AbstractType
                 PolicyholderType::class,
                 [
                     'label' => 'Versicherungsnehmer',
-                    'required' => false,
+                    'required' => true,
                 ]
             )
             ->add(

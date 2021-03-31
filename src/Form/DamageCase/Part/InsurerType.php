@@ -14,14 +14,15 @@ class InsurerType extends AbstractType
     {
         $builder
             ->add('name',TextType::class,[
-                'label' => 'Versicherer'
+                'label' => 'Versicherer',
+				'required' => true
             ])
             ->add('insuranceNumber',TextType::class,[
-                'label' => 'Versichernummer',
-                'required' => false
+                'label' => 'Versicherungsschein-Nr.',
+				'required' => true
             ])
             ->add('dangerNumber',TextType::class,[
-                'label' => 'Schadensnummer',
+                'label' => 'Schaden-Nummer',
                 'required' => false
             ])
         ;

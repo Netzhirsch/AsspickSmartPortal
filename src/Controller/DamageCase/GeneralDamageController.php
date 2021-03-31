@@ -122,7 +122,7 @@ class GeneralDamageController extends AbstractController
         if (empty($generalDamage)) {
             $this->addFlash(
                 'error',
-                'Haftpflicht Schadensanzeige mit der Id:'.$id.' nicht gefunden.'
+                'Haftpflicht Schadensanzeige mit der ID '.$id.' nicht gefunden.'
             );
 
             return $this->redirectToRoute('damageCase_generalDamage_index');

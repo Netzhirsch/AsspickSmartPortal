@@ -55,12 +55,10 @@ class CarType extends AbstractType
                 'required' => false
             ])
             ->add('insurer',InsurerType::class,[
-                'label' => false,
-                'required' => false
+                'label' => false
             ])
             ->add('policyholder',PolicyholderType::class,[
-                'label' => 'Versicherungsnehmer',
-                'required' => false
+                'label' => 'Versicherungsnehmer'
             ])
             ->add('damageEvent',DamageEventType::class,[
                 'label' => 'Schadenereignis',

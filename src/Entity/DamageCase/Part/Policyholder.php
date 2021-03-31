@@ -20,27 +20,27 @@ class Policyholder
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $firstname;
+    private string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $lastname;
+    private string $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $streetMailbox;
+    private string $streetMailbox;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $postCode;
+    private string $postCode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $location;
+    private string $location;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -66,7 +66,7 @@ class Policyholder
         return $string;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -78,7 +78,7 @@ class Policyholder
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -90,7 +90,7 @@ class Policyholder
         return $this;
     }
 
-    public function getStreetMailbox(): ?string
+    public function getStreetMailbox(): string
     {
         return $this->streetMailbox;
     }
@@ -102,7 +102,7 @@ class Policyholder
         return $this;
     }
 
-    public function getPostCode(): ?string
+    public function getPostCode(): string
     {
         return $this->postCode;
     }
@@ -114,7 +114,7 @@ class Policyholder
         return $this;
     }
 
-    public function getLocation(): ?string
+    public function getLocation(): string
     {
         return $this->location;
     }
