@@ -10,6 +10,7 @@ use App\Entity\DamageCase\Part\Payment;
 use App\Entity\DamageCase\Part\PoliceRecording;
 use App\Entity\DamageCase\Part\Policyholder;
 use App\Entity\File;
+use App\PDF\DamageCase\GeneralDamagePDF;
 use App\Repository\DamageCase\GeneralDamage\GeneralDamageRepository;
 use DateTime;
 use DateTimeInterface;
@@ -27,6 +28,8 @@ class GeneralDamage
         'new' => 'damageCase_generalDamage_new',
         'edit' => 'damageCase_generalDamage_edit',
     ];
+    const PDF_CLASS = GeneralDamagePDF::class;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -103,6 +106,11 @@ class GeneralDamage
      * @ORM\Column(type="boolean")
      */
     private ?bool $isLocked;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $costumeTyp;
 
 
     public function __construct()
@@ -313,6 +321,18 @@ class GeneralDamage
     public function setIsLocked(bool $isLocked): self
     {
         $this->isLocked = $isLocked;
+
+        return $this;
+    }
+
+    public function getCostumeTyp(): ?string
+    {
+        return $this->costumeTyp;
+    }
+
+    public function setCostumeTyp(?string $costumeTyp): self
+    {
+        $this->costumeTyp = $costumeTyp;
 
         return $this;
     }

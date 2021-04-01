@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,6 +34,10 @@ class GeneralDamageType extends AbstractType
                 ],
                 'required' => false,
                 'placeholder' => false
+            ])
+            ->add('costumeTyp', TextType::class, [
+                'label' => 'Andere',
+                'required' => false,
             ])
             ->add('insurer',InsurerType::class,[
                 'label' => false

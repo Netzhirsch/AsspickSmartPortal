@@ -2,6 +2,7 @@
 
 namespace App\Form\DamageCase\Part;
 
+use App\Entity\DamageCase\Part\Damage\CauseOfDamageTyp;
 use App\Entity\DamageCase\Part\Damage\DamageCausedBy;
 use App\Entity\DamageCase\Part\Damage\DamageEvent;
 use App\Entity\DamageCase\Part\Damage\DamageTyp;
@@ -73,6 +74,17 @@ class DamageEventType extends AbstractType
             ->add('typs', EntityType::class, [
                 'label' => 'Schadenart',
                 'class'  => DamageTyp::class,
+                'choice_label' => 'name',
+                'multiple'  => true,
+                'expanded' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'line four-per-line wrap-checkboxes'
+                ]
+            ])
+            ->add('causeOfDamageTyps', EntityType::class, [
+                'label' => 'Schadenursache (nur bei Leitungswasser)',
+                'class'  => CauseOfDamageTyp::class,
                 'choice_label' => 'name',
                 'multiple'  => true,
                 'expanded' => true,

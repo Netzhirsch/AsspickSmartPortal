@@ -39,6 +39,7 @@ class LiabilityPDF extends PDF
             $this->printDamageEventDescription($damageEvent->getDescription());
             $this->printDivider();
         }
+
         $damageCause = $liability->getDamageCause();
         if (!empty($damageCause)) {
             $this->printDamageCause($damageCause);

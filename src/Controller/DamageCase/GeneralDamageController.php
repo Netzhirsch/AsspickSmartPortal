@@ -8,19 +8,19 @@ use App\Controller\ControllerTrait;
 use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Form\DamageCase\GeneralDamage\GeneralDamageType;
 use App\Repository\DamageCase\GeneralDamage\GeneralDamageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * Class DamageCaseController
  * @package App\Controller
  * @Route ("/damageCase/generalDamage")
  */
-class GeneralDamageController extends AbstractController
+class GeneralDamageController extends DamageCaseController
 {
     use ControllerTrait;
     /**
@@ -138,4 +138,19 @@ class GeneralDamageController extends AbstractController
         return $this->redirectToRoute('damageCase_generalDamage_index');
     }
 
+
+    /**
+     * @Route("/{id}", name="damageCase_generalDamage_lock", methods={"GET"})
+     * @param GeneralDamageRepository $generalDamageRepository
+     * @param int $id
+     * @return Response
+     */
+    public function lockAction(
+        GeneralDamageRepository $generalDamageRepository,
+        int $id
+    ): Response
+    {
+        $generalDamage = $generalDamageRepository->find($id);
+        return $this->lock($generalDamage,$id);
+    }
 }

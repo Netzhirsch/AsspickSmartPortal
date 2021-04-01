@@ -7,7 +7,6 @@ use App\Entity\DamageCase\GeneralDamage\BuildingDamage\RelationshipToBuilding;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,7 +49,7 @@ class BuildingDamageType extends AbstractType
                 'label' => 'Nachname des Mieters',
                 'required' => false
             ])
-            ->add('homeInsurer',EmailType::class,[
+            ->add('homeInsurer',TextType::class,[
                 'label' => 'Hausratversicherer',
                 'required' => false
             ])

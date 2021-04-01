@@ -40,6 +40,10 @@
                 {{ form_widget(form.typs) }}
                 {{ form_errors(form.typs) }}
 
+                {{ form_label(form.costumeTyp) }}
+                {{ form_widget(form.costumeTyp) }}
+                {{ form_errors(form.costumeTyp) }}
+
                 <div class="liner"></div>
                 {% include 'damage_case/part/_insurer.html.twig' %}
             </div>
@@ -55,6 +59,11 @@
 
             <div class="content tab" data-tab="damageEvent">
                 {% include 'damage_case/part/_damageEvent.html.twig' with {'damageEvent':form.damageEvent} %}
+                <div class="line col-24 four-per-line">
+                    {{ form_label(form.damageEvent.causeOfDamageTyps) }}
+                    {{ form_widget(form.damageEvent.causeOfDamageTyps) }}
+                    {{ form_errors(form.damageEvent.causeOfDamageTyps) }}
+                </div>
             </div>
 
             <div class="content tab" data-tab="buildingDamage">
