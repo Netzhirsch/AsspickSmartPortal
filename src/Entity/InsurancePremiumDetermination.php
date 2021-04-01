@@ -14,11 +14,22 @@ class InsurancePremiumDetermination {
 	public const SALUTATION_MR = 'mr';
 	public const SALUTATION_MRS = 'mrs';
 
+	public const PAYMENT_METHOD_BILL = 'bill';
+	public const PAYMENT_METHOD_DIRECT_DEBIT = 'direct_debit';
+
 	private $salutation;
 
 	private $firstName;
 
 	private $lastName;
+
+	private $street;
+
+	private $zipcode;
+
+	private $city;
+
+	private $paymentMethod;
 
 	private $mode;
 
@@ -80,6 +91,62 @@ class InsurancePremiumDetermination {
 	 */
 	public function setLastName($lastName): void {
 		$this->lastName = $lastName;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getStreet() {
+		return $this->street;
+	}
+
+	/**
+	 * @param mixed $street
+	 */
+	public function setStreet($street): void {
+		$this->street = $street;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getZipcode() {
+		return $this->zipcode;
+	}
+
+	/**
+	 * @param mixed $zipcode
+	 */
+	public function setZipcode($zipcode): void {
+		$this->zipcode = $zipcode;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCity() {
+		return $this->city;
+	}
+
+	/**
+	 * @param mixed $city
+	 */
+	public function setCity($city): void {
+		$this->city = $city;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPaymentMethod() {
+		return $this->paymentMethod;
+	}
+
+	/**
+	 * @param mixed $paymentMethod
+	 */
+	public function setPaymentMethod($paymentMethod): void {
+		$this->paymentMethod = $paymentMethod;
 	}
 
 	/**
@@ -220,6 +287,13 @@ class InsurancePremiumDetermination {
 	 */
 	public function setOilTankSize($oilTankSize): void {
 		$this->oilTankSize = $oilTankSize;
+	}
+
+	public static function getPaymentMethods() {
+		return [
+			'Rechnung'               => self::PAYMENT_METHOD_BILL,
+			'Lastschrift'             => self::PAYMENT_METHOD_DIRECT_DEBIT,
+		];
 	}
 
 	public static function getModeOptions() {

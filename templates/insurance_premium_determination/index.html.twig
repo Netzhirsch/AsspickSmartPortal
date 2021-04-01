@@ -32,6 +32,29 @@
                     {{ form_widget(form.lastName) }}
                     {{ form_errors(form.lastName) }}
                 </div>
+                <div class="newline"></div>
+                <div class="line col-12">
+                    {{ form_label(form.street) }}
+                    {{ form_widget(form.street) }}
+                    {{ form_errors(form.street) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-12">
+                    {{ form_label(form.zipcode) }}
+                    {{ form_widget(form.zipcode) }}
+                    {{ form_errors(form.zipcode) }}
+                </div>
+                <div class="line col-12">
+                    {{ form_label(form.city) }}
+                    {{ form_widget(form.city) }}
+                    {{ form_errors(form.city) }}
+                </div>
+                <div class="newline"></div>
+                <div class="line col-12">
+                    {{ form_label(form.paymentMethod) }}
+                    {{ form_widget(form.paymentMethod) }}
+                    {{ form_errors(form.paymentMethod) }}
+                </div>
 
                 <div class="liner"></div>
 
@@ -162,24 +185,24 @@
                         <tbody>
                             <tr>
                                 <td>inklusive mut-/böswilliger Beschädigungen (SB 500 €)</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_1_netto|default('-') }}</td>
                                 <td class="text-right">ohne Glas</td>
-                                <td>0,94</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_1_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_2_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas allg.</td>
-                                <td>0,99</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_2_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_2_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_3_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas ges.</td>
-                                <td>1,04</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_3_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_unruhe_inklusive_beschaedigung_3_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -194,24 +217,24 @@
                         <tbody>
                             <tr>
                                 <td> Zürs Zone 1 und 2 (SB 500€)</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_1_netto|default('-') }}</td>
                                 <td class="text-right">ohne Glas</td>
-                                <td>1,00</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_elementar_1_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_1_netto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_2_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas allg.</td>
-                                <td>1,05</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_elementar_2_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_2_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_3_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas ges.</td>
-                                <td>1,10</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_mit_elementar_3_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_mit_elementar_3_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -226,45 +249,45 @@
                         <tbody>
                             <tr>
                                 <td>inklusive innerer Unruhe und Elementarschäden</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_1_netto|default('-') }}</td>
                                 <td class="text-right">ohne Glas</td>
-                                <td>1,14</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_ohne_gefahren_1_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_2_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas allg.</td>
-                                <td>1,19</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_ohne_gefahren_2_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_2_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_3_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas ges.</td>
-                                <td>1,24</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_ohne_gefahren_3_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_ohne_gefahren_3_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td>inklusive unben. Gefahren (SB 500)</td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_1_netto|default('-') }}</td>
                                 <td class="text-right">ohne Glas</td>
-                                <td>1,28</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_mit_gefahren_1_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_2_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas allg.</td>
-                                <td>1,33</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_mit_gefahren_2_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_2_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">120,00 €</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_3_netto|default('-') }}</td>
                                 <td class="text-right">mit Glas ges.</td>
-                                <td>1,38</td>
-                                <td class="text-right">139,61 €</td>
+                                <td>{{ gebaeudedeckung_komplett_mit_gefahren_3_faktor|default('-') }}</td>
+                                <td class="text-right">{{ gebaeudedeckung_komplett_mit_gefahren_3_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -279,17 +302,17 @@
                         <tbody>
                             <tr>
                                 <td>MB 250 € (SB 250 €)</td>
-                                <td class="text-right">250,00 €</td>
+                                <td class="text-right">{{ bauleistungsversicherung_1_netto|default('-') }}</td>
                                 <td class="text-right">ohne Feuer</td>
-                                <td>0,90</td>
-                                <td class="text-right">297,50 €</td>
+                                <td>{{ bauleistungsversicherung_1_faktor|default('-') }}</td>
+                                <td class="text-right">{{ bauleistungsversicherung_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td class="text-right">250,00 €</td>
+                                <td class="text-right">{{ bauleistungsversicherung_2_netto|default('-') }}</td>
                                 <td class="text-right">mit Feuer</td>
-                                <td>1,05</td>
-                                <td class="text-right">297,50 €</td>
+                                <td>{{ bauleistungsversicherung_2_faktor|default('-') }}</td>
+                                <td class="text-right">{{ bauleistungsversicherung_2_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -304,10 +327,10 @@
                         <tbody>
                             <tr>
                                 <td> MB 50 €, bei MFH beitragsfrei in HuG-HV</td>
-                                <td class="text-right">50,00 €</td>
+                                <td class="text-right">{{ bauherrenhaftpflicht_netto|default('-') }}</td>
                                 <td class="text-right">12,5 Mio</td>
-                                <td>0,40</td>
-                                <td class="text-right">59,50 €</td>
+                                <td>{{ bauherrenhaftpflicht_faktor|default('-') }}</td>
+                                <td class="text-right">{{ bauherrenhaftpflicht_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -322,17 +345,17 @@
                         <tbody>
                             <tr>
                                 <td>WE 4 € / GE 8 € / MB 50 € inklusive Bauherren-HV</td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ haus_und_grundbesitzerhaftpflicht_1_netto|default('-') }}</td>
                                 <td class="text-right">5 Mio</td>
                                 <td></td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ haus_und_grundbesitzerhaftpflicht_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td>WE 5 € / GE 10 € / MB 59 € inklusive Bauherren-HV</td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ haus_und_grundbesitzerhaftpflicht_2_netto|default('-') }}</td>
                                 <td class="text-right">10 Mio</td>
                                 <td></td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ haus_und_grundbesitzerhaftpflicht_2_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 
@@ -347,17 +370,17 @@
                         <tbody>
                             <tr>
                                 <td>ober- und unterirdische Tankanlagen</td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ gewaesserschadenhaftpflicht_1_netto|default('-') }}</td>
                                 <td class="text-right">5 Mio</td>
                                 <td></td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ gewaesserschadenhaftpflicht_1_brutto|default('-') }}</td>
                             </tr>
                             <tr>
                                 <td> bis 10t, bis 30t, bis 50t, bis 100t</td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ gewaesserschadenhaftpflicht_2_netto|default('-') }}</td>
                                 <td class="text-right">10 Mio</td>
                                 <td></td>
-                                <td class="text-right">0,00 €</td>
+                                <td class="text-right">{{ gewaesserschadenhaftpflicht_2_brutto|default('-') }}</td>
                             </tr>
                         </tbody>
 

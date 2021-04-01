@@ -51,6 +51,53 @@ class InsurancePremiumDeterminationType extends AbstractType {
 		);
 
 		$builder->add(
+			'street',
+			TextType::class,
+			[
+				'label' => 'Straße',
+				'attr' => [
+					'tabindex' => 4
+				]
+			]
+		);
+
+		$builder->add(
+			'zipcode',
+			TextType::class,
+			[
+				'label' => 'Postleitzahl',
+				'attr' => [
+					'tabindex' => 5
+				]
+			]
+		);
+
+		$builder->add(
+			'city',
+			TextType::class,
+			[
+				'label' => 'Ort',
+				'attr' => [
+					'tabindex' => 6
+				]
+			]
+		);
+
+		$builder->add(
+			'paymentMethod',
+			ChoiceType::class,
+			[
+				'label'   => 'Zahlart',
+				'choices' => InsurancePremiumDetermination::getPaymentMethods(),
+				'required'    => true,
+				'placeholder' => '-',
+				'attr' => [
+					'tabindex' => 7
+				]
+			]
+		);
+
+		$builder->add(
 			'mode',
 			ChoiceType::class,
 			[
