@@ -43,19 +43,14 @@ class DamageCaseController extends AbstractController
             $this->addFlashNotFound($id);
             return $this->redirectToRoute($entity::FORM_ROUTES['index']);
         }
+
         $insurer = $entity->getInsurer();
         if (empty($insurer)) {
             $this->addFlashNoInsured();
             return $this->redirectToRoute($entity::FORM_ROUTES['index']);
         }
-        $insuredName = $insurer->getName();
-        if (empty($insurer)) {
-            $this->addFlashNoInsured();
-            return $this->redirectToRoute($entity::FORM_ROUTES['index']);
-        }
+
         $number = $insurer->getInsuranceNumber();
-        if (empty($number))
-            $number = $insurer->getDangerNumber();
         if (empty($number)) {
             $this->addFlash
             (
@@ -64,10 +59,12 @@ class DamageCaseController extends AbstractController
             );
             return $this->redirectToRoute('damageCase_liability_index');
         }
+
         $pdfClass = $entity::PDF_CLASS;
         $pdf = new $pdfClass();
         $pdf->create($entity);
 
+        $insuredName = $insurer->getName();
         $dir =
             dirname(__DIR__,3)
             .DIRECTORY_SEPARATOR
@@ -81,30 +78,47 @@ class DamageCaseController extends AbstractController
             .DIRECTORY_SEPARATOR
             .$number
         ;
+
         if (!file_exists($dir))
             mkdir($dir, 0755, true);
         $filePath = $dir.DIRECTORY_SEPARATOR.$insuredName.'-'.$number.'.pdf';
         $pdf->Output($filePath, 'F');
-//        $entity->setIsLocked(true);
+        $this->sendNotificationMail($entity,$filePath);
+
+        $entity->setIsLocked(true);
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($entity);
         $entityManager->flush();
+
+        return $this->redirectToRoute($entity::FORM_ROUTES['index']);
+    }
+
+    /**
+     * @param Liability|Car|GeneralDamage $entity
+     * @param string $filePath
+     */
+    private function sendNotificationMail($entity,string $filePath){
 
         $email = new Email();
         $email->setFrom('asspick@asspick.de');
         $email->setTo('luhmann@netzhirsch.de');
         $email->setSubject('Schadensformular wurde eingereicht');
+
         $policyholder = $entity->getPolicyholder();
+        $insurer = $entity->getInsurer();
+
         $email->setMessage(
             'Der Versicherer'
             .' '
-            .$insuredName
+            .$insurer->getName()
             .' '
             .'hat ein Schadensformular für den Versicherungsnehmer'
             .' '
             .$policyholder->__toString()
             .' '
             .'mit der Versicherungsnummer'
+            .' '
             .$insurer->getInsuranceNumber()
             .' '
             .'eingereicht.'
@@ -124,8 +138,6 @@ class DamageCaseController extends AbstractController
                     bitte melden Sie sich direkt bei asspick@asspick.de'
             );
         }
-        
-        return $this->redirectToRoute($entity::FORM_ROUTES['index']);
     }
 
     protected function addFlashNotFound(int $id){

@@ -73,7 +73,7 @@ class DamageEvent
     /**
      * @ORM\ManyToMany(targetEntity=CauseOfDamageTyp::class)
      */
-    private Collection $causeOfDamage;
+    private Collection $causeOfDamageTyps;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,7 +83,7 @@ class DamageEvent
     public function __construct()
     {
         $this->typs = new ArrayCollection();
-        $this->causeOfDamage = new ArrayCollection();
+        $this->causeOfDamageTyps = new ArrayCollection();
     }
 
 
@@ -227,23 +227,23 @@ class DamageEvent
     /**
      * @return Collection|CauseOfDamageTyp[]
      */
-    public function getCauseOfDamage(): Collection
+    public function getCauseOfDamageTyps(): Collection
     {
-        return $this->causeOfDamage;
+        return $this->causeOfDamageTyps;
     }
 
-    public function addCauseOfDamage(CauseOfDamageTyp $causeOfDamage): self
+    public function addCauseOfDamageTyp(CauseOfDamageTyp $causeOfDamage): self
     {
-        if (!$this->causeOfDamage->contains($causeOfDamage)) {
-            $this->causeOfDamage[] = $causeOfDamage;
+        if (!$this->causeOfDamageTyps->contains($causeOfDamage)) {
+            $this->causeOfDamageTyps[] = $causeOfDamage;
         }
 
         return $this;
     }
 
-    public function removeCauseOfDamage(CauseOfDamageTyp $causeOfDamage): self
+    public function removeCauseOfDamageTyp(CauseOfDamageTyp $causeOfDamage): self
     {
-        $this->causeOfDamage->removeElement($causeOfDamage);
+        $this->causeOfDamageTyps->removeElement($causeOfDamage);
 
         return $this;
     }

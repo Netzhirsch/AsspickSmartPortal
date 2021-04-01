@@ -142,11 +142,11 @@ class PDF extends TCPDF
         $maxWidthForTwoCells = $this->getMaxWidthForTwoCells();
         $minWidthLabel = $this->getMinWidthLabel();
 
-        $this->SetFont(self::FONT_FAMILY_BOLD,'',PDF::FONT_SIZE);
-        $this->Write(0, 'Schadenereignis:','',0,'',1);
+        $this->SetFont(self::FONT_FAMILY_BOLD, '', PDF::FONT_SIZE);
+        $this->Write(0, 'Schadenereignis:', '', 0, '', 1);
 
-        $this->SetFont(self::FONT_FAMILY,'',PDF::FONT_SIZE);
-        $this->Cell($minWidthLabel, 0, 'Schadentag:',self::DEBUG);
+        $this->SetFont(self::FONT_FAMILY, '', PDF::FONT_SIZE);
+        $this->Cell($minWidthLabel, 0, 'Schadentag:', self::DEBUG);
         $dateString = '';
         if (!empty($damageEvent) && !empty($damageEvent->getDate())) {
             $date = $damageEvent->getDate();
@@ -154,7 +154,7 @@ class PDF extends TCPDF
         }
         $this->Cell($maxWidthForTwoCells, 0, $dateString, self::DEBUG);
 
-        $this->Cell($minWidthLabel, 0, 'Schadenzeit:',self::DEBUG);
+        $this->Cell($minWidthLabel, 0, 'Schadenzeit:', self::DEBUG);
         $timeString = '';
         if (!empty($damageEvent) && !empty($damageEvent->getTime())) {
             $time = $damageEvent->getTime();
@@ -162,19 +162,26 @@ class PDF extends TCPDF
         }
         $this->Cell($maxWidthForTwoCells, 0, $timeString, self::DEBUG, 1);
 
-        $this->Cell($minWidthLabel, 0, 'Schadenort:',self::DEBUG);
+        $this->Cell($minWidthLabel, 0, 'Schadenort:', self::DEBUG);
         $location = '';
-        if (!empty($damageEvent) && !empty($damageEvent->getLocation()))
+        if (!empty($damageEvent) && !empty($damageEvent->getLocation())) {
             $location = $damageEvent->getLocation();
+        }
         $this->Cell(0, 0, $location, self::DEBUG, 1);
 
-        $this->Cell($minWidthLabel, 0, '',self::DEBUG);
+        $this->Cell($minWidthLabel, 0, '', self::DEBUG);
         $location = '';
-        if (!empty($damageEvent) && !empty($damageEvent->getLocationTwo()))
+        if (!empty($damageEvent) && !empty($damageEvent->getLocationTwo())) {
             $location = $damageEvent->getLocationTwo();
+        }
         $this->Cell(0, 0, $location, self::DEBUG, 1);
-    }
 
+        $this->Write(0, 'Schadenschilderung:', '', 0, '', 1);
+        if (!empty($damageEvent)) {
+            $this->Write(0, $damageEvent->getDescription(), '', 0, '', 1);
+        }
+
+    }
     protected function printDamageEventDescription(?string $description)
     {
         $this->SetFont(self::FONT_FAMILY_BOLD,'',PDF::FONT_SIZE);
@@ -184,12 +191,12 @@ class PDF extends TCPDF
             $this->Write(0,$description);
     }
 
-    protected function printDamageCause(DamageCause $cause)
+    protected function printDamageCause(?DamageCause $cause)
     {
         $this->SetFont(self::FONT_FAMILY_BOLD,'',PDF::FONT_SIZE);
         $this->Write(
             0,
-            'Schadenverursacher (Bei Kindern bitte auch das Geburtsdatum):',
+            'Schadenverursacher :',
             '',
             0,
             '',
@@ -201,14 +208,18 @@ class PDF extends TCPDF
         $this->SetFont(self::FONT_FAMILY,'',PDF::FONT_SIZE);
 
         $this->Cell($minWidthLabel, 0, 'Name:',self::DEBUG);
-        $name = $cause->__toString();
-        $this->Cell($widthForOneCells, 0, $name,self::DEBUG,1);
+        if (!empty($cause)) {
+            $name = $cause->__toString();
+            $this->Cell($widthForOneCells, 0, $name,self::DEBUG,1);
+        }
 
         $this->Cell($minWidthLabel, 0, 'Straße:',self::DEBUG);
-        $streetMailBox = $cause->getStreetMailbox();
-        if (empty($streetMailBox))
-            $streetMailBox = '';
-        $this->Cell($widthForOneCells, 0, $streetMailBox,self::DEBUG,1);
+        if (!empty($cause)) {
+            $streetMailBox = $cause->getStreetMailbox();
+            if (empty($streetMailBox))
+                $streetMailBox = '';
+            $this->Cell($widthForOneCells, 0, $streetMailBox,self::DEBUG,1);
+        }
 
         $this->Cell($minWidthLabel, 0, 'PLZ, Ort:',self::DEBUG);
         $postCodeLocation = $this->getPostCodeLocationString($cause);
@@ -225,14 +236,14 @@ class PDF extends TCPDF
         $this->Cell($maxWidthValue, 0, $cause->getPhone(),self::DEBUG);
 
         $this->Cell($minWidthLabel+5, 0, 'Geburtsdatum:',self::DEBUG);
-        $dateOfBirth = $cause->getDateOfBirth();
         $dateOfBirthString = '';
-        if (empty($dateOfBirth))
-            $dateOfBirthString = $dateOfBirth->format('d.m.Y');
-        $maxWidthValue -= 65;
+        if (!empty($cause)) {
+            $dateOfBirth = $cause->getDateOfBirth();
+            if (!empty($dateOfBirth))
+                $dateOfBirthString = $dateOfBirth->format('d.m.Y');
+            $maxWidthValue -= 65;
+        }
         $this->Cell($maxWidthValue, 0, $dateOfBirthString,self::DEBUG);
-
-
     }
 
     protected function printWitnesses(?Witness $witness,?Witness $witnessTwo)
@@ -453,7 +464,6 @@ class PDF extends TCPDF
 
     }
 
-
     protected function printDivider($heightOfNextContent = 35) {
         $isPageAdded = $this->addPageIfContentDontFit($heightOfNextContent);
         if ($isPageAdded)
@@ -520,5 +530,6 @@ class PDF extends TCPDF
         $this->Write(0, 'Datum: ');
         $this->Write(0, $date->format('d.m.Y'));
     }
+
 
 }

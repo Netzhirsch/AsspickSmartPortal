@@ -45,13 +45,23 @@
                                     <td>{{ (insuranceNumber?insuranceNumber:entry.insurer.dangerNumber|default('')) }}</td>
                                     <td>{{ (entry.damageEvent)?entry.damageEvent.date|date("d.m.Y"):'' }}</td>
                                     <td class="actions">
-                                        {% include 'damage_case/general_damage/part/_delete.html.twig' %}
-                                        <a
-                                            href="{{ path('damageCase_generalDamage_edit',{'id':entry.id})}}"
-                                            class="btn edit"
-                                        >
-                                            bearbeiten
-                                        </a>
+                                        {% if entry.isLocked %}
+                                            <button class="btn" type="button">gesendet</button>
+                                        {% else %}
+                                            {% include 'damage_case/general_damage/part/_delete.html.twig' %}
+                                            <a
+                                                href="{{ path('damageCase_generalDamage_edit',{'id':entry.id})}}"
+                                                class="btn edit"
+                                            >
+                                                bearbeiten
+                                            </a>
+                                            <a
+                                                    href="{{ path('damageCase_generalDamage_lock',{'id':entry.id}) }}"
+                                                    class="btn edit"
+                                            >
+                                                einreichen
+                                            </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% else %}
