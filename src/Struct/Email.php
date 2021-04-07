@@ -10,8 +10,8 @@ class Email
     private string $from;
     private string $subject;
     private string $message;
-    private ?string $salutation;
-    private ?string $name;
+    private ?string $salutation = null;
+    private ?string $name = null;
 
     public function __construct()
     {
