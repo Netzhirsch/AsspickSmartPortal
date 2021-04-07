@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\DamageCase\DamageCaseController;
 use App\Entity\InsurancePremiumDetermination;
+use App\Entity\User;
 use App\Form\InsurancePremiumDeterminationType;
 use App\PDF\InsurancePremiumDeterminationPDF;
 use App\Struct\Email;
@@ -547,7 +548,6 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
     ): int
     {
         $email = new Email();
-        $email->setFrom('asspick@asspick.de');
         $email->setSubject('BVAW Gebäude wurde eingereicht.');
         $email->setMessage(
             'BVAW Gebäude wurde von '.$insurancePremiumDetermination->getName().' eingereicht.'
@@ -565,14 +565,23 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
         $email = new Email();
         $email->setSalutation($insurancePremiumDetermination->getSalutation());
         $email->setName($insurancePremiumDetermination->getName());
-        $email->setFrom('asspick@asspick.de');
         $email->setSubject('Sie haben BVAW Gebäude eingereicht.');
         $email->setMessage(
             'Danke das Sie BVAW Gebäude eingereicht haben. 
             Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.'
         );
-        $email->setTo('luhmann@netzhirsch.de');
+        $this->setEmailToByUser($email);
 
         return $this->sendMailWithAttachment($this->mailer, $email, $filePath);
+    }
+
+    /**
+     * @param Email $email
+     */
+    private function setEmailToByUser(Email $email): void
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $email->setTo($user->getEmail());
     }
 }
