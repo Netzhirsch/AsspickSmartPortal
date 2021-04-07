@@ -51,6 +51,10 @@ class InsurancePremiumDetermination {
 
 	private $oilTankSize;
 
+    public function getName(): string
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+	}
 	/**
 	 * @return mixed
 	 */

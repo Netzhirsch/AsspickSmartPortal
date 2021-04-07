@@ -512,6 +512,8 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
                 $name = '0'.$number.'-'.$name;
 
             $filePath = $dir.DIRECTORY_SEPARATOR.$name;
+            $name = 'BVAW Gebäude.pdf';
+
         } while(file_exists($filePath));
 
         $pdfClass = InsurancePremiumDeterminationPDF::class;
@@ -520,13 +522,13 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 
         $pdf->Output($filePath, 'F');
 
-        $countReceiver = $this->sendEmailToAdmin($insuredName, $filePath);
+        $countReceiver = $this->sendEmailToAdmin($insurancePremiumDetermination, $filePath);
 
         $countReceiver += $this->sendEmailToUser($insurancePremiumDetermination, $filePath);
 
         if
         (
-            $countReceiver > 1
+            $countReceiver != 2
         ) {
             $this->addFlash
             (
@@ -536,17 +538,20 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
                     bitte melden Sie sich direkt bei asspick@asspick.de'
             );
         }
+
     }
 
     private function sendEmailToAdmin(
-        string $insuredName,
+        InsurancePremiumDetermination $insurancePremiumDetermination,
         string $filePath
     ): int
     {
         $email = new Email();
         $email->setFrom('asspick@asspick.de');
         $email->setSubject('BVAW Gebäude wurde eingereicht.');
-        $email->setMessage('BVAW Gebäude wurde eingereicht von '.$insuredName.' eingereicht.');
+        $email->setMessage(
+            'BVAW Gebäude wurde von '.$insurancePremiumDetermination->getName().' eingereicht.'
+        );
         $email->setTo('luhmann@netzhirsch.de');
 
         return $this->sendMailWithAttachment($this->mailer, $email, $filePath);
@@ -559,10 +564,13 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
     {
         $email = new Email();
         $email->setSalutation($insurancePremiumDetermination->getSalutation());
-        $email->setName($insurancePremiumDetermination->getFirstName().' '.$insurancePremiumDetermination->getLastName());
+        $email->setName($insurancePremiumDetermination->getName());
         $email->setFrom('asspick@asspick.de');
         $email->setSubject('Sie haben BVAW Gebäude eingereicht.');
-        $email->setMessage('Danke das Sie BVAW Gebäude eingereicht haben. Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.');
+        $email->setMessage(
+            'Danke das Sie BVAW Gebäude eingereicht haben. 
+            Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.'
+        );
         $email->setTo('luhmann@netzhirsch.de');
 
         return $this->sendMailWithAttachment($this->mailer, $email, $filePath);

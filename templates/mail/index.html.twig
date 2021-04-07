@@ -1,7 +1,7 @@
 {% if email.salutation is empty or email.name%}
-    Sehr geehrte Damen und Herren.
+Sehr geehrte Damen und Herren.
 {% else %}
-    Hallo {{ email.salutation }} {{ email.name }}.
+Hallo {{ email.salutation }} {{ email.name }}.
 {% endif %}
 
 {{ email.message }}
