@@ -102,7 +102,7 @@ class DamageCaseController extends AbstractController
 
         $email = new Email();
         $email->setFrom('asspick@asspick.de');
-        $email->setTo('luhmann@netzhirsch.de');
+        $email->setTo('schaden@netzhirsch.de');
         $email->setSubject('Schadensformular wurde eingereicht');
 
         $policyholder = $entity->getPolicyholder();
