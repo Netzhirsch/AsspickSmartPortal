@@ -567,8 +567,8 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
         $email->setName($insurancePremiumDetermination->getName());
         $email->setSubject('Sie haben BVAW Gebäude eingereicht.');
         $email->setMessage(
-            'Danke das Sie BVAW Gebäude eingereicht haben. 
-            Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.'
+            'Danke das Sie BVAW Gebäude eingereicht haben.'
+            .'Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.'
         );
         $this->setEmailToByUser($email);
 
