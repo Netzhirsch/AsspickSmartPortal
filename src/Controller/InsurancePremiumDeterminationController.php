@@ -23,6 +23,7 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 
 	public function __construct(Swift_Mailer $mailer)
     {
+        $this->mailer = $mailer;
         parent::__construct($mailer);
     }
 
