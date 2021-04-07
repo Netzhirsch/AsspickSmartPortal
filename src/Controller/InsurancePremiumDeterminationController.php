@@ -552,7 +552,7 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
         $email->setMessage(
             'BVAW Gebäude wurde von '.$insurancePremiumDetermination->getName().' eingereicht.'
         );
-        $email->setTo('luhmann@netzhirsch.de');
+        $email->setTo('schaden@asspick.de');
 
         return $this->sendMailWithAttachment($this->mailer, $email, $filePath);
     }
