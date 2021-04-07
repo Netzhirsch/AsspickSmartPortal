@@ -237,9 +237,18 @@ class InsurancePremiumDeterminationType extends AbstractType {
 			'submit',
 			SubmitType::class,
 			[
-				'label'   => 'Berechnen',
+				'label'   => 'berechnen'
 			]
 		);
+
+        $builder->add(
+            'insure',
+            SubmitType::class,
+            [
+                'label'   => 'versichern'
+            ]
+        );
+
 	}
 
 	public function configureOptions(OptionsResolver $resolver) {

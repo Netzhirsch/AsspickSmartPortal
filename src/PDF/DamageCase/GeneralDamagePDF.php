@@ -14,7 +14,7 @@ use App\Entity\DamageCase\Part\Damage\DamageEvent;
 use App\PDF\PDF;
 use DateTime;
 
-class GeneralDamagePDF extends PDF
+class GeneralDamagePDF extends DamageCasePDF
 {
     public function create(GeneralDamage $generalDamage)
     {

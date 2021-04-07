@@ -312,7 +312,8 @@ trait ControllerTrait
         Swift_Mailer $mailer,
         Email $email,
         string $filePath
-    ){
+    ): int
+    {
         $swiftMessage = $this->createMessage($email);
 
         $swiftMessage->attach(Swift_Attachment::fromPath($filePath));
@@ -326,7 +327,7 @@ trait ControllerTrait
     {
 
         $body = $this->renderView(
-            'mail/index.html.twig', ['message' => $email->getMessage()]
+            'mail/index.html.twig', ['email' => $email]
         );
 
         $message = (new Swift_Message($email->getSubject()))

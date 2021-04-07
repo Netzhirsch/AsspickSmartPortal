@@ -21,7 +21,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class CarPDF extends PDF
+class CarPDF extends DamageCasePDF
 {
     public function create(Car $car)
     {

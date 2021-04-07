@@ -10,6 +10,8 @@ class Email
     private string $from;
     private string $subject;
     private string $message;
+    private ?string $salutation;
+    private ?string $name;
 
     public function __construct()
     {
@@ -79,4 +81,37 @@ class Email
     {
         $this->from = $from;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getSalutation(): ?string
+    {
+        return $this->salutation;
+    }
+
+    /**
+     * @param string|null $salutation
+     */
+    public function setSalutation(?string $salutation): void
+    {
+        $this->salutation = $salutation;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     */
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
 }

@@ -11,7 +11,7 @@ use App\Entity\DamageCase\Part\PersonalInjury;
 use App\PDF\PDF;
 use DateTime;
 
-class LiabilityPDF extends PDF
+class LiabilityPDF extends DamageCasePDF
 {
     public function create(Liability $liability)
     {

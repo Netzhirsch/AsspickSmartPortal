@@ -65,22 +65,7 @@ class DamageCaseController extends AbstractController
         $pdf->create($entity);
 
         $insuredName = $insurer->getName();
-        $dir =
-            dirname(__DIR__,3)
-            .DIRECTORY_SEPARATOR
-            .'assets'
-            .DIRECTORY_SEPARATOR
-            .'pdfs'
-            .DIRECTORY_SEPARATOR
-            .$entity::UPLOAD_FOLDER
-            .DIRECTORY_SEPARATOR
-            .$insuredName
-            .DIRECTORY_SEPARATOR
-            .$number
-        ;
-
-        if (!file_exists($dir))
-            mkdir($dir, 0755, true);
+        $dir = $this->makeDir($entity::UPLOAD_FOLDER, $insuredName);
         $filePath = $dir.DIRECTORY_SEPARATOR.$insuredName.'-'.$number.'.pdf';
         $pdf->Output($filePath, 'F');
         $this->sendNotificationMail($entity,$filePath);
@@ -150,4 +135,46 @@ class DamageCaseController extends AbstractController
     protected function addFlashNoInsured(){
         $this->addFlash('error', 'Es muss ein Versicherer eingetragen sein.');
     }
+
+    /**
+     * @param string $uploadFolder
+     * @param string|null $insuredName
+     * @return string
+     */
+    protected function makeDir(
+        string $uploadFolder,
+        ?string $insuredName
+    ): string
+    {
+        $dir = $this->getDir($uploadFolder, $insuredName);
+
+        if (!file_exists($dir))
+            mkdir($dir, 0755, true);
+
+        return $dir;
+    }
+
+    /**
+     * @param string $uploadFolder
+     * @param string|null $insuredName
+     * @return string
+     */
+    protected function getDir(
+        string $uploadFolder,
+        ?string $insuredName
+    ): string
+    {
+        return dirname(__DIR__, 3)
+        .DIRECTORY_SEPARATOR
+        .'assets'
+        .DIRECTORY_SEPARATOR
+        .'pdfs'
+        .DIRECTORY_SEPARATOR
+        .$uploadFolder
+        .DIRECTORY_SEPARATOR
+        .$insuredName
+        ;
+    }
+
+
 }

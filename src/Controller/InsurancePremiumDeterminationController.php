@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Controller\DamageCase\DamageCaseController;
 use App\Entity\InsurancePremiumDetermination;
 use App\Form\InsurancePremiumDeterminationType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\PDF\InsurancePremiumDeterminationPDF;
+use App\Struct\Email;
+use Swift_Mailer;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,10 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/insurance_premium_determination")
  */
-class InsurancePremiumDeterminationController extends AbstractController {
+class InsurancePremiumDeterminationController extends DamageCaseController {
 	use ControllerTrait;
 
-	/**
+    private Swift_Mailer $mailer;
+
+	public function __construct(Swift_Mailer $mailer)
+    {
+        parent::__construct($mailer);
+    }
+
+    /**
 	 * @Route("/", name="insurance_premium_determination_index")
 	 * @param Request $request
 	 *
@@ -23,6 +34,23 @@ class InsurancePremiumDeterminationController extends AbstractController {
 	 */
 	public function indexAction(Request $request):Response {
 		$insurancePremiumDetermination = new InsurancePremiumDetermination();
+        $insurancePremiumDetermination->setSalutation('mr');
+        $insurancePremiumDetermination->setFirstName('Max');
+        $insurancePremiumDetermination->setLastName('Mustermann');
+        $insurancePremiumDetermination->setStreet('Musterstraß 2');
+        $insurancePremiumDetermination->setCity('Musterstadt');
+        $insurancePremiumDetermination->setZipcode('12345');
+        $insurancePremiumDetermination->setPaymentMethod('bill');
+        $insurancePremiumDetermination->setMode('bak_i');
+        $insurancePremiumDetermination->setCurrentValue(100);
+        $insurancePremiumDetermination->setCurrentValueVs(200);
+        $insurancePremiumDetermination->setOilTankSize(20);
+        $insurancePremiumDetermination->setNumberOfCommerciallyUsedUnits(10);
+        $insurancePremiumDetermination->setNumberOfResidentialUnits(20);
+        $insurancePremiumDetermination->setTotal(1000);
+        $insurancePremiumDetermination->setTotalVs(200);
+        $insurancePremiumDetermination->setSumInsured(1914);
+        $insurancePremiumDetermination->setSumInsuredVs(2000);
 		$form = $this->createForm(InsurancePremiumDeterminationType::class, $insurancePremiumDetermination);
 
 		$form->handleRequest($request);
@@ -457,6 +485,85 @@ class InsurancePremiumDeterminationController extends AbstractController {
 			'gewaesserschadenhaftpflicht_2_netto' => $gewaesserschadenhaftpflicht_2_netto,
 			'gewaesserschadenhaftpflicht_2_brutto' => $gewaesserschadenhaftpflicht_2_brutto,
 		];
+
+        /**@var SubmitButton $insureButton */
+        $insureButton = $form->get('insure');
+        if ($form->isSubmitted() && $form->isValid() && $insureButton->isClicked()) {
+            $this->insure($parameters,$form->getData());
+            $this->addFlash('success', 'Daten wurden an asspick übermittelt. Sie erhalten ein E-Mail-Bestätigung.');
+        }
+        
 		return $this->render('insurance_premium_determination/index.html.twig', $parameters);
 	}
+
+    private function insure(array $parameters,InsurancePremiumDetermination $insurancePremiumDetermination)
+    {
+        $insuredName = $insurancePremiumDetermination->getLastName().'_'.$insurancePremiumDetermination->getFirstName();
+        $number = 0;
+        $dir = $this->makeDir('insurance_premium_determination', $insuredName);
+
+        $name = 'BVAW Gebäude.pdf';
+        do {
+            $number++;
+            if ($number > 1 && $number > 10)
+                $name = $number.'-'.$name;
+            elseif($number > 1 && $number < 10)
+                $name = '0'.$number.'-'.$name;
+
+            $filePath = $dir.DIRECTORY_SEPARATOR.$name;
+        } while(file_exists($filePath));
+
+        $pdfClass = InsurancePremiumDeterminationPDF::class;
+        $pdf = new $pdfClass();
+        $pdf->create($insurancePremiumDetermination,$parameters);
+
+        $pdf->Output($filePath, 'F');
+
+        $countReceiver = $this->sendEmailToAdmin($insuredName, $filePath);
+
+        $countReceiver += $this->sendEmailToUser($insurancePremiumDetermination, $filePath);
+
+        if
+        (
+            $countReceiver > 1
+        ) {
+            $this->addFlash
+            (
+                'error'
+                ,
+                'Es konnte leider keine E-Mail versandt werden, 
+                    bitte melden Sie sich direkt bei asspick@asspick.de'
+            );
+        }
+    }
+
+    private function sendEmailToAdmin(
+        string $insuredName,
+        string $filePath
+    ): int
+    {
+        $email = new Email();
+        $email->setFrom('asspick@asspick.de');
+        $email->setSubject('BVAW Gebäude wurde eingereicht.');
+        $email->setMessage('BVAW Gebäude wurde eingereicht von '.$insuredName.' eingereicht.');
+        $email->setTo('luhmann@netzhirsch.de');
+
+        return $this->sendMailWithAttachment($this->mailer, $email, $filePath);
+    }
+
+    private function sendEmailToUser(
+        InsurancePremiumDetermination $insurancePremiumDetermination,
+        string $filePath
+    ): int
+    {
+        $email = new Email();
+        $email->setSalutation($insurancePremiumDetermination->getSalutation());
+        $email->setName($insurancePremiumDetermination->getFirstName().' '.$insurancePremiumDetermination->getLastName());
+        $email->setFrom('asspick@asspick.de');
+        $email->setSubject('Sie haben BVAW Gebäude eingereicht.');
+        $email->setMessage('Danke das Sie BVAW Gebäude eingereicht haben. Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.');
+        $email->setTo('luhmann@netzhirsch.de');
+
+        return $this->sendMailWithAttachment($this->mailer, $email, $filePath);
+    }
 }
