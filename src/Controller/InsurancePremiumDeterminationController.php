@@ -36,23 +36,6 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 	 */
 	public function indexAction(Request $request):Response {
 		$insurancePremiumDetermination = new InsurancePremiumDetermination();
-        $insurancePremiumDetermination->setSalutation('mr');
-        $insurancePremiumDetermination->setFirstName('Max');
-        $insurancePremiumDetermination->setLastName('Mustermann');
-        $insurancePremiumDetermination->setStreet('Musterstraß 2');
-        $insurancePremiumDetermination->setCity('Musterstadt');
-        $insurancePremiumDetermination->setZipcode('12345');
-        $insurancePremiumDetermination->setPaymentMethod('bill');
-        $insurancePremiumDetermination->setMode('bak_i');
-        $insurancePremiumDetermination->setCurrentValue(100);
-        $insurancePremiumDetermination->setCurrentValueVs(200);
-        $insurancePremiumDetermination->setOilTankSize(20);
-        $insurancePremiumDetermination->setNumberOfCommerciallyUsedUnits(10);
-        $insurancePremiumDetermination->setNumberOfResidentialUnits(20);
-        $insurancePremiumDetermination->setTotal(1000);
-        $insurancePremiumDetermination->setTotalVs(200);
-        $insurancePremiumDetermination->setSumInsured(1914);
-        $insurancePremiumDetermination->setSumInsuredVs(2000);
 		$form = $this->createForm(InsurancePremiumDeterminationType::class, $insurancePremiumDetermination);
 
 		$form->handleRequest($request);
