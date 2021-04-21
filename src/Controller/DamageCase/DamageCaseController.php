@@ -74,7 +74,7 @@ class DamageCaseController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($entity);
         $entityManager->flush();
-
+        $this->addFlash('success', 'Schadensformular wurde eingereicht');
         return $this->redirectToRoute($entity::FORM_ROUTES['index']);
     }
 
