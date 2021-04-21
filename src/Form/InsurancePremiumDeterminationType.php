@@ -116,7 +116,7 @@ class InsurancePremiumDeterminationType extends AbstractType {
 				'label'   => 'VS 1914',
 				'html5' => true,
 				'attr' => [
-					'title' => 'Versicherungssumme Wert 1941 (in Mio €)',
+					'title' => 'Versicherungssumme Wert 1914 (in Mark)',
 					'step' => 1,
 					'min' => 1,
 					'tabindex' => 21

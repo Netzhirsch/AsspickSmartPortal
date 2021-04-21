@@ -10,7 +10,7 @@
 {% block content %}
 
     <div class="container container--files">
-        <div class="inner">
+        <header class="inner">
             <header>
                 <h2>
                     <i class="fad fa-cloud"></i>
@@ -62,11 +62,11 @@
                 </header>
 
                 {% if folder.description is not empty %}
-                    <div class="content">
-                        <div class="line">
+                    <header>
+                        <h4>
                             {{ folder.description|raw }}
-                        </div>
-                    </div>
+                        </h4>
+                    </header>
                 {% endif %}
 
                 <div class="content">

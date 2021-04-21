@@ -332,7 +332,7 @@ trait ControllerTrait
 
         $message = (new Swift_Message($email->getSubject()))
             ->setFrom($email->getFrom())
-            ->setBody($body);
+            ->setBody($body, 'text/html');
 
         $message->setTo([$email->getTo()]);
 

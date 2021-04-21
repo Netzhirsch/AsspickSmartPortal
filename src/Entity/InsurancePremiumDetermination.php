@@ -53,7 +53,15 @@ class InsurancePremiumDetermination {
 
     public function getName(): string
     {
-        return $this->getFirstName().' '.$this->getLastName();
+		$name = [];
+		if (!empty($this->getSalutation()))
+			$name[] = $this->getSalutation();
+		if (!empty($this->getFirstName()))
+			$name[] = $this->getFirstName();
+		if (!empty($this->getLastName()))
+			$name[] = $this->getLastName();
+		
+		return implode(" ", $name);
 	}
 	/**
 	 * @return mixed
