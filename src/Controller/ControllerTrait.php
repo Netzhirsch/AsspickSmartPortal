@@ -459,9 +459,10 @@ trait ControllerTrait
                 continue;
 
             $image = new Image();
-            $image->setFilepath($imagePaths.DIRECTORY_SEPARATOR.$imagePath);
+            $fullPath = $imagePaths.DIRECTORY_SEPARATOR.$imagePath;
+            $image->setFilepath($fullPath);
             $image->setSignature($signature);
-            $cid = $message->embed(Swift_Image::fromPath($imagePath));
+            $cid = $message->embed(Swift_Image::fromPath($fullPath));
             $image->setCid($cid);
 
             $imagePath = strtolower($imagePath);
