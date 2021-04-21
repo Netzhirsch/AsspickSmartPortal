@@ -530,10 +530,12 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
         string $filePath
     ): int
     {
+    	/** @var User $user */
+    	$user = $this->getUser();
         $email = new Email();
         $email->setSubject('BVAW Gebäude wurde eingereicht.');
         $email->setMessage(
-            'BVAW Gebäude wurde von '.$insurancePremiumDetermination->getName().' eingereicht.'
+            'BVAW Gebäude wurde von '.$user->getEmail().' eingereicht.'
         );
         $email->setTo('schaden@asspick.de');
 
@@ -546,12 +548,14 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
     ): int
     {
         $email = new Email();
-        $email->setSalutation($insurancePremiumDetermination->getSalutation());
-        $email->setName($insurancePremiumDetermination->getName());
-        $email->setSubject('Sie haben BVAW Gebäude eingereicht.');
-        $email->setMessage(
-            'Danke das Sie BVAW Gebäude eingereicht haben.'
-            .'Im Anhang finden Sie eine Kopie. Wir werden uns schnellstmöglich bei Ihnen melden.'
+        $email->setSubject('Ihr Antrag zur Gebäudeversicherung, VN: ' . $insurancePremiumDetermination->getName());
+        $email->setMessage('
+			Sehr geehrte Damen und Herren,
+
+			vielen Dank für Ihren Antrag zur Gebäudeversicherung.
+			Wir werden diesen umgehend prüfen und die Dokumentierung veranlassen.
+
+			Sollten Sie Fragen zur Vorgehensweise oder zum Produkt haben, zögern Sie nicht, uns anzurufen.'
         );
         $this->setEmailToByUser($email);
 

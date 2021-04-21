@@ -1,0 +1,130 @@
+{% extends '_general/base.html.twig' %}
+
+{% block title %}Herzlich willkommen{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container container--dashboard">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-door-open"></i>
+                    Moin und herzlich Willkommen in unserem Vermittlerportal!
+                </h2>
+            </header>
+            <div class="content">
+                <p>Über das neue Vermittlerportal erhalten Sie direkten Zugang zu Ihren Verträgen, unseren
+                    Konzeptrechnern und den dazugehörigen Unterlagen. Somit gewährleisten wir, dass unsere Konzepte
+                    Ihren Arbeitsalltag und Ihre Prozesse soweit wie möglich entlasten und vermeiden auch im
+                    Schadenfall, wann immer möglich, Diskussionen mit Ihren Kunden.</p>
+                <p>Viel Spaß – wir freuen uns über Ihr Feedback!</p>
+            </div>
+            <div class="content">
+                <h3>Online-Rechner</h3>
+                <p>
+                    Mit unseren beiden Onlinerechnern kommen Sie schnell und mit wenigen Klicks zum passenden Angebot.
+                    Vergleichen Sie die beiden Deckungskonzepte AIC und AUC.<br>
+                    Wenn Sie sich für ein Asspick Produkt entscheiden, können Sie Ihren persönlichen
+                    Versicherungsvertrag direkt online beantragen.
+                </p>
+
+                <h3>Newsroom</h3>
+                <p>
+                    Hier bekommen Sie laufend aktuelle News aus der Versicherungswirtschaft, der MARTENS & PRAHL Gruppe
+                    und natürlich von ASSPICK.
+                    Wichtige Updates und Entscheidungsgrundlagen für die Praxis, Hintergrundinformationen für die
+                    Planung Ihrer Absicherungsstrategien
+                    und Einladungen zu den aktuellen Online-Veranstaltungen von uns.
+                </p>
+
+                <h3>Schadenmeldung</h3>
+                <p>
+                    Für Ihre Schadenmeldung nutzen Sie gern die hier hinterlegten Online-Formulare.
+                    Natürlich können Sie uns auch jederzeit anrufen oder eine E-Mail schreiben.
+                </p>
+
+                <h3>Ihre Verträge</h3>
+                <p>
+                    Direkter Zugriff auf Ihre Verträge und Dokumente. Dieser Bereich befindet sich im Aufbau und kann
+                    nur über eine separate Anmeldung genutzt werden.
+                    Sollten Sie keine LogIn-Daten haben, kontaktieren Sie uns bitte.
+                </p>
+
+                <h3>Download-Center</h3>
+                <p>
+                    Die Alternative zu komplizierten Vertragswerken und komplexen Konstrukten mit mehreren Partnern:
+                    Unsere Konzepte, die wir mit leistungsstarken Versicherern für Sie als Komplettpakete geschnürt
+                    haben.<br>
+                    Hier finden Sie alle Rahmenvereinbarungen und Konzeptunterlagen von Asspick.
+                </p>
+            </div>
+            <div class="content">
+                <div class="line col-6">
+                    <a class="cta" href="{{ path('files') }}">
+                        <div class="indicator">3</div>
+                        <i class="fad fa-cloud"></i>
+                        <div class="title">Ihre Verträge</div>
+                        <div class="description">Verträge, Vorgänge und Informationen</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <a class="cta" href="https://rechner.asspick.netzhirsch.de/unfall" target="_blank">
+                        <i class="fad fa-car-crash"></i>
+                        <div class="title">Unfall-Rechner</div>
+                        <div class="description">Berechnen Sie schnell und einfach Ihren Schadenfall</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <a class="cta" href="https://rechner.asspick.netzhirsch.de/aci" target="_blank">
+                        <i class="fad fa-house"></i>
+                        <div class="title">Immobilien-Rechner</div>
+                        <div class="description">Die wichtigsten Kennzahlen einfach und direkt erhalten</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <a class="cta">
+                        <i class="fad fa-paper-plane"></i>
+                        <div class="title">Newsroom</div>
+                        <div class="description">Jetzt anmelden und immer up&#8209;to&#8209;date bleiben</div>
+                    </a>
+                </div>
+            </div>
+            <header>
+                <h2>Neuigkeiten</h2>
+                <div class="actions">
+                    <a class="btn right" href="{{ path('news_archiv') }}">Newsarchiv</a>
+                </div>
+            </header>
+            <div class="content impuls">
+                <div class="wrap-image line col-6">
+                    <img src="{{ asset('build/img/dashboard/impuls.png') }}" alt="IMPULS">
+                </div>
+                <div class="wrap-text line col-18">
+                    <h2><strong>IMPULS</strong> Unser Magazin für Kunden</h2>
+                    <p>
+                        Unser Magazin IMPULS bietet Ihnen Updates zu Versicherungsthemen, Hintergründe aus erster Hand
+                        und fachlichen Rat zu wichtigen neuen Entwicklungen.
+                        Die PDF-Version der aktuellen Ausgabe finden Sie <a
+                                href="https://www.asspick.de/fileadmin/assets/Impuls/MP_IMPULS_13_April_2021_web.pdf"
+                                target="_blank">hier</a>.
+                    </p>
+                    <p>
+                        Alle vorherigen Ausgaben als PDF-Version zum Download finden Sie <a
+                                href="https://www.martens-prahl-holding.de/service/presse-center/impuls"
+                                target="_blank">hier</a>.
+                    </p>
+                </div>
+            </div>
+            <div class="content">
+                {% for news in newsroom %}
+                    {% include 'news/_teaser.html.twig' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

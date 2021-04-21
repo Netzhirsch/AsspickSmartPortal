@@ -32,7 +32,7 @@
 			border-bottom:1px solid @innuendo;
 			background:linear-gradient(180deg, fade(@twinkle_blue, 40), white);
 
-			h2, h3 {
+			h2, h3, h4 {
 				.block;
 				.left;
 				.m0;
@@ -40,7 +40,6 @@
 				line-height:24px;
 				padding:7px 10px;
 				font-weight:bold;
-				color:@asspick_blue;
 
 				i {
 					.inline-block;
@@ -52,7 +51,18 @@
 				}
 			}
 
+			h2, h3 {
+				color:@asspick_blue;
+			}
+
 			h3 {
+				font-size:15px;
+				line-height:21px;
+				padding:2px 10px;
+			}
+
+			h4 {
+				font-weight:normal;
 				font-size:15px;
 				line-height:21px;
 				padding:2px 10px;
@@ -111,6 +121,52 @@
 			.w100;
 			.bb;
 			padding:10px;
+
+			p, ul, ol, h1, h2, h3, h4, h5, h6 {
+				.block;
+				.left;
+				.w100;
+				.m0;
+				padding:6px 10px;
+				font-size:14px;
+				line-height:22px;
+
+				a {
+					color:@asspick_blue;
+
+					&:hover {
+						color:@asspick_blue_hover;
+					}
+				}
+			}
+
+			ul, ol {
+				padding:6px 10px 6px 30px;
+			}
+
+			h1 {
+				font-weight: bold;
+				padding:3px 10px;
+				font-size:22px;
+				line-height:36px;
+			}
+
+			h2 {
+				font-weight: bold;
+				padding:4px 10px;
+				font-size:18px;
+				line-height:30px;
+			}
+
+			h3 {
+				font-weight: bold;
+				font-size:16px;
+				line-height:24px;
+			}
+
+			h4, h5, h6 {
+				font-weight: bold;
+			}
 		}
 
 		> .content + .content,

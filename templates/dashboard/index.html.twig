@@ -18,52 +18,20 @@
                 </h2>
             </header>
             <div class="content">
-                <p>Über das neue Vermittlerportal erhalten Sie direkten Zugang zu Ihren Verträgen, unseren
-                    Konzeptrechnern und den dazugehörigen Unterlagen. Somit gewährleisten wir, dass unsere Konzepte
-                    Ihren Arbeitsalltag und Ihre Prozesse soweit wie möglich entlasten und vermeiden auch im
-                    Schadenfall, wann immer möglich, Diskussionen mit Ihren Kunden.</p>
-                <p>Viel Spaß – wir freuen uns über Ihr Feedback!</p>
+                <div class="line col-9">
+                    <p>
+						Über unser neues Vermittlerportal erhalten Sie direkten Zugang zu Ihren Verträgen (Voraussetzung ist eine Freischaltung der Cloud), 
+						den digitalen Konzeptrechnern und dazugehörigen Unterlagen. 
+						Im Newsbereich finden Sie laufend aktuelle Hintergrundinformationen, wichtige Updates und Impulse für die Praxis sowie die Termine zu unserem Weiterbildungsangebot.
+					</p>
+                    <p>Viel Spaß beim Stöbern - wir freuen uns über Ihr Feedback!</p>
+                </div>
+                <div class="wrap-image line col-15">
+                    <img src="{{ asset('build/img/dashboard/team.jpg') }}" alt="Asspick Team">
+                </div>
             </div>
             <div class="content">
-                <h3>Online-Rechner</h3>
-                <p>
-                    Mit unseren beiden Onlinerechnern kommen Sie schnell und mit wenigen Klicks zum passenden Angebot.
-                    Vergleichen Sie die beiden Deckungskonzepte AIC und AUC.<br>
-                    Wenn Sie sich für ein Asspick Produkt entscheiden, können Sie Ihren persönlichen
-                    Versicherungsvertrag direkt online beantragen.
-                </p>
 
-                <h3>Newsroom</h3>
-                <p>
-                    Hier bekommen Sie laufend aktuelle News aus der Versicherungswirtschaft, der MARTENS & PRAHL Gruppe
-                    und natürlich von ASSPICK.
-                    Wichtige Updates und Entscheidungsgrundlagen für die Praxis, Hintergrundinformationen für die
-                    Planung Ihrer Absicherungsstrategien
-                    und Einladungen zu den aktuellen Online-Veranstaltungen von uns.
-                </p>
-
-                <h3>Schadenmeldung</h3>
-                <p>
-                    Für Ihre Schadenmeldung nutzen Sie gern die hier hinterlegten Online-Formulare.
-                    Natürlich können Sie uns auch jederzeit anrufen oder eine E-Mail schreiben.
-                </p>
-
-                <h3>Ihre Verträge</h3>
-                <p>
-                    Direkter Zugriff auf Ihre Verträge und Dokumente. Dieser Bereich befindet sich im Aufbau und kann
-                    nur über eine separate Anmeldung genutzt werden.
-                    Sollten Sie keine LogIn-Daten haben, kontaktieren Sie uns bitte.
-                </p>
-
-                <h3>Download-Center</h3>
-                <p>
-                    Die Alternative zu komplizierten Vertragswerken und komplexen Konstrukten mit mehreren Partnern:
-                    Unsere Konzepte, die wir mit leistungsstarken Versicherern für Sie als Komplettpakete geschnürt
-                    haben.<br>
-                    Hier finden Sie alle Rahmenvereinbarungen und Konzeptunterlagen von Asspick.
-                </p>
-            </div>
-            <div class="content">
                 <div class="line col-6">
                     <a class="cta" href="{{ path('files') }}">
                         <div class="indicator">3</div>
@@ -72,6 +40,67 @@
                         <div class="description">Verträge, Vorgänge und Informationen</div>
                     </a>
                 </div>
+                <div class="line col-6">
+                    <h3>Ihre Verträge</h3>
+                    <p>
+                        Direkter Zugriff auf Ihre Verträge und Dokumente. Dieser Bereich befindet sich im Aufbau und
+                        kann
+                        nur über eine separate Anmeldung genutzt werden.
+                        Sollten Sie keine LogIn-Daten haben, kontaktieren Sie uns bitte.
+                    </p>
+                </div>
+
+                <div class="line col-6">
+                    <a class="cta" href="{{ path('download_center_user_view') }}">
+                        <i class="fas fa-cloud-download"></i>
+                        <div class="title">Download-Center</div>
+                        <div class="description">Alle Rahmenvereinbarungen und Konzeptunterlagen</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <h3>Download-Center</h3>
+                    <p>
+                        Die Alternative zu komplizierten Vertragswerken und komplexen Konstrukten mit mehreren Partnern:
+                        Unsere Konzepte, die wir mit leistungsstarken Versicherern für Sie als Komplettpakete geschnürt
+                        haben.
+                    </p>
+                </div>
+
+                <div class="liner"></div>
+
+                <div class="line col-6">
+                    <a class="cta">
+                        <i class="fad fa-paper-plane"></i>
+                        <div class="title">Newsroom</div>
+                        <div class="description">Jetzt anmelden und immer up&#8209;to&#8209;date bleiben</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <h3>Newsroom</h3>
+                    <p>
+                        Laufend aktuelle News aus der Versicherungswirtschaft, der MARTENS & PRAHL Gruppe
+                        und natürlich von ASSPICK.
+                        Hintergrundinformationen, wichtige Updates und Entscheidungs&shy;grundlagen für die Praxis.
+                    </p>
+                </div>
+
+                <div class="line col-6">
+                    <a class="cta">
+                        <i class="fad fa-fragile"></i>
+                        <div class="title">Schadenmeldung</div>
+                        <div class="description">Haftplicht, <br/>KFZ, SACH</div>
+                    </a>
+                </div>
+                <div class="line col-6">
+                    <h3>Schadenmeldung</h3>
+                    <p>
+                        Für Ihre Schadenmeldung nutzen Sie gern die hier hinterlegten Online-Formulare.
+                        Natürlich können Sie uns auch jederzeit anrufen oder eine E-Mail schreiben.
+                    </p>
+                </div>
+
+                <div class="liner"></div>
+
                 <div class="line col-6">
                     <a class="cta" href="https://rechner.asspick.netzhirsch.de/unfall" target="_blank">
                         <i class="fad fa-car-crash"></i>
@@ -86,12 +115,15 @@
                         <div class="description">Die wichtigsten Kennzahlen einfach und direkt erhalten</div>
                     </a>
                 </div>
-                <div class="line col-6">
-                    <a class="cta">
-                        <i class="fad fa-paper-plane"></i>
-                        <div class="title">Newsroom</div>
-                        <div class="description">Jetzt anmelden und immer up&#8209;to&#8209;date bleiben</div>
-                    </a>
+                <div class="line col-12">
+                    <h3>Online-Rechner</h3>
+                    <p>
+                        Mit unseren beiden Onlinerechnern kommen Sie schnell und mit wenigen Klicks zum passenden
+                        Angebot.
+                        Vergleichen Sie die beiden Deckungskonzepte AIC und AUC.<br>
+                        Wenn Sie sich für ein Asspick Produkt entscheiden, können Sie Ihren persönlichen
+                        Versicherungsvertrag direkt online beantragen.
+                    </p>
                 </div>
             </div>
             <header>
@@ -110,7 +142,7 @@
                         Unser Magazin IMPULS bietet Ihnen Updates zu Versicherungsthemen, Hintergründe aus erster Hand
                         und fachlichen Rat zu wichtigen neuen Entwicklungen.
                         Die PDF-Version der aktuellen Ausgabe finden Sie <a
-                                href="https://www.asspick.de/fileadmin/assets/Impuls/MP_IMPULS_12_Dezember_2020_web.pdf"
+                                href="https://www.asspick.de/fileadmin/assets/Impuls/MP_IMPULS_13_April_2021_web.pdf"
                                 target="_blank">hier</a>.
                     </p>
                     <p>
