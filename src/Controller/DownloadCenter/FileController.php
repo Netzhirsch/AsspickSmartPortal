@@ -166,7 +166,7 @@ class FileController extends AbstractController
             $this->addFlash('error', 'Sicherheitsüberprüfung fehlgeschlagen bitte erneut versuchen.');
         }
 
-        return $this->redirectToRoute('download_center_file_index',['folderId' => $folderId]);
+        return $this->redirectToRoute('download_center_folder_index',['folderId' => $folderId]);
     }
 
     /**

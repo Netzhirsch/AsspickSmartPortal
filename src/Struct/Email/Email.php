@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Struct;
+namespace App\Struct\Email;
 
 
 class Email
@@ -12,6 +12,8 @@ class Email
     private string $message;
     private ?string $salutation = null;
     private ?string $name = null;
+    private ?Signature $signature;
+
 
     public function __construct()
     {
@@ -114,4 +116,19 @@ class Email
         $this->name = $name;
     }
 
+    /**
+     * @return Signature|null
+     */
+    public function getSignature(): ?Signature
+    {
+        return $this->signature;
+    }
+
+    /**
+     * @param Signature|null $signature
+     */
+    public function setSignature(?Signature $signature): void
+    {
+        $this->signature = $signature;
+    }
 }

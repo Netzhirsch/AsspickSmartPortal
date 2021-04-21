@@ -7,7 +7,7 @@ use App\Entity\InsurancePremiumDetermination;
 use App\Entity\User;
 use App\Form\InsurancePremiumDeterminationType;
 use App\PDF\InsurancePremiumDeterminationPDF;
-use App\Struct\Email;
+use App\Struct\Email\Email;
 use Swift_Mailer;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
@@ -507,7 +507,7 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 
         $pdf->Output($filePath, 'F');
 
-        $countReceiver = $this->sendEmailToAdmin($insurancePremiumDetermination, $filePath);
+        $countReceiver = $this->sendEmailToAdmin($filePath);
 
         $countReceiver += $this->sendEmailToUser($insurancePremiumDetermination, $filePath);
 
@@ -527,7 +527,6 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
     }
 
     private function sendEmailToAdmin(
-        InsurancePremiumDetermination $insurancePremiumDetermination,
         string $filePath
     ): int
     {

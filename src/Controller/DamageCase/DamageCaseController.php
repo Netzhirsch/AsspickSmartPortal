@@ -8,7 +8,7 @@ use App\Controller\ControllerTrait;
 use App\Entity\DamageCase\Car\Car;
 use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
-use App\Struct\Email;
+use App\Struct\Email\Email;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

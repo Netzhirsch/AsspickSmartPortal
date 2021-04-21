@@ -7,7 +7,9 @@ use App\Entity\DamageCase\GeneralDamage\GeneralDamage;
 use App\Entity\DamageCase\Liability;
 use App\Entity\File;
 use App\Entity\News;
-use App\Struct\Email;
+use App\Struct\Email\Email;
+use App\Struct\Email\Image;
+use App\Struct\Email\Signature;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,6 +19,7 @@ use Doctrine\Persistence\ObjectManager;
 use Exception;
 use ReflectionClass;
 use Swift_Attachment;
+use Swift_Image;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -317,7 +320,6 @@ trait ControllerTrait
         $swiftMessage = $this->createMessage($email);
 
         $swiftMessage->attach(Swift_Attachment::fromPath($filePath));
-
         return $mailer->send($swiftMessage);
     }
 
@@ -330,9 +332,14 @@ trait ControllerTrait
             'mail/index.html.twig', ['email' => $email]
         );
 
-        $message = (new Swift_Message($email->getSubject()))
-            ->setFrom($email->getFrom())
-            ->setBody($body, 'text/html');
+        $message = (new Swift_Message($email->getSubject()));
+        $message->setFrom($email->getFrom());
+
+        $signature = $this->createSignature($message);
+
+        $body .= $signature->getContent();
+
+        $message->setBody($body, 'text/html');
 
         $message->setTo([$email->getTo()]);
 
@@ -434,5 +441,57 @@ trait ControllerTrait
         .$file->getName();
     }
 
+    private function createSignature(Swift_Message $message): Signature
+    {
 
+        $signature = new Signature();
+
+        $imagePaths = dirname(__DIR__,2)
+            .DIRECTORY_SEPARATOR
+            .'assets'
+            .DIRECTORY_SEPARATOR
+            .'img'
+            .DIRECTORY_SEPARATOR
+            .'signatur'
+        ;
+        foreach (scandir($imagePaths) as $imagePath) {
+            if ($imagePath == '.' || $imagePath == '..')
+                continue;
+
+            $image = new Image();
+            $image->setFilepath($imagePaths.DIRECTORY_SEPARATOR.$imagePath);
+            $image->setSignature($signature);
+            $cid = $message->embed(Swift_Image::fromPath($imagePath));
+            $image->setCid($cid);
+
+            $imagePath = strtolower($imagePath);
+
+            switch ($imagePath) {
+                case 'datenschutz.png':
+                    $signature->setDataProtection($image);
+                    break;
+                case 'facebook.png':
+                    $signature->setFacebook($image);
+                    break;
+                case 'homepage.png':
+                    $signature->setHomepage($image);
+                    break;
+                case 'imagefilm.png':
+                    $signature->setImageFilm($image);
+                    break;
+                case 'impressum.png':
+                    $signature->setImpressum($image);
+                    break;
+                case 'logo.jpg':
+                    $signature->setLogo($image);
+                    break;
+            }
+        }
+
+        $content = $this->renderView('mail/signature.html.twig',['signature' => $signature]);
+        $signature->setContent($content);
+
+
+        return $signature;
+    }
 }
