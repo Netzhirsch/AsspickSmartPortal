@@ -12,11 +12,10 @@ use App\Struct\Email;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * Class DamageCaseController
  * @package App\Controller
- * @Route ("/damageCase/liability")
  */
 class DamageCaseController extends AbstractController
 {

@@ -475,7 +475,8 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
         $insureButton = $form->get('insure');
         if ($form->isSubmitted() && $form->isValid() && $insureButton->isClicked()) {
             $this->insure($parameters,$form->getData());
-            $this->addFlash('success', 'Daten wurden an asspick übermittelt. Sie erhalten ein E-Mail-Bestätigung.');
+            $this->addFlash('success', 'Daten wurden an asspick übermittelt. 
+            Sie erhalten ein E-Mail-Bestätigung.');
         }
         
 		return $this->render('insurance_premium_determination/index.html.twig', $parameters);
