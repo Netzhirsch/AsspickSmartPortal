@@ -2,13 +2,13 @@
   "devDependencies": {
     "@symfony/stimulus-bridge": "^1.1.0",
     "@symfony/webpack-encore": "^0.32.0",
-    "css-loader": "^5.0.1",
-    "style-loader": "^2.0.0",
     "core-js": "^3.0.0",
+    "css-loader": "^5.0.1",
     "less": "^3.13.0",
     "less-loader": "^7.1.0",
     "regenerator-runtime": "^0.13.2",
     "stimulus": "^2.0.0",
+    "style-loader": "^2.0.0",
     "webpack-notifier": "^1.6.0"
   },
   "license": "UNLICENSED",
@@ -20,6 +20,7 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-pro": "^5.15.3",
     "ckeditor": "^4.12.1",
     "dropzone": "^5.7.6",
     "jquery": "^3.5.1"

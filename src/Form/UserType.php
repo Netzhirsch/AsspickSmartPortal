@@ -21,13 +21,13 @@ class UserType extends AbstractType
                 'label' => 'Rechte',
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
-                    'Benutzer' => 'ROLE_USER'
                 ],
                 'multiple' => true,
                 'expanded' => true,
                 'attr' => [
                     'class' => 'line two-per-line wrap-checkboxes'
-                ]
+                ],
+                'required' => false
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Passwort',
