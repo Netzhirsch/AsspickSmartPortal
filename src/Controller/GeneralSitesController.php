@@ -28,4 +28,14 @@ class GeneralSitesController extends AbstractController
 		return $this->render('_general/datenschutz.html.twig', []);
 	}
 
+	/**
+	 * @Route("/nutzungsbedingungen", name="nutzungsbedingungen")
+	 * @return Response
+	 */
+	public function nutzungsbedingungenAction(
+	): Response
+	{
+		return $this->render('_general/nutzungsbedingungen.html.twig', []);
+	}
+
 }

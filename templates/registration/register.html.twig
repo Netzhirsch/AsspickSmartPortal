@@ -24,19 +24,21 @@
                 {{ form_widget(registrationForm.plainPassword)}}
                 {{ form_errors(registrationForm.plainPassword)}}
             </div>
-            <div class="liner"></div>
             <div class="line col-24">
                 {{ form_label(registrationForm.code) }}
                 {{ form_widget(registrationForm.code) }}
                 {{ form_errors(registrationForm.code ) }}
             </div>
+            <div class="liner"></div>
             <div class="line col-24 wrap-checkboxes col-auto">
                 {{ form_widget(registrationForm.termsOfUse) }}
-                {{ form_label(registrationForm.termsOfUse) }}
+                {% set terms_link %}<a title="Nutzungsbedingungen" href="{{ path('nutzungsbedingungen') }}" target="_blank">Nutzungsbedingungen</a>{% endset %}
+                {{ form_label(registrationForm.termsOfUse)|trans({ '%nutzungsbedingungen_link%': terms_link })|raw }}
                 {{ form_errors(registrationForm.termsOfUse ) }}
             </div>
             <div class="newline"></div>
-            <button type="submit" class="btn">Register</button>
+            {{ form_widget(registrationForm.register) }}
+            {{ form_label(registrationForm.register) }}
         </div>
         {{ form_row(registrationForm._token) }}
         {{ form_end(registrationForm,{'render_rest':false}) }}
