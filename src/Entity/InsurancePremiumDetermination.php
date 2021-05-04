@@ -37,10 +37,6 @@ class InsurancePremiumDetermination {
 
 	private $sumInsuredVs;
 
-	private $currentValue;
-
-	private $currentValueVs;
-
 	private $total;
 
 	private $totalVs;
@@ -201,34 +197,6 @@ class InsurancePremiumDetermination {
 	 */
 	public function setSumInsuredVs($sumInsuredVs): void {
 		$this->sumInsuredVs = $sumInsuredVs;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getCurrentValue() {
-		return $this->currentValue;
-	}
-
-	/**
-	 * @param mixed $currentValue
-	 */
-	public function setCurrentValue($currentValue): void {
-		$this->currentValue = $currentValue;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getCurrentValueVs() {
-		return $this->currentValueVs;
-	}
-
-	/**
-	 * @param mixed $currentValueVs
-	 */
-	public function setCurrentValueVs($currentValueVs): void {
-		$this->currentValueVs = $currentValueVs;
 	}
 
 	/**

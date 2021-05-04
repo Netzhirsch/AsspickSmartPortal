@@ -97,11 +97,6 @@ class InsurancePremiumDeterminationPDF extends PDF
         $this->Cell($maxPerCol, 0, 'VS 2000', self::DEBUG);
         $this->Cell($maxPerCol, 0, $insurancePremiumDetermination->getSumInsuredVs(), self::DEBUG, 1);
 
-        $this->Cell($maxPerCol, 0, 'Wert aktuell', self::DEBUG);
-        $this->Cell($maxPerCol, 0, $insurancePremiumDetermination->getCurrentValue(), self::DEBUG);
-        $this->Cell($maxPerCol, 0, 'VS 2000', self::DEBUG);
-        $this->Cell($maxPerCol, 0, $insurancePremiumDetermination->getCurrentValueVs(), self::DEBUG, 1);
-
         $this->Cell($maxPerCol, 0, 'VS 2000', self::DEBUG);
         $this->Cell($maxPerCol, 0, $insurancePremiumDetermination->getSumInsured(), self::DEBUG);
         $this->Cell($maxPerCol, 0, 'VS aktuell', self::DEBUG);

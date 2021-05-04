@@ -473,10 +473,10 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 			$gebaeudedeckung_komplett_mit_gefahren_3_faktor = number_format($gebaeudedeckung_komplett_mit_gefahren_3_faktor, 2, ",", ".");
 
 			$bauleistungsversicherung_1_netto = 0;
-			if (!empty($insurancePremiumDetermination->getCurrentValue())) {
+			if (!empty($insurancePremiumDetermination->getTotalVs())) {
 				$bauleistungsversicherung_1_netto = max(
 					250,
-					$insurancePremiumDetermination->getCurrentValue() * $bauleistungsversicherung_1_faktor / 1000
+					$insurancePremiumDetermination->getTotalVs() * $bauleistungsversicherung_1_faktor / 1000
 				);
 			}
 			$bauleistungsversicherung_1_brutto = $bauleistungsversicherung_1_netto * 1.19;
@@ -485,10 +485,10 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 			$bauleistungsversicherung_1_faktor = number_format($bauleistungsversicherung_1_faktor, 2, ",", ".");
 
 			$bauleistungsversicherung_2_netto = 0;
-			if (!empty($insurancePremiumDetermination->getCurrentValue())) {
+			if (!empty($insurancePremiumDetermination->getTotalVs())) {
 				$bauleistungsversicherung_2_netto = max(
 					250,
-					$insurancePremiumDetermination->getCurrentValue() * $bauleistungsversicherung_2_faktor / 1000
+					$insurancePremiumDetermination->getTotalVs() * $bauleistungsversicherung_2_faktor / 1000
 				);
 			}
 			$bauleistungsversicherung_2_brutto = $bauleistungsversicherung_2_netto * 1.19;
@@ -497,8 +497,8 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 			$bauleistungsversicherung_2_faktor = number_format($bauleistungsversicherung_2_faktor, 2, ",", ".");
 
 			$bauherrenhaftpflicht_netto = 0;
-			if (!empty($insurancePremiumDetermination->getCurrentValue())) {
-				$bauherrenhaftpflicht_netto = max(50, $insurancePremiumDetermination->getCurrentValue() * $bauherrenhaftpflicht_faktor / 1000);
+			if (!empty($insurancePremiumDetermination->getTotalVs())) {
+				$bauherrenhaftpflicht_netto = max(50, $insurancePremiumDetermination->getTotalVs() * $bauherrenhaftpflicht_faktor / 1000);
 			}
 			$bauherrenhaftpflicht_brutto = $bauherrenhaftpflicht_netto * 1.19;
 			$bauherrenhaftpflicht_netto = number_format($bauherrenhaftpflicht_netto, 2, ",", ".");

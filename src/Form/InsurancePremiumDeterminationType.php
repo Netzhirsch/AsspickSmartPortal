@@ -137,33 +137,6 @@ class InsurancePremiumDeterminationType extends AbstractType {
 		);
 
 		$builder->add(
-			'currentValue',
-			NumberType::class,
-			[
-				'label'   => 'Wert aktuell',
-				'html5' => true,
-				'attr' => [
-					'title' => 'Wiederherstellungs- oder Baukosten heute (in €)',
-					'step' => 1,
-					'min' => 0,
-					'tabindex' => 22
-				]
-			]
-		);
-
-		$builder->add(
-			'currentValueVs',
-			NumberType::class,
-			[
-				'label'   => 'VS 2000',
-				'html5' => false,
-				'attr' => [
-					'readonly' => true
-				]
-			]
-		);
-
-		$builder->add(
 			'total',
 			NumberType::class,
 			[

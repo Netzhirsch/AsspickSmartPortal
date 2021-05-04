@@ -55,10 +55,10 @@ class FolderRepository extends ServiceEntityRepository
 
         if (!empty($filter)) {
             $name = $filter->getName();
-            $withFolder = $filter->getWithFolder();
-            if (!empty($name) && !empty($withFolder) && $withFolder) {
+            if (!empty($name)) {
                 $qb
-                    ->andWhere('f.name LIKE :name')
+                    ->leftJoin('f.files', 'files')
+                    ->andWhere('f.name LIKE :name OR files.name LIKE :name')
                     ->setParameter('name', '%'.$name.'%')
                 ;
             }

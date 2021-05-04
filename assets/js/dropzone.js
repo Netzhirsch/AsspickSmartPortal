@@ -15,6 +15,7 @@ $(document).ready(function () {
         url: url,
         maxFiles:maxFiles,
         acceptedFiles:acceptedFiles,
+        parallelUploads:1,
         addRemoveLinks:true,
         dictDefaultMessage: dictDefaultMessage,
         dictRemoveFile: '<span class="btn red löschen">Löschen</span>',

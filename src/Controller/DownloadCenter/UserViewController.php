@@ -49,7 +49,7 @@ class UserViewController extends AbstractController {
             UserViewFilterType::class,
             $filter,
             [
-                'method' => 'GET'
+                'method' => 'GET',
             ]
         );
 
@@ -82,7 +82,7 @@ class UserViewController extends AbstractController {
 		foreach ($newFiles as $newFile)
 			$this->setFileIsNew($today, $newFile->getUpdatedAt(), $newFile);
 
-		foreach ($folders as $folder) {
+        foreach ($folders as $folder) {
 			foreach ($folder->getFiles() as $file) {
 				$this->setFileIsNew($today, $file->getUpdatedAt(), $file);
                 if (!empty($filter) && !empty($filter->getName())) {
