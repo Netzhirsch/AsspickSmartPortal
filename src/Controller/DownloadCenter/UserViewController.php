@@ -2,13 +2,18 @@
 
 namespace App\Controller\DownloadCenter;
 
+use App\Controller\ControllerTrait;
 use App\Entity\DownloadCenter\File;
 use App\Entity\DownloadCenter\Folder;
+use App\Filter\UserViewFilter;
+use App\Form\Filter\UserViewFilterType;
 use App\Repository\DownloadCenter\FileRepository;
 use App\Repository\DownloadCenter\FolderRepository;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,28 +21,52 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/download/center/user")
  */
 class UserViewController extends AbstractController {
-	/**
-	 * @Route("/view/dummy", name="download_center_user_view_dummy", methods={"GET"})
-	 * @return Response
-	 */
-	public function userViewDummyAction() {
-		return $this->render('files/index.html.twig');
-	}
 
-	/**
-	 * @Route("/view/{id}", name="download_center_user_view", methods={"GET"})
-	 * @param FolderRepository $folderRepository
-	 * @param FileRepository $fileRepository
-	 * @param int|null $id
-	 *
-	 * @return Response
-	 */
-	public function userViewAction(FolderRepository $folderRepository, FileRepository $fileRepository, int $id = null) {
+    use ControllerTrait;
+
+    /**
+     * @Route("/view/{id}", name="download_center_user_view", methods={"GET"})
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param FolderRepository $folderRepository
+     * @param FileRepository $fileRepository
+     * @param int|null $id
+     *
+     * @return Response
+     */
+    public function userViewAction(
+        EntityManagerInterface $em,
+        Request $request,
+        FolderRepository $folderRepository,
+        FileRepository $fileRepository,
+        int $id = null
+    ): Response
+    {
+
+	    $filter = $this->getObjectFromSession($em, $request, UserViewFilter::class);
+
+        $filterform = $this->createForm(
+            UserViewFilterType::class,
+            $filter,
+            [
+                'method' => 'GET'
+            ]
+        );
+
+        $filterform->handleRequest($request);
+
+        if (($filterform->isSubmitted() && $filterform->isValid()) || $filter instanceof UserViewFilter) {
+            /** @var UserViewFilter $filter */
+            $filter = $filterform->getData();
+            $this->setObjectInSession($request, UserViewFilter::class, $filter);
+        } else {
+            $filter = null;
+        }
 
 		$today = new DateTime();
 
 		if (empty($id)) {
-			$folders = $folderRepository->findParentsVisible();
+			$folders = $folderRepository->findParentsVisible($filter);
 			$showNewFiles = true;
 			$showBreadcrumbs = false;
 			$breadcrumbs = [];
@@ -49,19 +78,28 @@ class UserViewController extends AbstractController {
 			$breadcrumbs = $this->getBreadcrumbs($folder);
 		}
 
-		$newFiles = $fileRepository->findNew();
+		$newFiles = $fileRepository->findNew($filter);
 		foreach ($newFiles as $newFile)
 			$this->setFileIsNew($today, $newFile->getUpdatedAt(), $newFile);
 
 		foreach ($folders as $folder) {
 			foreach ($folder->getFiles() as $file) {
 				$this->setFileIsNew($today, $file->getUpdatedAt(), $file);
+                if (!empty($filter) && !empty($filter->getName())) {
+                    if (strpos($file->getName(), $filter->getName()) === false)
+                        $file->setIsVisible(false);
+                }
 			}
 			$children = $folder->getChildren();
 			while ($children->count() > 0) {
 				foreach ($children as $child) {
 					foreach ($child->getFiles() as $childFile) {
 						$this->setFileIsNew($today, $childFile->getUpdatedAt(), $childFile);
+                        if (!empty($filter) && !empty($filter->getName())) {
+                            if (strpos($childFile->getName(), $filter->getName()) === false) {
+                                $childFile->setIsVisible(false);
+                            }
+                        }
 					}
 					$children = $child->getChildren();
 				}
@@ -71,7 +109,8 @@ class UserViewController extends AbstractController {
 		return $this->render(
 			'download_center/user_view/index.html.twig',
 			[
-				'showNewFiles'    => $showNewFiles,
+				'filterform' => $filterform->createView(),
+			    'showNewFiles'    => $showNewFiles,
 				'newFiles'        => $newFiles,
 				'showBreadcrumbs' => $showBreadcrumbs,
 				'breadcrumbs'     => $breadcrumbs,

@@ -3,6 +3,7 @@
 namespace App\Repository\DownloadCenter;
 
 use App\Entity\DownloadCenter\Folder;
+use App\Filter\UserViewFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,12 +47,26 @@ class FolderRepository extends ServiceEntityRepository
     /**
      * @return Folder[]
      */
-    public function findParentsVisible(): array
+    public function findParentsVisible(?UserViewFilter $filter): array
     {
         $qb = $this->createQueryBuilder('f');
         $this->addOrder($qb);
-        $qb->where('f.parent IS NULL');
-        $qb->andWhere('f.isVisible = 1');
+        $qb->where('f.isVisible = 1');
+
+        if (!empty($filter)) {
+            $name = $filter->getName();
+            $withFolder = $filter->getWithFolder();
+            if (!empty($name) && !empty($withFolder) && $withFolder) {
+                $qb
+                    ->andWhere('f.name LIKE :name')
+                    ->setParameter('name', '%'.$name.'%')
+                ;
+            }
+        } else {
+            $qb
+                ->andWhere('f.parent IS NULL')
+            ;
+        }
 
         return $qb->getQuery()->getResult();
     }

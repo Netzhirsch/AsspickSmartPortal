@@ -3,6 +3,7 @@
 namespace App\Repository\DownloadCenter;
 
 use App\Entity\DownloadCenter\File;
+use App\Filter\UserViewFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,40 +20,22 @@ class FileRepository extends ServiceEntityRepository
         parent::__construct($registry, File::class);
     }
 
-    // /**
-    //  * @return File[] Returns an array of File objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?File
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
     /**
      * @return File[]
      */
-    public function findNew(): array
+    public function findNew(?UserViewFilter $filter): array
     {
-        return $this->createQueryBuilder('f')
+        $qb = $this->createQueryBuilder('f');
+        if (!empty($filter)) {
+            $name = $filter->getName();
+            if (!empty($name)) {
+                $qb
+                    ->andWhere('f.name LIKE :name')
+                    ->setParameter('name', '%'.$name.'%')
+                ;
+            }
+        }
+        return $qb
             ->orderBy('f.updatedAt', 'DESC')
             ->addOrderBy('f.name', 'ASC')
             ->setMaxResults(4)

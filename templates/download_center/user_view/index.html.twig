@@ -10,7 +10,37 @@
 {% block content %}
 
     <div class="container container--files">
-        <header class="inner">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </h2>
+            </header>
+            <div class="content">
+                <div class="filter">
+                    {{ form_start(filterform) }}
+                    <section>
+                        <div class="line col-4">
+                            {{ form_label(filterform.name) }}
+                            {{ form_widget(filterform.name) }}
+                            {{ form_errors(filterform.name) }}
+                        </div>
+                        <div class="line col-4 wrap-checkboxes no-label">
+                            {{ form_widget(filterform.withFolder) }}
+                            {{ form_label(filterform.withFolder) }}
+                            {{ form_errors(filterform.withFolder) }}
+                        </div>
+                        <div class="line col-4">
+                            <div class="actions">
+                                <button type="submit" class="btn btn-inline">Suchen</button>
+                            </div>
+                        </div>
+                    </section>
+                    {{ form_row(filterform._token) }}
+                    {{ form_end(filterform, {'render_rest': false}) }}
+                </div>
+            </div>
             <header>
                 <h2>
                     <i class="fad fa-cloud"></i>
@@ -63,9 +93,11 @@
 
                 {% if folder.description is not empty %}
                     <header>
-                        <h4>
-                            {{ folder.description|raw }}
-                        </h4>
+                        <div class="line col-24">
+                            <h4>
+                                {{ folder.description|raw }}
+                            </h4>
+                        </div>
                     </header>
                 {% endif %}
 
