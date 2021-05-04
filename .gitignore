@@ -36,3 +36,4 @@ yarn-error.log
 /assets/uploaded/
 /assets/tmp/
 /assets/pdfs/
+.npmrc
