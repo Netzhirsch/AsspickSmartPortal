@@ -327,7 +327,6 @@ trait ControllerTrait
         Email $email
     ): Swift_Message
     {
-
         $body = $this->renderView(
             'mail/index.html.twig', ['email' => $email]
         );
@@ -336,12 +335,11 @@ trait ControllerTrait
         $message->setFrom($email->getFrom());
 
         $signature = $this->createSignature($message);
-
         $body .= $signature->getContent();
 
         $message->setBody($body, 'text/html');
 
-        $message->setTo([$email->getTo()]);
+        $message->setTo($email->getTo());
 
         return $message;
     }

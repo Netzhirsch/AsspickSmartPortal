@@ -1,9 +1,9 @@
 {% set fileEnding = file.fileName|split('.')|last|lower %}
 {% if fileEnding in ['pdf'] %}
     <i class="fas fa-file-pdf"></i>
-{% elseif fileEnding in ['xlsx','xlsm','xls','ods'] %}
+{% elseif fileEnding in ['xlsx','xlsm','xls','xltm','xlt','ods'] %}
     <i class="fas fa-file-excel"></i>
-{% elseif fileEnding in ['docx','doc'] %}
+{% elseif fileEnding in ['docx','docm','doct','doc'] %}
     <i class="fas fa-file-word"></i>
 {% elseif fileEnding in ['pptx','ppt'] %}
     <i class="fas fa-file-powerpoint"></i>

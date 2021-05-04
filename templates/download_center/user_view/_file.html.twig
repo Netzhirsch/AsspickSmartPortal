@@ -1,17 +1,17 @@
 <div class="line col-6">
     <a
             href="{{ path('download_center_file_download',{'id':file.id}) }}"
-            class="file" title="{{ file.fileName }}"
+            class="file" title="{{ file.name }}"
     >
         <div class="wrap-icon">
             {% include '_widgets/_file_icon.html.twig' %}
         </div>
         <div class="information">
-            <div class="type">{{ file.name }}</div>
+            <div class="type">{{ file.fileName }}</div>
             {% if file.isNew %}
                 <div class="indicator">Neu</div>
             {% endif %}
-            <div class="filename">{{ file.fileName }}</div>
+            <div class="filename">{{ file.name }}</div>
             <div class="date">{{ file.updatedAt|date('d.m.Y H:i') }}</div>
         </div>
     </a>

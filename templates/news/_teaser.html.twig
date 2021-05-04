@@ -14,9 +14,9 @@
         {% if news.teaser is not empty %}
             {{ news.teaser|raw }}
         {% else %}
-            {% set text = news.text|raw %}
+            {% set text = news.text|striptags %}
             {% set text = text|length > 250 ? text|slice(0, 250) ~ '...' : text %}
-            {{ text  }}
+            {{ text|raw|nl2br }}
         {% endif %}
     </p>
     <a class="btn" href="{{ path('news_show',{'id':news.id}) }}">Weiterlesen…</a>

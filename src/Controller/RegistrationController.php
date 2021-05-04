@@ -91,7 +91,7 @@ class RegistrationController extends AbstractController
         $repo = $entityManager->getRepository(ActivationCode::class);
         $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
 
-        $emailAddressAdmin = 'luhmann@netzhirsch.de';
+        $emailAddressAdmin = 'info@asspick.de';
         $subject = 'Neue Registrierung';
 
         $messageUser = 'Danke für ihre Registrierung.';
