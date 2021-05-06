@@ -26,10 +26,10 @@ class User implements UserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var null|string The hashed password
      * @ORM\Column(type="string")
      */
-    private string $password;
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -100,7 +100,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return (string) $this->password;
     }

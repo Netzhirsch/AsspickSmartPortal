@@ -46,12 +46,16 @@ class UserController extends AbstractController
         // Wenn auf der aktuellen Seite keine Einträge gefunden werden auf die erste Seite leiten
         if (empty($users->count()) && $page > 1) {
             $this->removePageFromSession($request);
+
             return $this->redirectToRoute('user_index', ['page' => 1]);
         }
 
-        return $this->render('user/index.html.twig', [
-            'users' => $users,
-        ]);
+        return $this->render(
+            'user/index.html.twig',
+            [
+                'users' => $users,
+            ]
+        );
     }
 
     /**
@@ -83,29 +87,44 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (empty($user->getPassword()) && empty($form->get('plainPassword')->getData())) {
+                $this->addFlash('error', 'Bitte ein Password eingeben.');
+                return $this->render(
+                    'user/form.html.twig',
+                    [
+                        'action' => $action,
+                        'user' => $user,
+                        'form' => $form->createView(),
+                    ]
+                );
+            }
+
             if (!empty($form->get('plainPassword')->getData())) {
-                // encode the plain password
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
                         $form->get('plainPassword')->getData()
                     )
                 );
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-                $this->addFlash('success', 'Benutzer erfolgreich gespeichert.');
-            } else {
-                $this->addFlash('error', 'Kein Password gefunden');
             }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Benutzer erfolgreich gespeichert.');
+
             return $this->redirectToRoute('user_index');
         }
 
-        return $this->render('user/form.html.twig', [
-            'action' => $action,
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'user/form.html.twig',
+            [
+                'action' => $action,
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -123,14 +142,14 @@ class UserController extends AbstractController
     {
         $user = $userRepository->find($id);
         if (empty($user)) {
-            $this->addFlash('error','Benutzer mit der Id:'.$id.' nicht gefunden.');
+            $this->addFlash('error', 'Benutzer mit der Id:'.$id.' nicht gefunden.');
 
-        }elseif ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        } elseif ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         } else {
-            $this->addFlash('error','Sicherheitsüberprüfung fehlgeschlagen bitte versuche Sie es erneut.');
+            $this->addFlash('error', 'Sicherheitsüberprüfung fehlgeschlagen bitte versuche Sie es erneut.');
         }
 
         return $this->redirectToRoute('user_index');
