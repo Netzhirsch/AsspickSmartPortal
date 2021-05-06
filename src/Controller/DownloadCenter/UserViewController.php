@@ -87,7 +87,7 @@ class UserViewController extends AbstractController {
 				$this->setFileIsNew($today, $file->getUpdatedAt(), $file);
                 if (!empty($filter) && !empty($filter->getName())) {
                     if (strpos($file->getName(), $filter->getName()) === false)
-                        $file->setIsVisible(false);
+                        $folder->removeFile($file);
                 }
 			}
 			$children = $folder->getChildren();
@@ -97,7 +97,7 @@ class UserViewController extends AbstractController {
 						$this->setFileIsNew($today, $childFile->getUpdatedAt(), $childFile);
                         if (!empty($filter) && !empty($filter->getName())) {
                             if (strpos($childFile->getName(), $filter->getName()) === false) {
-                                $childFile->setIsVisible(false);
+                                $child->removeFile($childFile);
                             }
                         }
 					}

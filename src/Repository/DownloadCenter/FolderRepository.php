@@ -27,21 +27,10 @@ class FolderRepository extends ServiceEntityRepository
     public function findParents(): array
     {
         $qb = $this->createQueryBuilder('f');
-        $this->addOrder($qb);
 	    $qb->where('f.parent IS NULL');
+        $this->addOrder($qb);
 
         return $qb->getQuery()->getResult();
-    }
-
-    public function getQueryBuilder(): QueryBuilder
-    {
-        $qb = $this->createQueryBuilder('f');
-        $this->addOrder($qb);
-        return $qb;
-    }
-
-    private function addOrder(QueryBuilder $qb){
-        $qb->orderBy('f.name');
     }
 
     /**
@@ -50,7 +39,6 @@ class FolderRepository extends ServiceEntityRepository
     public function findParentsVisible(?UserViewFilter $filter): array
     {
         $qb = $this->createQueryBuilder('f');
-        $this->addOrder($qb);
         $qb->where('f.isVisible = 1');
 
         if (!empty($filter)) {
@@ -58,16 +46,18 @@ class FolderRepository extends ServiceEntityRepository
             if (!empty($name)) {
                 $qb
                     ->leftJoin('f.files', 'files')
-                    ->andWhere('f.name LIKE :name OR files.name LIKE :name')
+                    ->andWhere('f.name LIKE :name OR files.name LIKE :name OR f.description LIKE :name')
                     ->setParameter('name', '%'.$name.'%')
                 ;
             }
-        } else {
-            $qb
-                ->andWhere('f.parent IS NULL')
-            ;
         }
+        $qb->andWhere('f.parent IS NULL');
+        $this->addOrder($qb);
 
         return $qb->getQuery()->getResult();
+    }
+
+    private function addOrder(QueryBuilder $qb){
+        $qb->orderBy('f.name');
     }
 }
