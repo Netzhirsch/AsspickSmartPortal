@@ -46,12 +46,13 @@ class FolderRepository extends ServiceEntityRepository
             if (!empty($name)) {
                 $qb
                     ->leftJoin('f.files', 'files')
-                    ->andWhere('f.name LIKE :name OR files.name LIKE :name OR f.description LIKE :name')
+                    ->andWhere('f.name LIKE :name OR f.description LIKE :name OR files.name LIKE :name OR files.fileName LIKE :name')
                     ->setParameter('name', '%'.$name.'%')
                 ;
+            } else {
+                $qb->andWhere('f.parent IS NULL');
             }
         }
-        $qb->andWhere('f.parent IS NULL');
         $this->addOrder($qb);
 
         return $qb->getQuery()->getResult();

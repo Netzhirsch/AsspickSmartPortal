@@ -30,7 +30,7 @@ class FileRepository extends ServiceEntityRepository
             $name = $filter->getName();
             if (!empty($name)) {
                 $qb
-                    ->andWhere('f.name LIKE :name')
+                    ->andWhere('f.name LIKE :name OR f.fileName LIKE :name')
                     ->setParameter('name', '%'.$name.'%')
                 ;
             }
