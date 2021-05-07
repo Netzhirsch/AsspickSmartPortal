@@ -89,42 +89,45 @@ class RegistrationController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $repo = $entityManager->getRepository(ActivationCode::class);
-        $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
+
+        $activationCode = null;
+        if (!empty($code))
+            $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
 
         $emailAddressAdmin = 'info@asspick.de';
-        $subject = 'Neue Registrierung';
 
         $messageUser = 'Danke für ihre Registrierung.';
-
-        $subject .= ' fehlgeschlagen';
-
         $messageAdmin = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$emailAddressUser;
+
         if (!empty($code))
             $messageAdmin .= ' und dem Code:'.$code;
         $messageAdmin .= ' zu registrieren.'.PHP_EOL.'Bitte aktivieren Sie gegebenenfalls den Benutzer.';
 
+        $subjectAdmin = 'Neue Registrierung';
         if (!empty($activationCode)) {
 
-            $subject .= ' erfolgt';
+            $subjectAdmin .= ' erfolgt';
 
             $messageAdmin = 'Jemand hat sich mit der E-Mail Adresse: '.$emailAddressUser;
             if (!empty($code))
                 $messageAdmin .= ' und dem Code:'.$code;
             $messageAdmin .= ' registriert.';
 
-            $messageUser .= PHP_EOL.'Ihr Account muss noch von einem Admin freigeschaltet werden.';
+            $messageUser .= PHP_EOL.'Sie können sich nun einloggen.';
 
             $user->setIsVerified(true);
             $user->setActivationCode($activationCode);
         } else {
 
-            $messageUser .= 'Sie können sich nun einloggen.';
+            $subjectAdmin .= ' fehlgeschlagen';
+
+            $messageUser .= PHP_EOL.'Ihr Account muss noch von einem Admin freigeschaltet werden.';
 
         }
 
         $emailAdmin = new Email();
         $emailAdmin->setTo($emailAddressAdmin);
-        $emailAdmin->setSubject($subject);
+        $emailAdmin->setSubject($subjectAdmin);
         $emailAdmin->setMessage($messageAdmin);
 
         $countReceiver = $this->sendMail($this->mailer, $emailAdmin);
