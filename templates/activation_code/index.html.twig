@@ -13,12 +13,12 @@
             </header>
             <div class="content">
                 {{ form_start(form) }}
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.file) }}
                     {{ form_widget(form.file) }}
                     {{ form_errors(form.file) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     <button type="submit" class="btn">Speichern</button>
                 </div>
                 {{ form_row(form._token) }}

@@ -9,33 +9,21 @@
 
 {% block content %}
 
+    <div class="container boxed">
+        <div class="inner">
+            <div class="content inline-filter">
+                {{ form_start(filterform) }}
+                    <i class="fas fa-search"></i>
+                    {{ form_widget(filterform.name) }}
+                    <button type="submit" class="btn btn-inline">Suchen</button>
+                {{ form_row(filterform._token) }}
+                {{ form_end(filterform, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+
     <div class="container container--files">
         <div class="inner">
-            <header>
-                <h2>
-                    <i class="fas fa-filter"></i>
-                    Filter
-                </h2>
-            </header>
-            <div class="content">
-                <div class="filter">
-                    {{ form_start(filterform) }}
-                    <section>
-                        <div class="line col-4">
-                            {{ form_label(filterform.name) }}
-                            {{ form_widget(filterform.name) }}
-                            {{ form_errors(filterform.name) }}
-                        </div>
-                        <div class="line col-4">
-                            <div class="actions">
-                                <button type="submit" class="btn btn-inline">Suchen</button>
-                            </div>
-                        </div>
-                    </section>
-                    {{ form_row(filterform._token) }}
-                    {{ form_end(filterform, {'render_rest': false}) }}
-                </div>
-            </div>
             <header>
                 <h2>
                     <i class="fad fa-cloud"></i>
@@ -57,7 +45,7 @@
                     {% if showBreadcrumbs %}
                         {% if folder.parent is not empty %}
                             <a href="{{ path('download_center_user_view',{'id':folder.parent.id}) }}"
-                               class="btn" title="{{ folder.parent.name }}"
+                               class="btn back" title="{{ folder.parent.name }}"
                             >
                                 <i class="fas fa-angle-left"></i>
                             </a>
@@ -98,7 +86,7 @@
 
                 <div class="content">
                     {% for child in folder.children %}
-                        <div class="line col-6">
+                        <div class="line col-6 col-l-8 col-m-12 col-s-24">
                             <a
                                     href="{{ path('download_center_user_view',{'id':child.id}) }}"
                                     class="file" title="{{ child.name }}"

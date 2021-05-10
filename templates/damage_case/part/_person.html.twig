@@ -1,32 +1,32 @@
-<div class="line col-12">
+<div class="line col-12 col-s-24">
     {{ form_label(person.firstname) }}
     {{ form_widget(person.firstname) }}
     {{ form_errors(person.firstname) }}
 </div>
-<div class="line col-12">
+<div class="line col-12 col-s-24">
     {{ form_label(person.lastname) }}
     {{ form_widget(person.lastname) }}
     {{ form_errors(person.lastname) }}
 </div>
 <div class="newline"></div>
-<div class="line col-8">
+<div class="line col-8 col-m-12 col-s-24">
     {{ form_label(person.streetMailbox) }}
     {{ form_widget(person.streetMailbox) }}
     {{ form_errors(person.streetMailbox) }}
 </div>
-<div class="line col-8">
+<div class="line col-8 col-m-12 col-s-24">
     {{ form_label(person.postCode) }}
     {{ form_widget(person.postCode) }}
     {{ form_errors(person.postCode) }}
 </div>
-<div class="line col-8">
+<div class="line col-8 col-m-12 col-s-24">
     {{ form_label(person.location) }}
     {{ form_widget(person.location) }}
     {{ form_errors(person.location) }}
 </div>
 <div class="newline"></div>
 {% if person.phone is defined %}
-    <div class="line col-8">
+    <div class="line col-8 col-m-12 col-s-24">
         {{ form_label(person.phone) }}
         {{ form_widget(person.phone) }}
         {{ form_errors(person.phone) }}

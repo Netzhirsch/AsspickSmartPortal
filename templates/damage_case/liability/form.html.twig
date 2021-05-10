@@ -20,17 +20,19 @@
             {% include 'damage_case/part/_headline.html.twig' with{'headline':'Schadenanzeige Haftpflicht'} %}
 
             <header class="tabs">
-                <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
-                <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
-                <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
-                <div class="tab" data-tab="damageCause"><h3>{{ form_label(form.damageCause) }}</h3></div>
-                <div class="tab" data-tab="damageItems"><h3>Sachschäden</h3></div>
-                <div class="tab" data-tab="personalInjury"><h3>{{ form_label(form.personalInjury) }}</h3></div>
-                <div class="tab" data-tab="witness"><h3>{{ form_label(form.witnessTwo) }}</h3></div>
-                <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
-                <div class="tab" data-tab="claimant"><h3>{{ form_label(form.claimant) }}</h3></div>
-                <div class="tab" data-tab="payment"><h3>{{ form_label(form.payment) }}</h3></div>
-                <div class="tab" data-tab="images"><h3>Bilder</h3></div>
+                <div class="slider">
+                    <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
+                    <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
+                    <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
+                    <div class="tab" data-tab="damageCause"><h3>{{ form_label(form.damageCause) }}</h3></div>
+                    <div class="tab" data-tab="damageItems"><h3>Sachschäden</h3></div>
+                    <div class="tab" data-tab="personalInjury"><h3>{{ form_label(form.personalInjury) }}</h3></div>
+                    <div class="tab" data-tab="witness"><h3>{{ form_label(form.witnessTwo) }}</h3></div>
+                    <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
+                    <div class="tab" data-tab="claimant"><h3>{{ form_label(form.claimant) }}</h3></div>
+                    <div class="tab" data-tab="payment"><h3>{{ form_label(form.payment) }}</h3></div>
+                    <div class="tab" data-tab="images"><h3>Bilder</h3></div>
+                </div>
             </header>
 
             <div class="content tab active" data-tab="general">
@@ -39,7 +41,7 @@
 
             <div class="content tab" data-tab="policyholder">
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.policyholder} %}
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.policyholder.email) }}
                     {{ form_widget(form.policyholder.email) }}
                     {{ form_errors(form.policyholder.email) }}
@@ -52,7 +54,7 @@
 
             <div class="content tab" data-tab="damageCause">
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.damageCause} %}
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.damageCause.dateOfBirth) }}
                     {{ form_widget(form.damageCause.dateOfBirth) }}
                     {{ form_errors(form.damageCause.dateOfBirth) }}
@@ -65,24 +67,23 @@
 
             <div class="content tab" data-tab="policeRecording">
                 {% include 'damage_case/part/_policeRecording.html.twig'
-                    with {'policeRecording':form.policeRecording,'showLong':true}
-                %}
+                    with {'policeRecording':form.policeRecording,'showLong':true} %}
             </div>
 
             <div class="content tab" data-tab="claimant">
                 {% include 'damage_case/part/_person.html.twig' with {'person':form.claimant} %}
                 <div class="newline"></div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.claimant.typ) }}
                     {{ form_widget(form.claimant.typ) }}
                     {{ form_errors(form.claimant.typ) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.claimant.kindOfRelationship) }}
                     {{ form_widget(form.claimant.kindOfRelationship) }}
                     {{ form_errors(form.claimant.kindOfRelationship) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.claimant.isInDomesticCommunityWithMe) }}
                     {{ form_widget(form.claimant.isInDomesticCommunityWithMe) }}
                     {{ form_errors(form.claimant.isInDomesticCommunityWithMe) }}
@@ -96,22 +97,22 @@
                     {{ form_errors(form.damageEvent.itemsDamaged) }}
                 </div>
                 <div class="newline"></div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.damageEvent.damageAmount) }}
-                    {% set number = ''  %}
+                    {% set number = '' %}
                     {% if form.vars.value is not empty and form.vars.value.damageEvent is not empty %}
-                        {% set number = form.vars.value.damageEvent.damageAmount  %}
-                        {% set number = number|number_format(2,",","." )%}
+                        {% set number = form.vars.value.damageEvent.damageAmount %}
+                        {% set number = number|number_format(2,",","." ) %}
                     {% endif %}
                     {{ form_widget(form.damageEvent.damageAmount, {'value':number}) }}
                     {{ form_errors(form.damageEvent.damageAmount) }}
                 </div>
-                <div class="line col-16">
+                <div class="line col-auto">
                     {{ form_label(form.isRepairPossible) }}
                     {{ form_widget(form.isRepairPossible) }}
                     {{ form_errors(form.isRepairPossible) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.typeOfOwnership) }}
                     {{ form_widget(form.typeOfOwnership) }}
                     {{ form_errors(form.typeOfOwnership) }}
@@ -119,17 +120,17 @@
             </div>
 
             <div class="content tab" data-tab="personalInjury">
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.personalInjury.personFirstname) }}
                     {{ form_widget(form.personalInjury.personFirstname) }}
                     {{ form_errors(form.personalInjury.personFirstname) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.personalInjury.personLastname) }}
                     {{ form_widget(form.personalInjury.personLastname) }}
                     {{ form_errors(form.personalInjury.personLastname) }}
                 </div>
-                <div class="line col-8">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.personalInjury.injuries) }}
                     {{ form_widget(form.personalInjury.injuries) }}
                     {{ form_errors(form.personalInjury.injuries) }}

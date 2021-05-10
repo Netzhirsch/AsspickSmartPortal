@@ -1,4 +1,4 @@
-<div class="line news col-6">
+<div class="line news col-6 col-m-12 {{ clear|default(false) ? 'clear-m' }} col-s-24">
     {% set isFirst = true %}
     {% for file in news.files %}
         {% if isFirst and file.path|split('.')|last|lower in ['jpg','jpeg','png','tiff','webp','bmp','gif'] %}

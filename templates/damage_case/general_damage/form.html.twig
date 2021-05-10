@@ -20,18 +20,20 @@
             {% include 'damage_case/part/_headline.html.twig' with{'headline':'SACH - Schadenanzeige'} %}
 
             <header class="tabs">
-                <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
-                <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
-                <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
-                <div class="tab" data-tab="buildingDamage"><h3>{{ form_label(form.buildingDamage) }}</h3></div>
-                <div class="tab" data-tab="itemsOtherInsurance"><h3>{{ form_label(form.itemsOtherInsurance) }}</h3>
+                <div class="slider">
+                    <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
+                    <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
+                    <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
+                    <div class="tab" data-tab="buildingDamage"><h3>{{ form_label(form.buildingDamage) }}</h3></div>
+                    <div class="tab" data-tab="itemsOtherInsurance"><h3>{{ form_label(form.itemsOtherInsurance) }}</h3>
+                    </div>
+                    <div class="tab" data-tab="traceOfBreakIn"><h3>{{ form_label(form.traceOfBreakIn) }}</h3></div>
+                    <div class="tab" data-tab="damageCause"><h3>{{ form_label(form.damageCause) }}</h3></div>
+                    <div class="tab" data-tab="repairCompany"><h3>{{ form_label(form.repairCompany) }}</h3></div>
+                    <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
+                    <div class="tab" data-tab="payment"><h3>{{ form_label(form.payment) }}</h3></div>
+                    <div class="tab" data-tab="images"><h3>Bilder</h3></div>
                 </div>
-                <div class="tab" data-tab="traceOfBreakIn"><h3>{{ form_label(form.traceOfBreakIn) }}</h3></div>
-                <div class="tab" data-tab="damageCause"><h3>{{ form_label(form.damageCause) }}</h3></div>
-                <div class="tab" data-tab="repairCompany"><h3>{{ form_label(form.repairCompany) }}</h3></div>
-                <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
-                <div class="tab" data-tab="payment"><h3>{{ form_label(form.payment) }}</h3></div>
-                <div class="tab" data-tab="images"><h3>Bilder</h3></div>
             </header>
 
             <div class="content tab active" data-tab="general">

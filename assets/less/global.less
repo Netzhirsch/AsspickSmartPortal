@@ -1,16 +1,18 @@
-@import "fonts/open_sans";
-@import "variables";
-@import "colors";
-@import "topbar";
-@import "footer";
-@import "container";
-@import "form";
-@import "table";
-@import "fancybox";
-@import "loading-indicator";
-@import "columns";
-@import "tabs";
-@import "downloadCenter/folder_hierachie";
+@import 'fonts/open_sans';
+@import 'variables';
+@import 'colors';
+@import 'topbar';
+@import 'mobile-navigation';
+@import 'footer';
+@import 'container';
+@import 'inline-filter';
+@import 'form';
+@import 'table';
+@import 'fancybox';
+@import 'loading-indicator';
+@import 'columns';
+@import 'tabs';
+@import 'downloadCenter/folder_hierachie';
 
 body {
 	.block;
@@ -18,7 +20,7 @@ body {
 	.w100;
 	.bb;
 	.mp0;
-	font-family:"Open Sans", sans-serif;
+	font-family:'Open Sans', sans-serif;
 	background:white;
 	color:@blue_horizon;
 	font-size:12px;
@@ -30,15 +32,21 @@ body {
 	.w100;
 	.bb;
 	padding:20px 20px 0;
+
+	@media (max-width:767px) {
+		padding:10px 10px 0;
+	}
 }
 
 :disabled {
-	background:#ccc !important;
+	background:#cccccc !important;
 }
 
 i {
 	&.red { color:@desire; }
+
 	&.yellow { color:@nyc_taxi; }
+
 	&.green { color:@algal_fuel; }
 }
 
@@ -46,7 +54,7 @@ body {
 	counter-reset:footnotes;
 }
 
-[role="doc-noteref"] {
+[role='doc-noteref'] {
 	counter-increment:footnotes;
 	text-decoration:none;
 	vertical-align:super;

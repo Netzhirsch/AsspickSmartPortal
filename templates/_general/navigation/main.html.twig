@@ -1,0 +1,178 @@
+<nav class="main">
+    <a href="{{ path('contract_list') }}"{% if app.request.get('_route') == 'contract_list' %} class="active"{% endif %}>
+        <i class="fad fa-cloud"></i>
+        Ihre Verträge
+    </a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="submenu-wrapper">
+            <h2{{ app.request.get('_route') in downloadCenterRoutes ? ' class="active"' }}>
+                <i class="fas fa-cloud-download"></i>
+                Download-Center
+            </h2>
+            <div class="submenu">
+                <a
+                        href="{{ path('download_center_user_view') }}"
+                >
+                    <i class="fad fa-user-alt"></i>
+                    Benutzer-Ansicht
+                </a>
+                <a
+                        href="{{ path('download_center_folder_index') }}"
+                >
+                    <i class="fad fa-tools"></i>
+                    Administration
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <a
+                href="{{ path('download_center_user_view') }}"
+                {% if app.request.get('_route') == 'download_center_user_view' %} class="active"{% endif %}
+        >
+            <i class="fas fa-cloud-download"></i>
+            Download-Center
+        </a>
+    {% endif %}
+
+    <div class="submenu-wrapper">
+        <h2>
+            <i class="fad fa-fragile"></i>
+            Angebotsrechner
+        </h2>
+        <div class="submenu">
+            <a href="https://rechner.asspick.de/aic"
+               target="_blank"
+            >
+                <i class="fad fa-gopuram"></i>
+                Immobilien Cover
+            </a>
+            <a href="https://rechner.asspick.de/unfall"
+               target="_blank"
+            >
+                <i class="fad fa-car-crash"></i>
+                Unfall Cover
+            </a>
+            <a href="https://taa.mailo.ag/partner/asspick?pei=ExterneId"
+               target="_blank"
+            >
+                <i class="fad fa-building"></i>
+                Mailo Gewerberechner
+            </a>
+            <a href="https://jetzt-abschliessen.de/b8425f2a-594a-48c3-bd6d-a7acea740a9f/abschliessen/Hausratversicherung/angebotsdaten"
+               target="_blank"
+            >
+                <i class="fad fa-house-damage"></i>
+                Element Privatrechner Hausratversicherung
+            </a>
+            <a href="https://jetzt-abschliessen.de/b8425f2a-594a-48c3-bd6d-a7acea740a9f/abschliessen/Privat-Haftpflichtversicherung/angebot"
+               target="_blank"
+            >
+                <i class="fad fa-user-shield"></i>
+                Element Privat-Haftpflichtversicherung
+            </a>
+            <a href="https://calculate.asspario.de/asspario/pferd/?id=ass100587-A"
+               target="_blank"
+            >
+                <i class="fad fa-horse"></i>
+                Die Vierpfotenmakler Haftpflicht
+            </a>
+            <a href="https://calculate.asspario.de/asspario/chronoprotect/?id=ass100587-A"
+               target="_blank"
+            >
+                <i class="fad fa-watch"></i>
+                CHRONOprotect
+            </a>
+            <a href="https://calculate.asspario.de/asspario/fahrrad/?id=ass100587-A"
+               target="_blank"
+            >
+                <i class="fad fa-biking"></i>
+                Fahrrad Kasko
+            </a>
+            <a href="{{ path('insurance_premium_determination_index') }}">
+                <i class="fad fa-calculator-alt"></i>
+                BVAW Gebäude
+            </a>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="submenu-wrapper">
+            <h2{{ app.request.get('_route') in newsroomRoutes ? ' class="active"' }}>
+                <i class="fad fa-paper-plane"></i>
+                Newsroom
+            </h2>
+            <div class="submenu">
+                <a href="{{ path('news_index') }}"{% if app.request.get('_route') == 'news_index' %} class="active"{% endif %}>
+                    <i class="fad fa-tools"></i>
+                    Administration
+                </a>
+                <a href="{{ path('news_archiv') }}"{% if app.request.get('_route') == 'news_archiv' %} class="active"{% endif %}>
+                    <i class="fad fa-user-alt"></i>
+                    Benutzer-Ansicht
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <a href="{{ path('news_archiv') }}"{% if app.request.get('_route') == 'news_archiv' %} class="active"{% endif %}>
+            <i class="fad fa-paper-plane"></i>
+            Newsroom
+        </a>
+    {% endif %}
+    <div class="submenu-wrapper">
+        <h2{{ app.request.get('_route') in damageCaseRoutes ? ' class="active"' }}>
+            <i class="fad fa-fragile"></i>
+            Schadenmeldung
+        </h2>
+        <div class="submenu">
+            <a
+                    href="{{ path('damageCase_liability_index') }}"
+                    {% if app.request.get('_route')
+                        == 'damageCase_liability_index' %} class="active"
+                    {% endif %}
+            >
+                <i class="fad fa-fragile"></i>
+                Haftpflicht
+            </a>
+            <a
+                    href="{{ path('damageCase_car_index') }}"
+                    {% if app.request.get('_route')
+                        == 'damageCase_car_index' %} class="active"
+                    {% endif %}
+            >
+                <i class="fad fa-car-tilt"></i>
+                Schadenanzeige KFZ
+            </a>
+            <a
+                    href="{{ path('damageCase_generalDamage_index') }}"
+                    {% if app.request.get('_route')
+                        == 'damageCase_generalDamage_index' %} class="active"
+                    {% endif %}
+            >
+                <i class="fad fa-money-check-edit"></i>
+                Schadenanzeige SACH
+            </a>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="submenu-wrapper">
+            <h2{{ app.request.get('_route') in userRoutes ? ' class="active"' }}>
+                <i class="fad fa-user-alt"></i>
+                Benutzerverwaltung
+            </h2>
+            <div class="submenu">
+                <a href="{{ path('user_index') }}"{% if app.request.get('_route') == 'user_index' %} class="active"{% endif %}>
+                    <i class="fad fa-user-alt"></i>
+                    Benutzer
+                </a>
+                <a
+                        href="{{ path('activation_code_index') }}"
+                        {% if app.request.get('_route') == 'activation_code_index' %} class="active"{% endif %}
+                >
+                    <i class="fad fa-barcode"></i>
+                    Aktivierungscode
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</nav>

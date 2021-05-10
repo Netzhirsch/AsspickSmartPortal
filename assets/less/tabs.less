@@ -6,6 +6,43 @@
 	> header.tabs {
 		padding:0;
 
+		@media (max-width:1023px) {
+			.relative;
+
+			&:before {
+				.absolute;
+				content:'';
+				left:0;
+				top:0;
+				bottom:0;
+				width:30px;
+				background:linear-gradient(to right, white 25%, rgba(255, 255, 255, 0));
+				pointer-events:none;
+			}
+
+			&:after {
+				.absolute;
+				content:'';
+				right:0;
+				top:0;
+				bottom:0;
+				width:30px;
+				background:linear-gradient(to right, rgba(255, 255, 255, 0), white 75%);
+				pointer-events:none;
+			}
+		}
+
+		.slider {
+			.block;
+			.left;
+			.w100;
+
+			@media (max-width:1023px) {
+				display:flex;
+				overflow:auto;
+			}
+		}
+
 		.tab {
 			display:block;
 			float:left;
@@ -13,6 +50,12 @@
 			margin-bottom:-1px;
 			cursor:pointer;
 			border-bottom:1px solid @innuendo;
+			white-space:nowrap;
+
+			@media (max-width:1023px) {
+				border-bottom:0;
+				margin-bottom:0;
+			}
 
 			h3 {
 				font-size:12px;

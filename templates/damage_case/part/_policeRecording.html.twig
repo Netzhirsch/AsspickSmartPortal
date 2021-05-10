@@ -1,14 +1,15 @@
-<div class="line col-4">
+<div class="line col-auto">
     {{ form_label(policeRecording.isRecorded) }}
     {{ form_widget(policeRecording.isRecorded) }}
     {{ form_errors(policeRecording.isRecorded) }}
 </div>
-<div class="line col-8">
+<div class="newline"></div>
+<div class="line col-8 col-m-12 col-s-24">
     {{ form_label(policeRecording.fileReference) }}
     {{ form_widget(policeRecording.fileReference) }}
     {{ form_errors(policeRecording.fileReference) }}
 </div>
-<div class="line col-8">
+<div class="line col-8 col-m-12 col-s-24">
     {{ form_label(policeRecording.diaryNumber) }}
     {{ form_widget(policeRecording.diaryNumber) }}
     {{ form_errors(policeRecording.diaryNumber) }}
@@ -20,40 +21,40 @@
 </div>
 <div class="newline"></div>
 {% if showLong is defined and showLong %}
-    <div class="line col-8">
+    <div class="line col-auto">
         {{ form_label(policeRecording.hasCriminalProceedings) }}
         {{ form_widget(policeRecording.hasCriminalProceedings) }}
         {{ form_errors(policeRecording.hasCriminalProceedings) }}
     </div>
-    <div class="line col-16">
+    <div class="line col-auto">
         {{ form_label(policeRecording.criminalProceedingsAgainst) }}
         {{ form_widget(policeRecording.criminalProceedingsAgainst) }}
         {{ form_errors(policeRecording.criminalProceedingsAgainst) }}
     </div>
 {% endif %}
 {% if showCar is defined and showCar %}
-    <div class="line col-8">
+    <div class="line col-8 col-m-12 col-s-24">
         {{ form_label(policeRecording.isWarnedWithCharge) }}
         {{ form_widget(policeRecording.isWarnedWithCharge) }}
         {{ form_errors(policeRecording.isWarnedWithCharge) }}
     </div>
-    <div class="line col-8">
+    <div class="line col-8 col-m-12 col-s-24">
         {{ form_label(policeRecording.whoIsWarnedWithCharge) }}
         {{ form_widget(policeRecording.whoIsWarnedWithCharge) }}
         {{ form_errors(policeRecording.whoIsWarnedWithCharge) }}
     </div>
     <div class="newline"></div>
-    <div class="line col-4">
+    <div class="line col-auto">
         {{ form_label(policeRecording.hasDrugUse) }}
         {{ form_widget(policeRecording.hasDrugUse) }}
         {{ form_errors(policeRecording.hasDrugUse) }}
     </div>
-    <div class="line col-4">
+    <div class="line col-auto">
         {{ form_label(policeRecording.hasDrugTest) }}
         {{ form_widget(policeRecording.hasDrugTest) }}
         {{ form_errors(policeRecording.hasDrugTest) }}
     </div>
-    <div class="line col-8">
+    <div class="line col-8 col-m-12 col-s-24">
         {{ form_label(policeRecording.drugTestResult) }}
         {{ form_widget(policeRecording.drugTestResult) }}
         {{ form_errors(policeRecording.drugTestResult) }}

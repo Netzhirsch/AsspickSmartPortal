@@ -3,65 +3,63 @@
 {% block title %}Einloggen{% endblock %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('login') }}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
 {% endblock %}
 
 {% block content %}
-	<div class="container container--login">
-		<div class="inner">
-			<header>
-				<h2>
-					<i class="fad fa-sign-in-alt"></i>
-					Einloggen
-				</h2>
-			</header>
-			<form method="POST" class="content">
-				{% if error %}
-					<div class="alert alert-danger">
-						{{ error.messageKey|trans(error.messageData, 'security') }}
-					</div>
-				{% endif %}
+    <div class="container container--login">
+        <div class="inner">
+            <header>
+                <h2>
+                    <i class="fad fa-sign-in-alt"></i>
+                    Einloggen
+                </h2>
+            </header>
+            <form method="POST" class="content">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
 
-				<div class="line">
-					<label for="inputEmail">E-Mail Adresse</label>
-					<input type="text"
-						   value="{{ last_username }}"
-						   name="email"
-						   id="inputEmail"
-						   class="form-control"
-						   required
-						   autofocus
-					>
-				</div>
+                <div class="line">
+                    <label for="inputEmail">E-Mail Adresse</label>
+                    <input type="text"
+                           value="{{ last_username }}"
+                           name="email"
+                           id="inputEmail"
+                           class="form-control"
+                           required
+                           autofocus
+                    >
+                </div>
 
-				<div class="line">
-					<label for="inputPassword">Passwort</label>
-					<input type="password" name="password" id="inputPassword" class="form-control" required>
-				</div>
+                <div class="line">
+                    <label for="inputPassword">Passwort</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                </div>
 
-				<div class="line wrap-checkboxes col-auto">
-					<input type="checkbox" name="_remember_me" id="remember_me">
-					<label for="remember_me">Login merken</label>
-				</div>
+                <div class="line wrap-checkboxes col-auto">
+                    <input type="checkbox" name="_remember_me" id="remember_me">
+                    <label for="remember_me">Login merken</label>
+                </div>
 
-				<div class="liner"></div>
+                <div class="liner"></div>
 
-				<div class="actions">
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-					<button type="submit">Einloggen</button>
-				</div>
+                <div class="actions">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button type="submit">Einloggen</button>
+                </div>
 
-			</form>
-			<div class="liner"></div>
-			<div class="line">
-				<div class="actions">
-					<a class="btn" href="{{ path('app_register') }}">
-						<i class="fad fa-user-plus"></i>
-						Registrieren
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+            </form>
+            <div class="liner"></div>
+            <div class="line actions">
+                <a class="btn" href="{{ path('app_register') }}">
+                    <i class="fad fa-user-plus"></i>
+                    Registrieren
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

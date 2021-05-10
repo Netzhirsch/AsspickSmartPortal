@@ -1,5 +1,5 @@
-@import "variables";
-@import "colors";
+@import 'variables';
+@import 'colors';
 
 footer#footer {
 	.flex;
@@ -11,6 +11,10 @@ footer#footer {
 	padding:10px;
 	justify-content:flex-end;
 
+	@media (max-width:767px) {
+		flex-direction:column;
+	}
+
 	a, span {
 		.block;
 		.left;
@@ -18,6 +22,10 @@ footer#footer {
 		text-decoration:none;
 		.transition;
 		margin:10px;
+
+		> a {
+			.inline;
+		}
 	}
 
 	a:hover {

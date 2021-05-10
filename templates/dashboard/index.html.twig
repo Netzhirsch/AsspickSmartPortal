@@ -14,11 +14,14 @@
 			<header>
 				<h2>
 					<i class="fad fa-door-open"></i>
-					Moin und herzlich Willkommen in unserem Vermittlerportal!
+					Moin, Ahoi und schön, dass du wieder da bist!
 				</h2>
 			</header>
 			<div class="content">
-				<div class="line col-9">
+				<div class="wrap-image line col-5 col-m-12 col-s-24">
+					<img src="{{ asset('build/img/dashboard/dashboard.jpg') }}" alt="Asspick Team">
+				</div>
+				<div class="line col-19 col-m-12 col-s-24">
 					<p>
 						Über unser neues Vermittlerportal erhalten Sie direkten Zugang zu Ihren Verträgen (Voraussetzung ist eine Freischaltung der Cloud),
 						den digitalen Konzeptrechnern und dazugehörigen Unterlagen.
@@ -26,13 +29,10 @@
 					</p>
 					<p>Viel Spaß beim Stöbern - wir freuen uns über Ihr Feedback!</p>
 				</div>
-				<div class="wrap-image line col-15">
-					<img src="{{ asset('build/img/dashboard/team.png') }}" alt="Asspick Team">
-				</div>
 			</div>
 			<div class="content">
 
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<a class="cta" href="{{ path('files') }}">
 						<div class="indicator">3</div>
 						<i class="fad fa-cloud"></i>
@@ -40,7 +40,7 @@
 						<div class="description">Verträge, Vorgänge und Informationen</div>
 					</a>
 				</div>
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<h3>Ihre Verträge</h3>
 					<p>
 						Direkter Zugriff auf Ihre Verträge und Dokumente. Dieser Bereich befindet sich im Aufbau und
@@ -50,14 +50,14 @@
 					</p>
 				</div>
 
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 clear-m col-s-24">
 					<a class="cta" href="{{ path('download_center_user_view') }}">
 						<i class="fas fa-cloud-download"></i>
 						<div class="title">Download-Center</div>
 						<div class="description">Alle Rahmenvereinbarungen und Konzeptunterlagen</div>
 					</a>
 				</div>
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<h3>Download-Center</h3>
 					<p>
 						Die Alternative zu komplizierten Vertragswerken und komplexen Konstrukten mit mehreren Partnern:
@@ -68,14 +68,14 @@
 
 				<div class="liner"></div>
 
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<a class="cta" href="{{ path('news_archiv') }}">
 						<i class="fad fa-paper-plane"></i>
 						<div class="title">Newsroom</div>
 						<div class="description">Jetzt anmelden und immer up&#8209;to&#8209;date bleiben</div>
 					</a>
 				</div>
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<h3>Newsroom</h3>
 					<p>
 						Laufend aktuelle News aus der Versicherungswirtschaft, der MARTENS & PRAHL Gruppe
@@ -84,14 +84,14 @@
 					</p>
 				</div>
 
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 clear-m col-s-24">
 					<a class="cta" href="{{ path('damageCase_generalDamage_index') }}">
 						<i class="fad fa-fragile"></i>
 						<div class="title">Schadenmeldung</div>
 						<div class="description">Haftplicht, <br/>KFZ, SACH</div>
 					</a>
 				</div>
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<h3>Schadenmeldung</h3>
 					<p>
 						Für Ihre Schadenmeldung nutzen Sie gern die hier hinterlegten Online-Formulare.
@@ -101,21 +101,21 @@
 
 				<div class="liner"></div>
 
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<a class="cta" href="https://rechner.asspick.de/unfall" target="_blank">
 						<i class="fad fa-car-crash"></i>
 						<div class="title">Unfall-Rechner</div>
 						<div class="description">Berechnen Sie schnell und einfach Ihren Schadenfall</div>
 					</a>
 				</div>
-				<div class="line col-6">
+				<div class="line col-6 col-m-12 col-s-24">
 					<a class="cta" href="https://rechner.asspick.de/aci" target="_blank">
 						<i class="fad fa-house"></i>
 						<div class="title">Immobilien-Rechner</div>
 						<div class="description">Die wichtigsten Kennzahlen einfach und direkt erhalten</div>
 					</a>
 				</div>
-				<div class="line col-12">
+				<div class="line col-12 col-m-24 col-s-24">
 					<h3>Angebotsechner</h3>
 					<p>
 						Mit unseren Angebotsechnern kommen Sie schnell und mit wenigen Klicks zum passenden
@@ -132,10 +132,10 @@
 				</div>
 			</header>
 			<div class="content impuls">
-				<div class="wrap-image line col-6">
+				<div class="wrap-image line col-6 col-s-24">
 					<img src="{{ asset('build/img/dashboard/impuls.png') }}" alt="IMPULS">
 				</div>
-				<div class="wrap-text line col-12">
+				<div class="wrap-text line col-12 col-s-24">
 					<h2><strong>IMPULS</strong> Unser Magazin für Kunden</h2>
 					<p>
 						Unser Magazin IMPULS bietet Ihnen Updates zu Versicherungsthemen, Hintergründe aus erster Hand
@@ -150,7 +150,7 @@
 								target="_blank">hier</a>.
 					</p>
 				</div>
-				<div class="wrap-image line col-6">
+				<div class="wrap-image line col-6 col-s-24">
 					<a href="https://www.martens-prahl-holding.de/service/presse-center/wir-sind-nr-1" target="_blank">
 						<img src="{{ asset('build/img/dashboard/wiwo_bester_dienstleister.png') }}" alt="Wirtschaftwoche: Bester Mittelstandsdienstleister 2021">
 					</a>
@@ -158,7 +158,9 @@
 			</div>
 			<div class="content">
 				{% for news in newsroom %}
-					{% include 'news/_teaser.html.twig' %}
+					{% include 'news/_teaser.html.twig' with {
+						'clear': cycle([false,true],loop.index)
+					} %}
 				{% endfor %}
 			</div>
 		</div>

@@ -20,20 +20,22 @@
             {% include 'damage_case/part/_headline.html.twig' with{'headline':'Schadenanzeige KFZ'} %}
 
             <header class="tabs">
-                <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
-                <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
-                <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
-                <div class="tab" data-tab="typeOfInjury"><h3>Personenschäden</h3></div>
-                <div class="tab" data-tab="theftProtectionTyp"><h3>Diebstahlschäden</h3></div>
-                <div class="tab" data-tab="viewedOn"><h3>Besichtigung</h3></div>
-                <div class="tab" data-tab="driver"><h3>{{ form_label(form.driver) }}</h3></div>
-                <div class="tab" data-tab="hasOwnClaims"><h3>Ansprüche</h3></div>
-                <div class="tab" data-tab="accidentOpponent"><h3>{{ form_label(form.accidentOpponent) }}</h3></div>
-                <div class="tab" data-tab="opponentCar"><h3>{{ form_label(form.opponentCar) }}</h3></div>
-                <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
-                <div class="tab" data-tab="witness"><h3>{{ form_label(form.witnessTwo) }}</h3></div>
-                <div class="tab" data-tab="other"><h3>{{ form_label(form.other) }}</h3></div>
-                <div class="tab" data-tab="images"><h3>Bilder</h3></div>
+                <div class="slider">
+                    <div class="tab active" data-tab="general"><h3>Allgemeines</h3></div>
+                    <div class="tab" data-tab="policyholder"><h3>{{ form_label(form.policyholder) }}</h3></div>
+                    <div class="tab" data-tab="damageEvent"><h3>{{ form_label(form.damageEvent) }}</h3></div>
+                    <div class="tab" data-tab="typeOfInjury"><h3>Personenschäden</h3></div>
+                    <div class="tab" data-tab="theftProtectionTyp"><h3>Diebstahlschäden</h3></div>
+                    <div class="tab" data-tab="viewedOn"><h3>Besichtigung</h3></div>
+                    <div class="tab" data-tab="driver"><h3>{{ form_label(form.driver) }}</h3></div>
+                    <div class="tab" data-tab="hasOwnClaims"><h3>Ansprüche</h3></div>
+                    <div class="tab" data-tab="accidentOpponent"><h3>{{ form_label(form.accidentOpponent) }}</h3></div>
+                    <div class="tab" data-tab="opponentCar"><h3>{{ form_label(form.opponentCar) }}</h3></div>
+                    <div class="tab" data-tab="policeRecording"><h3>{{ form_label(form.policeRecording) }}</h3></div>
+                    <div class="tab" data-tab="witness"><h3>{{ form_label(form.witnessTwo) }}</h3></div>
+                    <div class="tab" data-tab="other"><h3>{{ form_label(form.other) }}</h3></div>
+                    <div class="tab" data-tab="images"><h3>Bilder</h3></div>
+                </div>
             </header>
 
             <div class="content tab active" data-tab="general">
@@ -66,8 +68,7 @@
 
             <div class="content tab" data-tab="damageEvent">
                 {% include 'damage_case/car/part/_damageEvent.html.twig'
-                    with {'damageEvent':form.damageEvent,'showLocationTwo':true}
-                %}
+                    with {'damageEvent':form.damageEvent,'showLocationTwo':true} %}
             </div>
 
             <div class="content tab" data-tab="typeOfInjury">
@@ -99,7 +100,7 @@
             </div>
 
             <div class="content tab" data-tab="driver">
-                {% include 'damage_case/car/part/_driver.html.twig' with {'driver':form.driver}%}
+                {% include 'damage_case/car/part/_driver.html.twig' with {'driver':form.driver} %}
             </div>
 
             <div class="content tab" data-tab="hasOwnClaims">
@@ -111,11 +112,11 @@
             </div>
 
             <div class="content tab" data-tab="accidentOpponent">
-                {% include 'damage_case/part/_person.html.twig' with {'person':form.accidentOpponent}%}
+                {% include 'damage_case/part/_person.html.twig' with {'person':form.accidentOpponent} %}
             </div>
 
             <div class="content tab" data-tab="opponentCar">
-                {% include 'damage_case/car/part/_opponentCar.html.twig' with {'opponentCar':form.opponentCar}%}
+                {% include 'damage_case/car/part/_opponentCar.html.twig' with {'opponentCar':form.opponentCar} %}
             </div>
 
             <div class="content tab" data-tab="policeRecording">
@@ -141,8 +142,7 @@
 
             <div class="content tab" data-tab="payment">
                 {% include 'damage_case/part/_payment.html.twig'
-                    with {'payment':form.payment,'showTyp':true,'showTaxDeduction':true}
-                %}
+                    with {'payment':form.payment,'showTyp':true,'showTaxDeduction':true} %}
             </div>
 
             <div class="content tab" data-tab="images">
@@ -152,8 +152,7 @@
                     'backTo':constant('App\\Entity\\DamageCase\\Car\\Car::FORM_ROUTES')|join(','),
                     'maxFiles' : null,
                     'acceptedFiles' : 'image/*'
-                }
-                %}
+                } %}
             </div>
             <footer>
                 {% include 'damage_case/part/_disclaimer.html.twig' %}

@@ -39,6 +39,13 @@
             <div class="newline"></div>
             {{ form_widget(registrationForm.register) }}
             {{ form_label(registrationForm.register) }}
+            <div class="liner"></div>
+            <div class="line actions">
+                <a class="btn" href="{{ path('app_register') }}">
+                    <i class="fad fa-sign-in-alt"></i>
+                    Einloggen
+                </a>
+            </div>
         </div>
         {{ form_row(registrationForm._token) }}
         {{ form_end(registrationForm,{'render_rest':false}) }}

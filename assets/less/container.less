@@ -9,8 +9,21 @@
 	padding:20px;
 	max-width:100%;
 
+	@media (max-width:767px) {
+		padding:10px;
+	}
+
 	&.minimized > .inner {
 		height:60px;
+	}
+
+	&.boxed {
+		display:flex;
+		justify-content:center;
+
+		.inner {
+			max-width:1200px;
+		}
 	}
 
 	> .inner {
@@ -36,6 +49,7 @@
 				.block;
 				.left;
 				.m0;
+				.bb;
 				font-size:21px;
 				line-height:27px;
 				padding:7px 10px;
@@ -90,6 +104,9 @@
 
 			.breadcrumbs {
 
+				@media (max-width:767px) {
+					.none;
+				}
 
 				.breadcrumb {
 					background:@innuendo;
@@ -126,12 +143,14 @@
 			.w100;
 			.bb;
 			padding:10px;
+			overflow:auto;
 
 			p, ul, ol, h1, h2, h3, h4, h5, h6 {
 				.block;
 				.left;
 				.w100;
 				.m0;
+				.bb;
 				padding:6px 10px;
 				font-size:14px;
 				line-height:22px;
@@ -150,27 +169,27 @@
 			}
 
 			h1 {
-				font-weight: bold;
+				font-weight:bold;
 				padding:3px 10px;
 				font-size:22px;
 				line-height:36px;
 			}
 
 			h2 {
-				font-weight: bold;
+				font-weight:bold;
 				padding:4px 10px;
 				font-size:18px;
 				line-height:30px;
 			}
 
 			h3 {
-				font-weight: bold;
+				font-weight:bold;
 				font-size:16px;
 				line-height:24px;
 			}
 
 			h4, h5, h6 {
-				font-weight: bold;
+				font-weight:bold;
 			}
 		}
 

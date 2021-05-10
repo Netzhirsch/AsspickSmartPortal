@@ -12,22 +12,22 @@
             </header>
             <div class="content">
                 {{ form_start(form) }}
-                <div class="line col-4">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.email) }}
                     {{ form_widget(form.email) }}
                     {{ form_errors(form.email) }}
                 </div>
-                <div class="line col-4">
+                <div class="line col-8 col-m-12 col-s-24">
                     {{ form_label(form.plainPassword) }}
                     {{ form_widget(form.plainPassword) }}
                     {{ form_errors(form.plainPassword) }}
                 </div>
                 <div class="liner"></div>
-                <div class="line col-6">
+                <div class="line col-auto">
                     {{ form_widget(form.roles) }}
                     {{ form_errors(form.roles) }}
                 </div>
-                <div class="line col-4">
+                <div class="line col-auto">
                     {{ form_label(form.isVerified) }}
                     {{ form_widget(form.isVerified) }}
                     {{ form_errors(form.isVerified) }}

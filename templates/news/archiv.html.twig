@@ -23,7 +23,9 @@
                 </h2>
             </header>
             {% for news in newsroom %}
-                {% include 'news/_teaser.html.twig' %}
+                {% include 'news/_teaser.html.twig' with {
+                    'clear': cycle([false,true],loop.index)
+                } %}
             {% endfor %}
             <div class="liner"></div>
             <div class="line col-auto">

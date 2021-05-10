@@ -1,0 +1,42 @@
+.content.inline-filter form {
+	.flex;
+	.w100;
+	.mp0;
+	justify-content:space-between;
+	align-items:center;
+
+	> i {
+		.block;
+		flex:0 0 40px;
+		height:40px;
+		width:40px;
+		line-height:40px;
+		text-align:center;
+		font-size:30px;
+		color:@innuendo;
+	}
+
+	> [type=text] {
+		.block;
+		flex:0 1 100%;
+		.bb;
+		.radius;
+		.w100;
+		font-size:16px;
+		line-height:20px;
+		padding:6px 10px;
+		height:34px;
+		border:0;
+		color:black;
+
+		&:hover,
+		&:focus {
+			border:none;
+			outline:none;
+		}
+	}
+
+	> button {
+		flex:0 0 auto;
+	}
+}

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | ASSPICK Vermittlerportal</title>
-
-    <script src="https://kit.fontawesome.com/0b3d3e05d9.js" crossorigin="anonymous"></script>
-
+    <link rel="shortcut icon" href="{{ asset('build/img/favicon.ico') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
