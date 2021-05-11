@@ -17,7 +17,7 @@ class Email
 
     public function __construct()
     {
-        $this->setFrom('info@asspick.de');
+        $this->setFrom('vermittler@asspick.de');
     }
 
     /**

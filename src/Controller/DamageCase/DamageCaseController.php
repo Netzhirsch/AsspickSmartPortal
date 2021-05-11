@@ -85,9 +85,8 @@ class DamageCaseController extends AbstractController
     private function sendNotificationMail($entity,string $filePath){
 
         $email = new Email();
-        $email->setFrom('schaden@asspick.de');
         $email->setTo('schaden@asspick.de');
-        $email->setSubject('Schadensformular wurde eingereicht');
+        $email->setSubject('Schadenformular eingereicht');
 
         $policyholder = $entity->getPolicyholder();
         $insurer = $entity->getInsurer();
