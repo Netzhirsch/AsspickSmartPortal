@@ -110,7 +110,7 @@ class RegistrationController extends AbstractController
 
             $messageAdmin = 'Jemand hat sich mit der E-Mail Adresse: '.$emailAddressUser;
             if (!empty($code))
-                $messageAdmin .= ' und dem Code:'.$code;
+                $messageAdmin .= ' und dem Code '.$code;
             $messageAdmin .= ' registriert.';
 
             $messageUser .= PHP_EOL.'Sie können sich nun einloggen.';
