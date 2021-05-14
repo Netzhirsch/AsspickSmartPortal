@@ -665,7 +665,7 @@ class InsurancePremiumDeterminationController extends DamageCaseController {
 		$countReceiver += $this->sendEmailToUser($insurancePremiumDetermination, $filePath);
 
 		if ($countReceiver != 2) {
-			$this->addFlash('error', 'Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte wenden Sie sich direkt an info@asspick.de.');
+			$this->addFlash('error', 'Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte wenden Sie sich direkt an vermittler@asspick.de.');
 			return false;
 		}
 

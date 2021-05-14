@@ -26,7 +26,6 @@ class UserViewController extends AbstractController {
 
     /**
      * @Route("/view/{id}", name="download_center_user_view", methods={"GET"})
-     * @param EntityManagerInterface $em
      * @param Request $request
      * @param FolderRepository $folderRepository
      * @param FileRepository $fileRepository
@@ -35,7 +34,6 @@ class UserViewController extends AbstractController {
      * @return Response
      */
     public function userViewAction(
-        EntityManagerInterface $em,
         Request $request,
         FolderRepository $folderRepository,
         FileRepository $fileRepository,
@@ -43,7 +41,7 @@ class UserViewController extends AbstractController {
     ): Response
     {
 
-	    $filter = $this->getObjectFromSession($em, $request, UserViewFilter::class);
+        $filter = new UserViewFilter();
 
         $filterform = $this->createForm(
             UserViewFilterType::class,
@@ -58,7 +56,6 @@ class UserViewController extends AbstractController {
         if (($filterform->isSubmitted() && $filterform->isValid()) || $filter instanceof UserViewFilter) {
             /** @var UserViewFilter $filter */
             $filter = $filterform->getData();
-            $this->setObjectInSession($request, UserViewFilter::class, $filter);
         } else {
             $filter = null;
         }
