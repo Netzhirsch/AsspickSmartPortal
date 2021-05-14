@@ -94,7 +94,7 @@ class RegistrationController extends AbstractController
         if (!empty($code))
             $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
 
-        $emailAddressAdmin = 'info@asspick.de';
+        $emailAddressAdmin = 'vermittler@asspick.de';
 
         $messageUser = 'Danke für ihre Registrierung.';
         $messageAdmin = 'Jemand hat versucht sich mit der E-Mail Adresse: '.$emailAddressUser;
