@@ -303,10 +303,11 @@ trait ControllerTrait
 
     private function sendMail(
         Swift_Mailer $mailer,
-        Email $email
+        Email $email,
+        bool $isRaw = false
     ): int
     {
-        $swiftMessage = $this->createMessage($email);
+        $swiftMessage = $this->createMessage($email,$isRaw);
 
         return $mailer->send($swiftMessage);
     }
@@ -324,13 +325,14 @@ trait ControllerTrait
     }
 
     private function createMessage(
-        Email $email
+        Email $email,
+        bool $isRaw = false
     ): Swift_Message
     {
         $body = $this->renderView(
-            'mail/index.html.twig', ['email' => $email]
+            'mail/index.html.twig', ['email' => $email,'isRaw' => $isRaw]
         );
-
+        $body = trim($body);
         $message = (new Swift_Message($email->getSubject()));
         $message->setFrom($email->getFrom());
 

@@ -1,1 +1,5 @@
-{{ email.message|nl2br }}
+{% if isRaw %}
+    {{ email.message|raw }}
+{% else %}
+    {{ email.message|nl2br }}
+{% endif %}
