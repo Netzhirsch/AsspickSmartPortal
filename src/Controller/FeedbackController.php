@@ -29,12 +29,11 @@ class FeedbackController extends AbstractController
             if (isset($data['message']) && !empty(isset($data['message']))) {
                 $message = $data['message'];
                 $email = new Email();
-//                $email->setTo($email->getFrom());
-                $email->setTo('luhmann@netzhirsch.de');
+                $email->setTo($email->getFrom());
                 $email->setSubject('Feedback');
                 $email->setMessage($message);
-
                 $this->sendMail($mailer, $email,true);
+                $this->addFlash('success', 'Vielen dank für Ihr Feedback.');
             }
 
             return $this->redirectToRoute('dashboard');
