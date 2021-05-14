@@ -1,4 +1,8 @@
 <nav class="user">
+    <a href="{{ path('feedback') }}"{% if app.request.get('_route') == 'feedback' %} class="active"{% endif %}>
+        <i class="fad fa-comment-alt-smile"></i>
+        Feedback
+    </a>
     <span><i class="fad fa-user"></i> {{ app.user.username }}</span>
     <a href="{{ path('logout') }}"><i class="fad fa-sign-out-alt"></i></a>
 </nav>
