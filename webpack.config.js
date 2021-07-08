@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -34,7 +34,7 @@ Encore
     .addEntry('insurancePremiumDetermination', './assets/js/insurancePremiumDetermination.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    // .enableStimulusBridge('./assets/controllers.json')
+    //.enableStimulusBridge('./assets/controllers.json')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

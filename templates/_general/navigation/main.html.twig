@@ -1,8 +1,8 @@
 <nav class="main">
-    <!--<a href="{{ path('contract_list') }}"{% if app.request.get('_route') == 'contract_list' %} class="active"{% endif %}>
+    <a href="{{ path('contract_list') }}"{% if app.request.get('_route') == 'contract_list' %} class="active"{% endif %}>
         <i class="fad fa-cloud"></i>
         Ihre Verträge
-    </a>-->
+    </a>
 
     {% if is_granted('ROLE_ADMIN') %}
         <div class="submenu-wrapper">

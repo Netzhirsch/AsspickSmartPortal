@@ -1,29 +1,29 @@
 {% block entity_group_widget %}
     <label for="{{ id }}">
-            <select id="{{ id }}" name="{{ full_name }}"
-                    {%- if disabled %} disabled="disabled"{% endif -%}
-                    {%- if required %} required="required"{% endif -%}
-                    class="line"
-            >
-                <option value="" label="Bitte auswählen">Bitte auswählen</option>
-                {% for choice in choices %}
-                    {% set labelLevel = '' %}
-                    {% if choice.attr.level > 0 %}
-                        {% for i in 1..choice.attr.level %}
-                            {% set labelLevel = labelLevel ~ '---' %}
-                        {% endfor %}
-                    {% endif %}
-                    {% set labelLevel = labelLevel ~ choice.label %}
-                    <option
-                            value="{{ choice.value }}"
-                            label="{{ labelLevel }}"
-                            {% if not render_preferred_choices|default(false) and choice is selectedchoice(value) %}
-                                selected="selected"
-                            {% endif %}
-                    >
-                        {{ choice.label }}
-                    </option>
-                {% endfor %}
-    </select>
+        <select id="{{ id }}" name="{{ full_name }}"
+                {%- if disabled %} disabled="disabled"{% endif -%}
+                {%- if required %} required="required"{% endif -%}
+                class="line"
+        >
+            <option value="" label="Bitte auswählen">Bitte auswählen</option>
+            {% for choice in choices %}
+                {% set labelLevel = '' %}
+                {% if choice.attr.level > 0 %}
+                    {% for i in 1..choice.attr.level %}
+                        {% set labelLevel = labelLevel ~ '---' %}
+                    {% endfor %}
+                {% endif %}
+                {% set labelLevel = labelLevel ~ choice.label %}
+                <option
+                        value="{{ choice.value }}"
+                        label="{{ labelLevel }}"
+                        {% if not render_preferred_choices|default(false) and choice is selectedchoice(value) %}
+                            selected="selected"
+                        {% endif %}
+                >
+                    {{ choice.label }}
+                </option>
+            {% endfor %}
+        </select>
     </label>
 {% endblock %}

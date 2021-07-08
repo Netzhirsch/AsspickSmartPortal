@@ -1,11 +1,13 @@
 security:
     encoders:
-        App\Entity\User:
+        App\Entity\Benutzer:
             algorithm: auto
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
 
+    # https://symfony.com/doc/current/security/experimental_authenticators.html
+    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -18,25 +20,23 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            logout: true
             lazy: true
             provider: app_user_provider
+            entry_point: security.authenticator.form_login.main
             form_login:
                 login_path: login
                 check_path: login
-                csrf_token_generator: security.csrf.token_manager
                 use_referer: true
+            remember_me:
+                secret: "%kernel.secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~
+                user_provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
-            logout:
-                path: logout
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800 # 1 week in seconds
-                path: /
-            # where to redirect after logout
-            # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
