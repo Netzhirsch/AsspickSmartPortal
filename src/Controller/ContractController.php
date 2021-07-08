@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ContractController extends AbstractController {
 
-	const TOKEN_URL = "https://account-staging.assfinet.de/oauth/token";
-	const API_URL = "https://drive-staging.assfinetcloud.de/api/v1/AMS/Vertrag";
-	const API_USER = "test1@drive.assfinet.de";
-	const API_PASSWORD = "al%cS2v5pS";
-	const API_CLIENT_ID = "SoapUi";
-	const API_CLIENT_SECRET = "SoapUi";
+	const TOKEN_URL = "https://account.assfinetcloud.de/oauth/token";
+	const API_URL = "https://drive-azure.assfinet.de/api/v1/Ams/Vertrag?accessMode=Admin";
+	const API_USER = "antrag@asspick.de";
+	const API_PASSWORD = "2021_Asspick!nh";
+	const API_CLIENT_ID = "Asspick";
+	const API_CLIENT_SECRET = "db640dd7-3232-49bf-9dbd-8d334e07cba2";
 
 	/**
 	 * @Route("/", name="contract_list")
