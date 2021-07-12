@@ -148,10 +148,9 @@ class ResetPasswordController extends AbstractController
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
-             $this->addFlash('error', sprintf(
-                 'Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts - %s',
-                 $e->getReason()
-             ));
+             $this->addFlash('error',
+                 'Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts',
+              );
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
@@ -172,10 +171,9 @@ class ResetPasswordController extends AbstractController
         try {
             $mailer->send($email);
         } catch (TransportExceptionInterface $e) {
-            $this->addFlash('error', sprintf(
-                'Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts - %s',
-                $e->getMessage()
-            ));
+            $this->addFlash('error',
+                'Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts',
+             );
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
