@@ -2,7 +2,7 @@
 
 <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
 
-<p>Dieser Link verfällt um {{ resetToken.expiresAt|date('H:i') }} Uhr.</p>
+<p>Dieser Link verfällt um {{ resetToken.expiresAt|date('H:i') }} Uhr ab.</p>
 
 <p>Mit freundlichen Grüßen</p>
 <p>Ihr ASSPICK-Team</p>
