@@ -11,15 +11,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class RegistrationController extends AbstractController
 {
     use ControllerTrait;
 
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private UserPasswordHasherInterface $passwordEncoder;
     private Swift_Mailer $mailer;
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder,Swift_Mailer $mailer)
+    public function __construct(UserPasswordHasherInterface $passwordEncoder,Swift_Mailer $mailer)
     {
         $this->passwordEncoder = $passwordEncoder;
         $this->mailer = $mailer;
@@ -65,9 +66,9 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    private function encodePlainPassword(User $user,$form){
+    private function encodePlainPassword(PasswordAuthenticatedUserInterface $user,$form){
         $user->setPassword(
-            $this->passwordEncoder->encodePassword(
+            $this->passwordEncoder->hashPassword(
                 $user,
                 $form->get('plainPassword')->getData()
             )
@@ -92,6 +93,7 @@ class RegistrationController extends AbstractController
 
         $activationCode = null;
         if (!empty($code))
+            /** @var ActivationCode $activationCode */
             $activationCode = $repo->findOneBy(['email' => $emailAddressUser,'code' => $code,'user' => null]);
 
         $emailAddressAdmin = 'vermittler@asspick.de';

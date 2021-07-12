@@ -50,6 +50,9 @@
                 <div class="actions">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button type="submit">Einloggen</button>
+                    <a class="btn" href="{{ path('app_forgot_password_request') }}">
+                        Passwort vergessen
+                    </a>
                 </div>
 
             </form>

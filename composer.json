@@ -44,6 +44,7 @@
         "symfony/web-link": "^5.3",
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "^5.3",
+        "symfonycasts/reset-password-bundle": "^1.9",
         "tecnickcom/tcpdf": "^6.4",
         "twig/extra-bundle": "^3.3",
         "twig/twig": "^3.3"
