@@ -142,7 +142,7 @@ class ResetPasswordController extends AbstractController
         // Do not reveal whether a user account was found or not.
         if (!$user) {
             $this->addFlash('error', 'Benutzer mit der E-Mail-Adresse '.$emailFormData.' nicht gefunden.');
-            return $this->redirectToRoute('app_check_email');
+            return $this->redirectToRoute('app_forgot_password_request');
         }
 
         try {
@@ -163,7 +163,7 @@ class ResetPasswordController extends AbstractController
         $html = $this->renderView('reset_password/email.html.twig',['resetToken' => $resetToken]);
 
         $email
-            ->from(new Address('luhmann@netzhirsch.de', 'Asspick Smart Portal'))
+            ->from(new Address('vermittler@asspick.de', 'Asspick Smart Portal'))
             ->to($user->getEmail())
             ->subject('Passwort neu setzen beim Asspick Smart Portal')
             ->html($html)
